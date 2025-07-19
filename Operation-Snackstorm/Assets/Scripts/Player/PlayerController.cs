@@ -6,7 +6,15 @@ using UnityEngine;
 public class PlayerController : MonoBehaviourPunCallbacks
 {
     public Camera cam;
-    public float raycastRange = 100f;    
+    public float raycastRange = 100f;
+
+    private void Awake()
+    {
+        if (string.IsNullOrEmpty(PhotonNetwork.NickName))
+        {
+            PhotonNetwork.NickName = "Player" + photonView.ViewID;
+        }
+    }
 
     void Start()
     {
@@ -25,6 +33,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
             {
                 GameManager.Instance.GameStart();
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            BroadcastManager.Instance.IssueCommand(CommandType.Walk);
         }
 
         PerformRaycast();

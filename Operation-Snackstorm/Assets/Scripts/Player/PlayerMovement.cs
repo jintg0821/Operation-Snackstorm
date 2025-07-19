@@ -3,9 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PlayerState 
+{ 
+    Idle, 
+    Walk, 
+    Run, 
+    Crouch 
+}
+
 public class PlayerMovement : MonoBehaviourPunCallbacks
 {
-    public enum PlayerState { Idle, Walk, Run, Crouch }
     public PlayerState currentState = PlayerState.Idle;
 
     [Header("Move Speeds")]
