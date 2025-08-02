@@ -28,8 +28,16 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
     public Camera cam;
     public bool canLook = true;
 
+    [Header("AnimationID")]
+    private int _animIDSpeed;
+    private int _animIDJump;
+    private int _animIDThrow;
+
+    [SerializeField] private Animator animator;
+
     void Start()
     {
+        AssignAnimationIDs();
         cam = GetComponentInChildren<Camera>();
 
         if (!photonView.IsMine)
@@ -59,6 +67,13 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         HandleState();
         CameraLook();
         PlayerMove();
+    }
+
+    private void AssignAnimationIDs()
+    {
+        _animIDSpeed = Animator.StringToHash("Speed");
+        _animIDJump = Animator.StringToHash("Jump");
+        _animIDThrow = Animator.StringToHash("isThrow");
     }
 
     void CameraLook()
@@ -111,21 +126,27 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
             currentState = PlayerState.Idle;
         }
 
+        float blendSpeed = 0f;
 
         switch (currentState)
         {
             case PlayerState.Idle:
                 moveSpeed = 0f;
+                blendSpeed = 0f;
                 break;
             case PlayerState.Walk:
                 moveSpeed = walkSpeed;
+                blendSpeed = walkSpeed;
                 break;
             case PlayerState.Run:
                 moveSpeed = runSpeed;
+                blendSpeed = runSpeed;
                 break;
             case PlayerState.Crouch:
                 moveSpeed = crouchSpeed;
+                blendSpeed = crouchSpeed;
                 break;
         }
+        animator.SetFloat(_animIDSpeed, blendSpeed);
     }
 }

@@ -27,7 +27,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        PhotonNetwork.Instantiate("Player", GameManager.Instance.spawnPoint.position, Quaternion.identity);
+        PhotonNetwork.Instantiate("Minchan Variant", GameManager.Instance.spawnPoint.position, Quaternion.identity);
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message)
