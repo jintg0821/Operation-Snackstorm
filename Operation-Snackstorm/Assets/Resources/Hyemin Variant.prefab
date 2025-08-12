@@ -137,6 +137,10 @@ PrefabInstance:
       value: Hyemin Variant
       objectReference: {fileID: 0}
     - target: {fileID: 1244580043796883526, guid: 026858346f2cf514eaf7404a96453716, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1244580043796883526, guid: 026858346f2cf514eaf7404a96453716, type: 3}
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
@@ -276,7 +280,7 @@ MonoBehaviour:
   currentState: 0
   crouchSpeed: 2
   walkSpeed: 4
-  runSpeed: 6
+  runSpeed: 15
   mouseSpeed: 125
   yRotation: 0
   xRotation: 0
