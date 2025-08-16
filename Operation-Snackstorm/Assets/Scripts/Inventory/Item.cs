@@ -5,6 +5,12 @@ using UnityEngine;
 [CreateAssetMenu]
 public class Item : ScriptableObject
 {
-    public string itemName;
-    public Sprite itemImage;
+    public string id;
+    public string name;
+    public int price;
+    public string category; // 매점 / 자판기 / 공통
+    public int point;
+    public Sprite icon;
+
+    public GameObject prefab; // 3D 모델 Prefab 연결
 }
