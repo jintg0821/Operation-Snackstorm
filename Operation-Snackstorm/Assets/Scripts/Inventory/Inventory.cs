@@ -1,8 +1,9 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Inventory : MonoBehaviour
+public class Inventory : MonoBehaviourPunCallbacks
 {
     public List<Item> items;
 
@@ -10,6 +11,11 @@ public class Inventory : MonoBehaviour
     private Transform slotParent;
     [SerializeField]
     private Slot[] slots;
+
+    public GameObject inventoryPanel;
+    public bool isOpen;
+
+    public PlayerController PlayerController;
 
 #if UNITY_EDITOR
     private void OnValidate()
@@ -21,6 +27,28 @@ public class Inventory : MonoBehaviour
     void Awake()
     {
         FreshSlot();
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (isOpen)
+            {
+                inventoryPanel.SetActive(false);
+                isOpen = false;
+                PlayerController.isPanelOn = isOpen;
+            }
+        }
+    }
+
+    public void OnInventoryPanel(PlayerController playerController)
+    {
+        isOpen = !inventoryPanel.activeSelf;
+        inventoryPanel.SetActive(isOpen);
+
+        PlayerController = playerController;
+        PlayerController.isPanelOn = isOpen;
     }
 
     public void FreshSlot()

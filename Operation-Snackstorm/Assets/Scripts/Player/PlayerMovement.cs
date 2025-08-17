@@ -34,12 +34,12 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
     private int _animIDThrow;
 
     [SerializeField] private Animator animator;
+    private PlayerController playerController;
 
     void Start()
     {
         AssignAnimationIDs();
         cam = GetComponentInChildren<Camera>();
-        animator = GetComponent<Animator>();
 
         if (!photonView.IsMine)
         {
@@ -54,10 +54,9 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
             {
                 cam.gameObject.SetActive(true);
             }
+            animator = GetComponent<Animator>();
+            playerController = GetComponent<PlayerController>();
         }
-
-        Cursor.lockState = CursorLockMode.Locked;   //마우스 커서를 화면 안에서 고정
-        Cursor.visible = false;                     //마우스 커서를 보이지 않도록 설정
     }
 
     void Update()
@@ -65,9 +64,12 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         if (!photonView.IsMine && PhotonNetwork.IsConnected)
             return;
 
+        if (!playerController.isPanelOn)
+        {
+            CameraLook();
+            PlayerMove();
+        }
         HandleState();
-        CameraLook();
-        PlayerMove();
     }
 
     private void AssignAnimationIDs()

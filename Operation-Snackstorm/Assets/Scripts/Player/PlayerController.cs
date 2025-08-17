@@ -7,6 +7,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
 {
     public Camera cam;
     public float raycastRange = 100f;
+    public int coin;
+    public bool isPanelOn = false;
+
+    private Inventory inventory;
+    private Cafeteria cafeteria;
 
     private void Awake()
     {
@@ -20,6 +25,13 @@ public class PlayerController : MonoBehaviourPunCallbacks
     {
         DontDestroyOnLoad(gameObject);
         cam = GetComponentInChildren<Camera>();
+
+        if (photonView.IsMine)
+        {
+            inventory = FindObjectOfType<Inventory>();
+            cafeteria = FindObjectOfType<Cafeteria>();
+        }
+        
     }
 
     void Update()
@@ -27,21 +39,45 @@ public class PlayerController : MonoBehaviourPunCallbacks
         if (!photonView.IsMine && PhotonNetwork.IsConnected)
             return;
 
-        if (PhotonNetwork.IsMasterClient)
+        if (!isPanelOn)
         {
-            if (Input.GetKeyDown(KeyCode.P))
+            if (PhotonNetwork.IsMasterClient)
             {
-                GameManager.Instance.GameStart();
+                if (Input.GetKeyDown(KeyCode.P))
+                {
+                    GameManager.Instance.GameStart();
+                }
             }
+
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                BroadcastManager.Instance.IssueCommand(CommandType.Walk);
+            }
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                inventory.OnInventoryPanel(this);
+            }
+
+            PerformRaycast();
         }
 
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            BroadcastManager.Instance.IssueCommand(CommandType.Walk);
-        }
-
-        PerformRaycast();
+        SetCursorState(isPanelOn);
     }
+
+    public void SetCursorState(bool isVisible)
+    {
+        Cursor.visible = isVisible;
+        if (!isVisible)
+        {
+            Cursor.lockState = CursorLockMode.Locked; // ?????? ???? ?????? ????
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None; // ?????? ?????? ?????? ???? ???????? ??????
+        }
+    }
+
     void PerformRaycast()
     {
         Ray ray = cam.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
@@ -51,18 +87,25 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
         if (Physics.Raycast(ray, out hit, raycastRange))
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.F))
             {
                 if (hit.collider.CompareTag("CafeteriaNPC"))
                 {
-                    Vector3 snackSpawnPoint = new Vector3(hit.collider.transform.position.x + 1f, hit.collider.transform.position.y, hit.collider.transform.position.z);
+                    Cafeteria cafeteria = hit.collider.gameObject.GetComponent<Cafeteria>();
+                    if (cafeteria != null)
+                    {
+                        cafeteria.OnCafeteriaPanel(this);
+                    }
+                }
 
-                    GameObject snackObj = Instantiate(GameObject.CreatePrimitive(PrimitiveType.Cube), snackSpawnPoint, Quaternion.identity);
-                    snackObj.transform.localScale = Vector3.one * 0.3f;
-                    Rigidbody snackRb = snackObj.AddComponent<Rigidbody>();
-                    //snackRb.AddForce(Vector3.forward);
+                if (hit.collider.CompareTag("Item"))
+                {
+                    ItemObj item = hit.collider.gameObject.GetComponent<ItemObj>();
+                    inventory.AddItem(item.item);   
+                    Destroy(item.gameObject);
                 }
             }
+
         }
     }
 }

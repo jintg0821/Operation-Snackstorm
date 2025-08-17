@@ -266,7 +266,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
-  raycastRange: 1.5
+  raycastRange: 7
+  coin: 0
+  isPanelOn: 0
 --- !u!114 &8136365177005427259
 MonoBehaviour:
   m_ObjectHideFlags: 0

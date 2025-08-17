@@ -6,7 +6,7 @@ using Photon.Realtime;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
-    public GameObject playerPrefab;
+    public GameObject[] playerPrefabs;
     public string gameVersion = "1.0";
 
     void Awake()
