@@ -21,6 +21,10 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
     public float runSpeed = 6f;
     private float moveSpeed;
 
+    [Header("Gravity")]
+    public float gravity = -9.81f;
+    private Vector3 velocity;
+
     [Header("Look")]
     public float mouseSpeed;
     public float yRotation;
@@ -101,7 +105,16 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         float Vertical = Input.GetAxis("Vertical");
 
         Vector3 moveVec = transform.forward * Vertical + transform.right * Horizontal;
+
         characterController.Move(moveVec.normalized * moveSpeed * Time.deltaTime);
+
+        if (characterController.isGrounded && velocity.y < 0)
+        {
+            velocity.y = -2f;
+        }
+
+        velocity.y += gravity * Time.deltaTime;
+        characterController.Move(velocity * Time.deltaTime);
     }
 
     void HandleState()

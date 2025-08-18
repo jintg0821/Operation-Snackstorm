@@ -114,6 +114,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
                     inventory.AddItem(item.item);   
                     Destroy(item.gameObject);
                 }
+
+                if (hit.collider.CompareTag("Door"))
+                {
+                    DoorController door = hit.collider.GetComponent<DoorController>();
+                    door.ToggleDoor();
+                }
             }
         }
     }
@@ -132,6 +138,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
         if (hit.gameObject.CompareTag("NPC"))
         {
+            Debug.Log("SSss");
             characterController.enabled = false;
             gameObject.transform.position = GameManager.Instance.spawnPoint.position;
             characterController.enabled = true;

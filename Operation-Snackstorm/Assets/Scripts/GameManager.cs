@@ -9,7 +9,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     public static GameManager Instance;
 
     public Transform spawnPoint;
-    public GameObject startDoor;
 
     [SerializeField] private List<PhotonView> players = new List<PhotonView>();
 
@@ -131,7 +130,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         timerStartTime = startTime;
         onTimer = true;
         currentTimerTime = timerTime;
-        startDoor.SetActive(false);
     }
 
     public void GameStart()

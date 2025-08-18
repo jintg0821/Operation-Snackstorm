@@ -43,7 +43,7 @@ public class AIController : MonoBehaviour
     [Header("Patrol")]
     public Transform[] patrolPoints;
     [SerializeField] private int currentIndex = -1;
-    public float pointReachThreshold = 0.5f; //도착 판정 거리
+    public float pointReachThreshold = 1f;
 
     [Header("Chase")]
     public Transform target;
@@ -60,6 +60,13 @@ public class AIController : MonoBehaviour
 
         defaultViewAngle = viewAngle;
         defaultViewRadius = viewRadius;
+
+        if (patrolPoints.Length > 0)
+        {
+            currentIndex = 0;
+            float distanceToFirstPoint = Vector3.Distance(transform.position, patrolPoints[currentIndex].position);
+            agent.SetDestination(patrolPoints[currentIndex].position);
+        }
     }
 
     void Update()
@@ -101,7 +108,6 @@ public class AIController : MonoBehaviour
         }
 
         Collider[] targets = Physics.OverlapSphere(transform.position, viewRadius, targetMask);
-
         bool seeTarget = false;
 
         foreach (Collider targetCol in targets)
@@ -112,7 +118,6 @@ public class AIController : MonoBehaviour
             if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2f)
             {
                 float distance = Vector3.Distance(transform.position, targetTransform.position);
-
                 if (!Physics.Raycast(transform.position, dirToTarget, distance, obstacleMask))
                 {
                     seeTarget = true;
@@ -153,7 +158,12 @@ public class AIController : MonoBehaviour
     {
         if (patrolPoints.Length == 0) return;
 
-        if (currentIndex == -1 || agent.remainingDistance <= pointReachThreshold)
+        if (currentIndex == -1)
+        {
+            currentIndex = 0;
+            agent.SetDestination(patrolPoints[currentIndex].position);
+        }
+        else if (agent.remainingDistance <= pointReachThreshold && agent.hasPath && !float.IsNaN(agent.remainingDistance))
         {
             currentIndex = (currentIndex + 1) % patrolPoints.Length;
             agent.SetDestination(patrolPoints[currentIndex].position);
@@ -164,15 +174,13 @@ public class AIController : MonoBehaviour
     {
         if (patrolPoints.Length == 0) return;
 
-        if (currentIndex == -1 || agent.remainingDistance <= pointReachThreshold)
+        if (currentIndex == -1 || (agent.remainingDistance <= pointReachThreshold && agent.hasPath && !float.IsNaN(agent.remainingDistance)))
         {
             int randomIndex = Random.Range(0, patrolPoints.Length);
-
             if (randomIndex == currentIndex && patrolPoints.Length > 1)
             {
                 randomIndex = (randomIndex + 1) % patrolPoints.Length;
             }
-
             currentIndex = randomIndex;
             agent.SetDestination(patrolPoints[currentIndex].position);
         }
@@ -187,7 +195,6 @@ public class AIController : MonoBehaviour
         }
 
         float distance = Vector3.Distance(transform.position, target.position);
-
         if (distance > losetargetDistance)
         {
             target = null;
@@ -198,23 +205,42 @@ public class AIController : MonoBehaviour
         agent.SetDestination(target.position);
     }
 
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.collider.CompareTag("Door"))
+    //    {
+    //        DoorController door = collision.collider.GetComponent<DoorController>();
+    //        if (door != null)
+    //        {
+    //            StartCoroutine(AIDoor(door));
+    //        }
+    //    }
+    //}
+
+    //IEnumerator AIDoor(DoorController door)
+    //{
+    //    agent.isStopped = true;
+    //    door.ToggleDoor();
+    //    yield return new WaitForSeconds(1f); // 문 열림 대기
+    //    agent.isStopped = false;
+    //    agent.SetDestination(patrolPoints[currentIndex].position);
+    //    Debug.Log($"Resuming patrol to point {currentIndex} at {patrolPoints[currentIndex].position}");
+    //    yield return new WaitForSeconds(3f);
+    //    door.CloseDoorAfterDelay(0f);
+    //}
 
     void OnDrawGizmosSelected()
     {
-        // 시야 범위 원
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, viewRadius);
 
-        // 시야 각도 방향선 계산
         Vector3 leftBoundary = DirFromAngle(-viewAngle / 2, false);
         Vector3 rightBoundary = DirFromAngle(viewAngle / 2, false);
 
-        // 시야 각도 선
         Gizmos.color = Color.blue;
         Gizmos.DrawLine(transform.position, transform.position + leftBoundary * viewRadius);
         Gizmos.DrawLine(transform.position, transform.position + rightBoundary * viewRadius);
 
-        // 타겟 방향선 (감지된 경우만)
         if (target != null)
         {
             Gizmos.color = Color.red;
@@ -222,7 +248,6 @@ public class AIController : MonoBehaviour
         }
     }
 
-    // 각도 → 방향 벡터 변환
     private Vector3 DirFromAngle(float angleInDegrees, bool angleIsGlobal)
     {
         if (!angleIsGlobal)
@@ -231,5 +256,4 @@ public class AIController : MonoBehaviour
         }
         return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
     }
-
 }

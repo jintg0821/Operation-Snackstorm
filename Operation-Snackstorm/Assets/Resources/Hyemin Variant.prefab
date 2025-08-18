@@ -278,9 +278,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  crouchSpeed: 2
-  walkSpeed: 4
-  runSpeed: 15
+  crouchSpeed: 5
+  walkSpeed: 10
+  runSpeed: 20
+  gravity: -12
   mouseSpeed: 125
   yRotation: 0
   xRotation: 0
@@ -384,13 +385,13 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 5.62
+  m_Height: 5.7
   m_Radius: 0.6
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_SlopeLimit: 100
+  m_StepOffset: 1.5
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 2.8, z: 0}
+  m_Center: {x: 0, y: 2.9, z: 0}
 --- !u!4 &5712341452012585591 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5218620269517154818, guid: 026858346f2cf514eaf7404a96453716, type: 3}
