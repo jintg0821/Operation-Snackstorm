@@ -3,13 +3,19 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FireExtinguisher : MonoBehaviour
+public class FireExtinguisher : MonoBehaviourPun
 {
     public Collider powderRange;
     public Image testPowderImage;
     public float explodeTime;
 
     public void FireExtinguisherExplode()
+    {
+        photonView.RPC("RpcExtinguisherExplode", RpcTarget.AllBuffered);
+    }
+
+    [PunRPC]
+    void RpcExtinguisherExplode()
     {
         StartCoroutine(ExtinguisherExplode());
     }

@@ -212,13 +212,10 @@ PrefabInstance:
       addedObject: {fileID: 7477789306188550054}
     - targetCorrespondingSourceObject: {fileID: 1244580043796883526, guid: 026858346f2cf514eaf7404a96453716, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2394279916673084125}
-    - targetCorrespondingSourceObject: {fileID: 1244580043796883526, guid: 026858346f2cf514eaf7404a96453716, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 909069436773453510}
-    - targetCorrespondingSourceObject: {fileID: 1244580043796883526, guid: 026858346f2cf514eaf7404a96453716, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 8505802119495289284}
+    - targetCorrespondingSourceObject: {fileID: 1244580043796883526, guid: 026858346f2cf514eaf7404a96453716, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1662268262481485778}
   m_SourcePrefab: {fileID: 100100000, guid: 026858346f2cf514eaf7404a96453716, type: 3}
 --- !u!1 &1616706237792485427 stripped
 GameObject:
@@ -301,8 +298,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
   raycastRange: 7
-  coin: 0
+  coin: 100
+  point: 0
   isPanelOn: 0
+  wallTime: 1
 --- !u!114 &6542223075637914937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -336,56 +335,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!136 &2394279916673084125
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1616706237792485427}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 5.6682186
-  m_Direction: 1
-  m_Center: {x: 0, y: 2.7677784, z: 0}
---- !u!54 &909069436773453510
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1616706237792485427}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 80
-  m_CollisionDetection: 0
 --- !u!114 &8505802119495289284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -413,6 +362,32 @@ MonoBehaviour:
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
+--- !u!143 &1662268262481485778
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1616706237792485427}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 5.62
+  m_Radius: 0.6
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 2.8, z: 0}
 --- !u!4 &5712341452012585591 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5218620269517154818, guid: 026858346f2cf514eaf7404a96453716, type: 3}

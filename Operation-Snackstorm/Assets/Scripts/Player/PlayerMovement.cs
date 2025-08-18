@@ -35,11 +35,13 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
 
     [SerializeField] private Animator animator;
     private PlayerController playerController;
+    private CharacterController characterController;
 
     void Start()
     {
         AssignAnimationIDs();
         cam = GetComponentInChildren<Camera>();
+        characterController = GetComponent<CharacterController>();
 
         if (!photonView.IsMine)
         {
@@ -99,8 +101,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         float Vertical = Input.GetAxis("Vertical");
 
         Vector3 moveVec = transform.forward * Vertical + transform.right * Horizontal;
-
-        transform.position += moveVec.normalized * moveSpeed * Time.deltaTime;
+        characterController.Move(moveVec.normalized * moveSpeed * Time.deltaTime);
     }
 
     void HandleState()

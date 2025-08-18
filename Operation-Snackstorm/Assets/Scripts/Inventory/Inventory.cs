@@ -76,4 +76,13 @@ public class Inventory : MonoBehaviourPunCallbacks
             print("슬롯이 가득 차 있습니다.");
         }
     }
+
+    public void RemoveItem(Item _item)
+    {
+        if (_item != null)
+        {
+            items.Remove(_item);
+            FreshSlot();
+        }
+    }
 }

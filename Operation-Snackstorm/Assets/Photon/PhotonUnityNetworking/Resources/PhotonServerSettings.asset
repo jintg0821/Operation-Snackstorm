@@ -28,7 +28,7 @@ MonoBehaviour:
     AuthMode: 0
     EnableLobbyStatistics: 0
     NetworkLogging: 1
-  DevRegion: 
+  DevRegion: hk
   PunLogging: 0
   EnableSupportLogger: 0
   RunInBackground: 1
@@ -43,6 +43,9 @@ MonoBehaviour:
   - RPC_NextRound
   - RPC_StopTimer
   - RPC_IssueCommand
+  - RpcExtinguisherExplode
+  - RPC_RoundOver
+  - RPC_SetPlayerPosition
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

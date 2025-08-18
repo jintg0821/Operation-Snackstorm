@@ -22,18 +22,15 @@ public class WallTrigger : MonoBehaviour
         fireExtinguishers = result.ToArray();
     }
 
-    private void OnCollisionEnter(Collision collision)
+    public void WallFireExtinguisherExplode()
     {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            if (fireExtinguishers.Length == 0) return;
+        if (fireExtinguishers.Length == 0) return;
 
-            if (Random.value < explodeChance)
-            {
-                int randomNum = Random.Range(0, fireExtinguishers.Length);
-                FireExtinguisher extinguisher = fireExtinguishers[randomNum].GetComponent<FireExtinguisher>();
-                extinguisher.FireExtinguisherExplode();
-            }
+        if (Random.value < explodeChance)
+        {
+            int randomNum = Random.Range(0, fireExtinguishers.Length);
+            FireExtinguisher extinguisher = fireExtinguishers[randomNum].GetComponent<FireExtinguisher>();
+            extinguisher.FireExtinguisherExplode();
         }
     }
 

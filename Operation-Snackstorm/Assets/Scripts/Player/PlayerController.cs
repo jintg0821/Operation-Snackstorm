@@ -7,11 +7,16 @@ public class PlayerController : MonoBehaviourPunCallbacks
 {
     public Camera cam;
     public float raycastRange = 100f;
-    public int coin;
+    public int coin = 100;
+    public int point;
     public bool isPanelOn = false;
+
+    [SerializeField] private float wallTime;
+    private bool isFireExtinguisherExplode;
 
     private Inventory inventory;
     private Cafeteria cafeteria;
+    private CharacterController characterController;
 
     private void Awake()
     {
@@ -26,10 +31,15 @@ public class PlayerController : MonoBehaviourPunCallbacks
         DontDestroyOnLoad(gameObject);
         cam = GetComponentInChildren<Camera>();
 
+        if (PhotonNetwork.IsConnected && photonView != null)
+        {
+            GameManager.Instance.RegisterPlayer(photonView);
+        }
         if (photonView.IsMine)
         {
             inventory = FindObjectOfType<Inventory>();
             cafeteria = FindObjectOfType<Cafeteria>();
+            characterController = GetComponent<CharacterController>();
         }
         
     }
@@ -91,7 +101,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             {
                 if (hit.collider.CompareTag("CafeteriaNPC"))
                 {
-                    Cafeteria cafeteria = hit.collider.gameObject.GetComponent<Cafeteria>();
+                    cafeteria = hit.collider.gameObject.GetComponent<Cafeteria>();
                     if (cafeteria != null)
                     {
                         cafeteria.OnCafeteriaPanel(this);
@@ -105,7 +115,44 @@ public class PlayerController : MonoBehaviourPunCallbacks
                     Destroy(item.gameObject);
                 }
             }
-
         }
+    }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.gameObject.CompareTag("Wall"))
+        {
+            if (!isFireExtinguisherExplode)
+            {
+                isFireExtinguisherExplode = true;
+                hit.gameObject.GetComponent<WallTrigger>().WallFireExtinguisherExplode();
+                StartCoroutine(WallCoolTime());
+            }
+        }
+
+        if (hit.gameObject.CompareTag("NPC"))
+        {
+            characterController.enabled = false;
+            gameObject.transform.position = GameManager.Instance.spawnPoint.position;
+            characterController.enabled = true;
+        }
+    }
+
+    private IEnumerator WallCoolTime()
+    {
+        yield return new WaitForSeconds(wallTime);
+        isFireExtinguisherExplode = false;
+    }
+
+    public void GetPoint()
+    {
+        List<Item> itemsCopy = new List<Item>(inventory.items);
+        foreach (Item item in itemsCopy)
+        {
+            point += item.point;
+            inventory.RemoveItem(item);
+        }
+        itemsCopy.Clear();
+        inventory.items.Clear();
     }
 }
