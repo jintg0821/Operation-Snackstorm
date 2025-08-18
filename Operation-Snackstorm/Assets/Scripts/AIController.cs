@@ -29,8 +29,16 @@ public class AIController : MonoBehaviour
     public float viewAngle;
     public float viewRadius;
 
+    public float restrictedViewAngle;
+    public float restrictedViewRadius;
+
+    private float defaultViewAngle;
+    private float defaultViewRadius;
+
     public LayerMask targetMask;
     public LayerMask obstacleMask;
+
+    public bool isSightRestricted = false;
 
     [Header("Patrol")]
     public Transform[] patrolPoints;
@@ -49,10 +57,24 @@ public class AIController : MonoBehaviour
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+
+        defaultViewAngle = viewAngle;
+        defaultViewRadius = viewRadius;
     }
 
     void Update()
     {
+        if (isSightRestricted)
+        {
+            viewAngle = restrictedViewAngle;
+            viewRadius = restrictedViewRadius;
+        }
+        else
+        {
+            viewAngle = defaultViewAngle;
+            viewRadius = defaultViewRadius;
+        }
+
         CheckSight();
         switch (currentState)
         {
@@ -71,6 +93,13 @@ public class AIController : MonoBehaviour
 
     void CheckSight()
     {
+        if (isSightRestricted)
+        {
+            target = null;
+            if (currentState == AIState.Chase) currentState = AIState.Patrol;
+            return;
+        }
+
         Collider[] targets = Physics.OverlapSphere(transform.position, viewRadius, targetMask);
 
         bool seeTarget = false;

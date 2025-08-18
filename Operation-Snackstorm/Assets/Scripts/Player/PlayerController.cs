@@ -146,6 +146,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     public void GetPoint()
     {
+        if (inventory == null || inventory.items == null)
+            return;
+
         List<Item> itemsCopy = new List<Item>(inventory.items);
         foreach (Item item in itemsCopy)
         {
@@ -154,5 +157,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
         itemsCopy.Clear();
         inventory.items.Clear();
+
+        var hash = new ExitGames.Client.Photon.Hashtable();
+        hash["Point"] = point;
+        PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
     }
 }

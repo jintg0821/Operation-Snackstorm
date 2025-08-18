@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Cafeteria : MonoBehaviourPunCallbacks
+public class Cafeteria : MonoBehaviourPun
 {
     public Item[] items;
     
@@ -72,14 +72,24 @@ public class Cafeteria : MonoBehaviourPunCallbacks
         }
     }
 
+    [PunRPC]
+    void RPC_Buy(string id)
+    {
+        Item item = Resources.Load<Item>($"Item/{id}");
+        if (item != null)
+        {
+            GameObject itemObj = Instantiate(item.prefab, itemSpawnPoint.position, Quaternion.identity);
+            itemObj.transform.localScale = Vector3.one;
+        }
+    }
+
     public void OnBuyButtonClick(Item item)
     {
         if (PlayerController.coin >= item.price)
         {
             PlayerController.coin -= item.price;
 
-            GameObject itemObj = Instantiate(item.prefab, itemSpawnPoint.position, Quaternion.identity);
-            itemObj.transform.localScale = Vector3.one;
+            photonView.RPC("RPC_Buy", RpcTarget.AllBuffered, item.id);
         }
     }
 }
