@@ -1985,6 +1985,7 @@ MonoBehaviour:
   timerStartTime: 0
   roundText: {fileID: 867742218}
   currentRound: 1
+  maxRound: 3
   pointPanel: {fileID: 1036318926}
   pointSlotPrefab: {fileID: 5050082692706425539, guid: 88fba2adc5de86a4b938b3e27bdb0b77, type: 3}
   pointSlotContent: {fileID: 1207341641}
@@ -3849,12 +3850,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewAngle: 90
   viewRadius: 20
+  restrictedViewAngle: 2.5
+  restrictedViewRadius: 5
   targetMask:
     serializedVersion: 2
     m_Bits: 8
   obstacleMask:
     serializedVersion: 2
     m_Bits: 1
+  isSightRestricted: 0
   patrolPoints:
   - {fileID: 1343102847}
   - {fileID: 1700773329}
@@ -8365,6 +8369,7 @@ GameObject:
   - component: {fileID: 1549515341}
   - component: {fileID: 1549515340}
   - component: {fileID: 1549515343}
+  - component: {fileID: 1549515344}
   m_Layer: 0
   m_Name: CafeteriaNPC
   m_TagString: CafeteriaNPC
@@ -8479,6 +8484,28 @@ MonoBehaviour:
   itemUIPrefab: {fileID: 6279453941608800443, guid: 2ce065a649ff6a348afeb27de956d62a, type: 3}
   isCafeteriaPanelOpen: 0
   PlayerController: {fileID: 0}
+--- !u!114 &1549515344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1549515338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 7
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1560482374
 GameObject:
   m_ObjectHideFlags: 0

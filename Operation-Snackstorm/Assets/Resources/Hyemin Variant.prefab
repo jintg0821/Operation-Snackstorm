@@ -64,7 +64,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.6
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -122,7 +122,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5331001642117559482}
-  m_Father: {fileID: 6638054757357982001}
+  m_Father: {fileID: 5712341452012585591}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &516246227198290037
 PrefabInstance:
@@ -191,6 +191,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5218620269517154818, guid: 026858346f2cf514eaf7404a96453716, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3952158346439349170}
+    - targetCorrespondingSourceObject: {fileID: 5218620269517154818, guid: 026858346f2cf514eaf7404a96453716, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1727025995695273399}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1244580043796883526, guid: 026858346f2cf514eaf7404a96453716, type: 3}
       insertIndex: -1
@@ -441,6 +444,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7360045893430510357, guid: 78a4f454280961945af487c13774b432, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6452266432751415832, guid: 78a4f454280961945af487c13774b432, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -526998629829411944, guid: 78a4f454280961945af487c13774b432, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -283527318383156094, guid: 78a4f454280961945af487c13774b432, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -259972160606440404, guid: 78a4f454280961945af487c13774b432, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 78a4f454280961945af487c13774b432, type: 3}
       propertyPath: m_Name
       value: Hyemin
@@ -475,10 +498,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 7876023681238672744, guid: 78a4f454280961945af487c13774b432, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1727025995695273399}
+    m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: -1036989553019873318, guid: 78a4f454280961945af487c13774b432, type: 3}
       insertIndex: -1
@@ -548,8 +568,3 @@ CapsuleCollider:
   m_Height: 0.0114838965
   m_Direction: 1
   m_Center: {x: -0.0001625898, y: 0.0056602256, z: -0.00005234692}
---- !u!4 &6638054757357982001 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7876023681238672744, guid: 78a4f454280961945af487c13774b432, type: 3}
-  m_PrefabInstance: {fileID: 3554002488218727513}
-  m_PrefabAsset: {fileID: 0}

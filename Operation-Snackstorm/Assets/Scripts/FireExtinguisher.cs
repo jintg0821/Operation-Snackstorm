@@ -28,6 +28,12 @@ public class FireExtinguisher : MonoBehaviourPun
             if (pv != null && pv.IsMine)
                 testPowderImage.gameObject.SetActive(true);
         }
+
+        if (other.CompareTag("NPC"))
+        {
+            AIController ai = other.GetComponent<AIController>();
+            ai.isSightRestricted = true;
+        }
     }
 
     private void OnTriggerExit(Collider other)

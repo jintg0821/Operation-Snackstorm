@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class GameManager : MonoBehaviourPun
+public class GameManager : MonoBehaviourPunCallbacks
 {
     public static GameManager Instance;
 
@@ -26,12 +26,15 @@ public class GameManager : MonoBehaviourPun
     [Header("Round")]
     [SerializeField] private TextMeshProUGUI roundText;
     [SerializeField] private int currentRound;
+    [SerializeField] private int maxRound;
 
     [Header("Point")]
     [SerializeField] private GameObject pointPanel;
     [SerializeField] private GameObject pointSlotPrefab;
     [SerializeField] private GameObject pointSlotContent;
     #endregion
+
+    private int playersUpdated = 0;
 
     private void Awake()
     {
@@ -70,7 +73,6 @@ public class GameManager : MonoBehaviourPun
                 if (PhotonNetwork.IsMasterClient)
                 {
                     RoundOver();
-                    //NextRound();
                     photonView.RPC("RPC_StopTimer", RpcTarget.All);
                 }
             }
@@ -95,13 +97,7 @@ public class GameManager : MonoBehaviourPun
         currentRound++;
         photonView.RPC("RPC_NextRound", RpcTarget.All, currentRound);
 
-        //GameStart();
-    }
-
-    [PunRPC]
-    void RPC_SetPlayerPosition()
-    {
-        
+        GameStart();
     }
 
     void SetPlayerPosition()
@@ -146,25 +142,62 @@ public class GameManager : MonoBehaviourPun
 
     public void RoundOver()
     {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            playersUpdated = 0; //
+            photonView.RPC("RPC_RoundOver", RpcTarget.All);
+            //photonView.RPC("RPC_OnPointPanel", RpcTarget.All);
+        }
+    }
+
+    [PunRPC]
+    void RPC_RoundOver()
+    {
         PhotonView[] photonViews = FindObjectsOfType<PhotonView>();
         foreach (PhotonView pv in photonViews)
         {
-            if (pv.IsMine && players.Contains(pv))
+            if (players.Contains(pv) && pv.IsMine)
             {
                 PlayerController playerController;
                 if (pv.gameObject.TryGetComponent<PlayerController>(out playerController))
                 {
                     playerController.GetPoint();
+                    var playerCC = playerController.GetComponent<CharacterController>();
+                    if (playerCC != null)
+                    {
+                        playerCC.enabled = false;
+                        pv.transform.position = spawnPoint.position;
+                        playerCC.enabled = true;
+                    }
                 }
             }
         }
-        OnPointPanel();
+    }
+
+    public override void OnPlayerPropertiesUpdate(Photon.Realtime.Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
+    {
+        base.OnPlayerPropertiesUpdate(targetPlayer, changedProps);
+
+        if (PhotonNetwork.IsMasterClient && changedProps.ContainsKey("Point"))
+        {
+            playersUpdated++;
+            if (playersUpdated >= PhotonNetwork.PlayerList.Length)
+            {
+                photonView.RPC("RPC_OnPointPanel", RpcTarget.All);
+                playersUpdated = 0;  // Reset for next round
+            }
+        }
+    }
+
+    [PunRPC]
+    public void RPC_OnPointPanel()
+    {
+        StartCoroutine(PointPanel());
     }
 
     public void OnPointPanel()
     {
-        StartCoroutine(PointPanel());
-
+        photonView.RPC("RPC_OnPointPanel", RpcTarget.All);
     }
 
     IEnumerator PointPanel()
@@ -173,26 +206,43 @@ public class GameManager : MonoBehaviourPun
         SetPointPanel();
         yield return new WaitForSeconds(5f);
         pointPanel.SetActive(false);
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            if (currentRound >= maxRound)
+            {
+                PhotonNetwork.LoadLevel("LobbyScene");
+            }
+            else
+            {
+                NextRound();
+            }
+        }
     }
 
     public void SetPointPanel()
     {
-        if (players.Count > 0)
+        foreach (Transform child in pointSlotContent.transform)
         {
-            for (int i = 0; i < players.Count; i++)
+            Destroy(child.gameObject);
+        }
+
+        foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
+        {
+            GameObject pointSlot = Instantiate(pointSlotPrefab, pointSlotContent.transform);
+
+            TextMeshProUGUI name = pointSlot.transform.Find("Name").GetComponent<TextMeshProUGUI>();
+            TextMeshProUGUI point = pointSlot.transform.Find("Point").GetComponent<TextMeshProUGUI>();
+
+            name.text = p.NickName;
+
+            if (p.CustomProperties.ContainsKey("Point"))
             {
-                GameObject pointSlot = Instantiate(pointSlotPrefab, pointSlotContent.transform);
-                TextMeshProUGUI name = pointSlot.transform.Find("Name").GetComponent<TextMeshProUGUI>();
-                TextMeshProUGUI point = pointSlot.transform.Find("Point").GetComponent<TextMeshProUGUI>();
-
-                int index = i;
-
-                if (pointSlot != null && players[index] != null)
-                {
-                    name.text = players[index].Owner.NickName;
-                    point.text = players[index].GetComponent<PlayerController>().point.ToString();
-
-                }
+                point.text = p.CustomProperties["Point"].ToString();
+            }
+            else
+            {
+                point.text = "0";
             }
         }
     }
