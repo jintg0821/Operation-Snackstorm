@@ -118,7 +118,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 if (hit.collider.CompareTag("Door"))
                 {
                     DoorController door = hit.collider.GetComponent<DoorController>();
+                    Debug.Log("1231");
                     door.ToggleDoor();
+                    Debug.Log("@2");
                 }
             }
         }

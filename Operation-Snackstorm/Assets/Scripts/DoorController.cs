@@ -34,10 +34,7 @@ public class DoorController : MonoBehaviourPun
 
     public void ToggleDoor()
     {
-        if (photonView.IsMine)
-        {
-            photonView.RPC("RPC_ToggleDoor", RpcTarget.AllBuffered);
-        }
+        photonView.RPC("RPC_ToggleDoor", RpcTarget.AllBuffered);
     }
 
     [PunRPC]
