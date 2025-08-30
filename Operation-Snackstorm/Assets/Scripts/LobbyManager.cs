@@ -8,14 +8,27 @@ using UnityEngine;
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] private TMP_InputField nicknameInput;
+    [SerializeField] private TMP_InputField roomNameInput;
+    [SerializeField] private Transform roomListContent;
+    [SerializeField] private GameObject roomSlotPrefab;
+
     [SerializeField] private string gameSceneName = "GameScene";
+
+    private Dictionary<string, GameObject> roomSlots = new Dictionary<string, GameObject>();
+
 
     void Start()
     {
+        PhotonNetwork.PhotonServerSettings.AppSettings.FixedRegion = "asia";
         PhotonNetwork.ConnectUsingSettings(); // 서버 연결 시작
     }
 
-    public void OnClickJoinGame()
+    public override void OnConnectedToMaster()
+    {
+        PhotonNetwork.JoinLobby();
+    }
+
+    public void SetNickName()
     {
         if (string.IsNullOrEmpty(nicknameInput.text))
         {
@@ -25,18 +38,51 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
         PhotonNetwork.NickName = nicknameInput.text;
         Debug.Log("닉네임 설정됨: " + PhotonNetwork.NickName);
+    }
 
-        // 마스터 서버에 연결된 상태라면 바로 방 참가 시도
-        if (PhotonNetwork.IsConnectedAndReady)
+    public override void OnRoomListUpdate(List<RoomInfo> roomList)
+    {
+        foreach (var slot in roomSlots.Values)
         {
-            PhotonNetwork.JoinRandomRoom();
+            Destroy(slot);
+        }
+        roomSlots.Clear();
+
+        int index = 1;
+        foreach (RoomInfo info in roomList)
+        {
+            if (info.RemovedFromList) continue;
+
+            GameObject slot = Instantiate(roomSlotPrefab, roomListContent);
+            slot.transform.Find("RoomNum").GetComponent<TextMeshProUGUI>().text = index.ToString("00");
+            slot.transform.Find("RoomName").GetComponent<TextMeshProUGUI>().text = info.Name;
+            slot.transform.Find("PlayerCount").GetComponent<TextMeshProUGUI>().text = info.PlayerCount + " / " + info.MaxPlayers;
+
+            var joinBtn = slot.GetComponent<UnityEngine.UI.Button>();
+            joinBtn.onClick.AddListener(() =>
+            {
+                if (PhotonNetwork.InLobby)
+                {
+                    PhotonNetwork.JoinRoom(info.Name);
+                }
+                else
+                {
+                    Debug.LogWarning("아직 로비에 접속하지 않았습니다. 잠시 후 다시 시도하세요.");
+                }
+            });
+
+            roomSlots.Add(info.Name, slot);
+            index++;
         }
     }
 
-    public override void OnJoinRandomFailed(short returnCode, string message)
+    public void CreateRoom()
     {
-        Debug.Log("랜덤 방 참가 실패, 방 새로 생성합니다.");
-        PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = 4 });
+        string roomName = string.IsNullOrEmpty(roomNameInput.text)
+            ? PhotonNetwork.NickName + "의 방"
+            : roomNameInput.text;
+
+        PhotonNetwork.CreateRoom(roomName, new RoomOptions { MaxPlayers = 4 });
     }
 
     public override void OnJoinedRoom()
@@ -44,4 +90,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         Debug.Log("방 참가 성공, 게임 씬으로 이동");
         PhotonNetwork.LoadLevel(gameSceneName);
     }
+    
+
 }
