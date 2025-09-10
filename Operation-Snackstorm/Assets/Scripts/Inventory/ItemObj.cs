@@ -6,4 +6,13 @@ using UnityEngine;
 public class ItemObj : MonoBehaviourPun
 {
     public Item item;
+
+    [PunRPC]
+    void RPC_RequestDestroyItem()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.Destroy(gameObject);
+        }
+    }
 }
