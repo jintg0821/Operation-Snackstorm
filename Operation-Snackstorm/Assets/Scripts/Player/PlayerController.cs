@@ -111,16 +111,16 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 if (hit.collider.CompareTag("Item"))
                 {
                     ItemObj item = hit.collider.gameObject.GetComponent<ItemObj>();
-                    inventory.AddItem(item.item);   
-                    Destroy(item.gameObject);
+                    inventory.AddItem(item.item);
+
+                    PhotonView itemPV = item.GetComponent<PhotonView>();
+                    itemPV.RPC("RPC_RequestDestroyItem", RpcTarget.MasterClient);
                 }
 
                 if (hit.collider.CompareTag("Door"))
                 {
                     DoorController door = hit.collider.GetComponent<DoorController>();
-                    Debug.Log("1231");
                     door.ToggleDoor();
-                    Debug.Log("@2");
                 }
             }
         }
@@ -140,7 +140,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
         if (hit.gameObject.CompareTag("NPC"))
         {
-            Debug.Log("SSss");
             characterController.enabled = false;
             gameObject.transform.position = GameManager.Instance.spawnPoint.position;
             characterController.enabled = true;

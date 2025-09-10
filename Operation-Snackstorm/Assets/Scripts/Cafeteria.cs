@@ -73,13 +73,16 @@ public class Cafeteria : MonoBehaviourPun
     }
 
     [PunRPC]
-    void RPC_Buy(string id)
+    void RPC_Buy(string id, int actorNumber)
     {
-        Item item = Resources.Load<Item>($"Item/{id}");
-        if (item != null)
+        if (PhotonNetwork.LocalPlayer.ActorNumber == actorNumber)
         {
-            GameObject itemObj = Instantiate(item.prefab, itemSpawnPoint.position, Quaternion.identity);
-            itemObj.transform.localScale = Vector3.one;
+            Item item = Resources.Load<Item>($"Item/{id}");
+            if (item != null)
+            {
+                GameObject itemObj = PhotonNetwork.Instantiate($"Prefabs/Items/{item.prefab.name}", itemSpawnPoint.position, Quaternion.identity);
+                itemObj.transform.localScale = Vector3.one;
+            }
         }
     }
 
@@ -89,7 +92,10 @@ public class Cafeteria : MonoBehaviourPun
         {
             PlayerController.coin -= item.price;
 
-            photonView.RPC("RPC_Buy", RpcTarget.AllBuffered, item.id);
+            if (PlayerController.photonView.IsMine) 
+            {
+                photonView.RPC("RPC_Buy", RpcTarget.All, item.id, PhotonNetwork.LocalPlayer.ActorNumber);
+            }
         }
     }
 }

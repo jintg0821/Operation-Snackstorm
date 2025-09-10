@@ -19,7 +19,7 @@ MonoBehaviour:
     AppIdVoice: 
     AppVersion: 
     UseNameServer: 1
-    FixedRegion: 
+    FixedRegion: asia
     Server: 
     Port: 0
     ProxyServer: 
@@ -50,6 +50,8 @@ MonoBehaviour:
   - RPC_RequestNextRound
   - RPC_Buy
   - RPC_ToggleDoor
+  - RPC_DestroyItem
+  - RPC_RequestDestroyItem
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
