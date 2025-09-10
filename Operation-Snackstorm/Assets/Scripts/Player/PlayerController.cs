@@ -110,11 +110,17 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
                 if (hit.collider.CompareTag("Item"))
                 {
-                    ItemObj item = hit.collider.gameObject.GetComponent<ItemObj>();
-                    inventory.AddItem(item.item);
+                    ItemObj itemObj = hit.collider.gameObject.GetComponentInParent<ItemObj>();
+                    if (itemObj != null)
+                    {
+                        inventory.AddItem(itemObj.item);
 
-                    PhotonView itemPV = item.GetComponent<PhotonView>();
-                    itemPV.RPC("RPC_RequestDestroyItem", RpcTarget.MasterClient);
+                        PhotonView itemPV = itemObj.GetComponent<PhotonView>();
+                        if (itemPV != null)
+                        {
+                            itemPV.RPC("RPC_RequestDestroy", RpcTarget.MasterClient);
+                        }
+                    }
                 }
 
                 if (hit.collider.CompareTag("Door"))

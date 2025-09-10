@@ -8,11 +8,13 @@ public class ItemObj : MonoBehaviourPun
     public Item item;
 
     [PunRPC]
-    void RPC_RequestDestroyItem()
+    public void RPC_RequestDestroy()
     {
         if (PhotonNetwork.IsMasterClient)
         {
+            Debug.Log($"Destroying {gameObject.name}, ViewID: {photonView.ViewID}");
             PhotonNetwork.Destroy(gameObject);
         }
+        gameObject.SetActive(false);
     }
 }
