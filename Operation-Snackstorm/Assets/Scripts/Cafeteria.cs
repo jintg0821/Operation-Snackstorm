@@ -81,6 +81,7 @@ public class Cafeteria : MonoBehaviourPun
             if (item != null)
             {
                 GameObject itemObj = PhotonNetwork.Instantiate($"Prefabs/Items/{item.prefab.name}", itemSpawnPoint.position, Quaternion.identity);
+
                 itemObj.transform.localScale = Vector3.one;
 
                 PhotonView itemPV = itemObj.GetComponent<PhotonView>();

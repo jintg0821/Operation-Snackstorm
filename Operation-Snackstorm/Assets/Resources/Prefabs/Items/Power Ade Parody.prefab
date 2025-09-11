@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: -5751030499451594639}
   - component: {fileID: -2357139326752730561}
   - component: {fileID: -2978307877247363726}
-  - component: {fileID: -8535337020337687293}
   - component: {fileID: -744684850537048551}
+  - component: {fileID: 8584096849768068837}
   m_Layer: 0
   m_Name: Power Ade Parody
   m_TagString: Item
@@ -98,22 +98,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: da186fb323c3bdb449164a21eb70ef02, type: 2}
---- !u!114 &-8535337020337687293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1665358160096473523}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
 --- !u!114 &-744684850537048551
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,10 +117,27 @@ MonoBehaviour:
   OwnershipTransfer: 1
   observableSearch: 2
   ObservedComponents:
-  - {fileID: -8535337020337687293}
+  - {fileID: 8584096849768068837}
+  - {fileID: 0}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &8584096849768068837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1665358160096473523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 0.01
 --- !u!1001 &3810268100373881624
 PrefabInstance:
   m_ObjectHideFlags: 0

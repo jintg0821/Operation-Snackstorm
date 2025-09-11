@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: -4075672792292874795}
   - component: {fileID: 6618917016290660958}
   - component: {fileID: 3808964179918345788}
-  - component: {fileID: 4464849219103522825}
   - component: {fileID: -6692023750537023896}
+  - component: {fileID: 5751379523765357478}
   m_Layer: 0
   m_Name: Red Jjoeundi
   m_TagString: Item
@@ -98,22 +98,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: fc8c4c595a68e5d46b5325e122cdd178, type: 2}
---- !u!114 &4464849219103522825
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2204047137357411957}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
 --- !u!114 &-6692023750537023896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,10 +117,27 @@ MonoBehaviour:
   OwnershipTransfer: 1
   observableSearch: 2
   ObservedComponents:
-  - {fileID: 4464849219103522825}
+  - {fileID: 5751379523765357478}
+  - {fileID: 0}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &5751379523765357478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2204047137357411957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 0.01
 --- !u!1001 &1042680794591502673
 PrefabInstance:
   m_ObjectHideFlags: 0

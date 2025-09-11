@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: -7210240134837594174}
   - component: {fileID: 6315610194811732143}
   - component: {fileID: -2379660999244542245}
-  - component: {fileID: -1028293429300178316}
   - component: {fileID: 3813769067387395356}
+  - component: {fileID: -7508937564854850736}
   m_Layer: 0
   m_Name: No.1 Sausage
   m_TagString: Item
@@ -100,22 +100,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 35ece372cbdc8d4478e582e204d03ac3, type: 2}
---- !u!114 &-1028293429300178316
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2976261314053919508}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
 --- !u!114 &3813769067387395356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,10 +119,27 @@ MonoBehaviour:
   OwnershipTransfer: 1
   observableSearch: 2
   ObservedComponents:
-  - {fileID: -1028293429300178316}
+  - {fileID: -7508937564854850736}
+  - {fileID: 0}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &-7508937564854850736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2976261314053919508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 0.01
 --- !u!1001 &8226050193229894843
 PrefabInstance:
   m_ObjectHideFlags: 0

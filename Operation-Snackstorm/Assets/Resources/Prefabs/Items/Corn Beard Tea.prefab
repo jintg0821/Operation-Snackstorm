@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 3124688420274540024}
   - component: {fileID: -3219088713214085784}
   - component: {fileID: 1506072373178633694}
-  - component: {fileID: 3658628357858700758}
   - component: {fileID: 4729682830666711383}
+  - component: {fileID: -2330664697308093584}
   m_Layer: 0
   m_Name: Corn Beard Tea
   m_TagString: Item
@@ -98,22 +98,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 03bd11e4873d91a42a2246db80428494, type: 2}
---- !u!114 &3658628357858700758
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6596039413691285935}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
 --- !u!114 &4729682830666711383
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,10 +117,27 @@ MonoBehaviour:
   OwnershipTransfer: 1
   observableSearch: 2
   ObservedComponents:
-  - {fileID: 3658628357858700758}
+  - {fileID: 2416331227359318874, guid: 37755c685daa6934bafc98eefa3b9047, type: 3}
+  - {fileID: 2279683243014073795, guid: 37755c685daa6934bafc98eefa3b9047, type: 3}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &-2330664697308093584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6596039413691285935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 0.01
 --- !u!1001 &8354050658207971440
 PrefabInstance:
   m_ObjectHideFlags: 0
