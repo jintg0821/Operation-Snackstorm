@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using System.Linq;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -11,6 +12,10 @@ public class GameManager : MonoBehaviourPunCallbacks
     public Transform spawnPoint;
 
     [SerializeField] private List<PhotonView> players = new List<PhotonView>();
+    [SerializeField] private GameObject[] startWalls;
+    public List<GameObject> aiList = new List<GameObject>();
+
+    [SerializeField] private bool roundStart = false;
 
     #region UI
     [Header("Timer")]
@@ -73,6 +78,34 @@ public class GameManager : MonoBehaviourPunCallbacks
                 {
                     RoundOver();
                     photonView.RPC("RPC_StopTimer", RpcTarget.All);
+                }
+            }
+
+            foreach (var wall in startWalls)
+            {
+                wall.SetActive(false);
+            }
+
+            if (aiList.Count > 0)
+            {
+                foreach (var ai in aiList)
+                {
+                    ai.SetActive(true);
+                }
+            }
+        }
+        else
+        {
+            foreach (var wall in startWalls)
+            {
+                wall.SetActive(true);
+            }
+
+            if (aiList.Count > 0)
+            {
+                foreach (var ai in aiList)
+                {
+                    ai.SetActive(false);
                 }
             }
         }

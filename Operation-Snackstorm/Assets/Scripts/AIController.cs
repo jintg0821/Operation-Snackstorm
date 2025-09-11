@@ -56,6 +56,7 @@ public class AIController : MonoBehaviour
 
     void Start()
     {
+        GameManager.Instance.aiList.Add(this.gameObject);
         agent = GetComponent<NavMeshAgent>();
 
         defaultViewAngle = viewAngle;
