@@ -192,7 +192,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                 PlayerController playerController;
                 if (pv.gameObject.TryGetComponent<PlayerController>(out playerController))
                 {
-                    playerController.GetPoint();
+                    playerController.GetRoundPoint();
                     var playerCC = playerController.GetComponent<CharacterController>();
                     if (playerCC != null)
                     {
@@ -209,7 +209,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         base.OnPlayerPropertiesUpdate(targetPlayer, changedProps);
 
-        if (PhotonNetwork.IsMasterClient && changedProps.ContainsKey("Point"))
+        if (PhotonNetwork.IsMasterClient && changedProps.ContainsKey("RoundPoint"))
         {
             playersUpdated++;
             if (playersUpdated >= PhotonNetwork.PlayerList.Length)
@@ -267,9 +267,9 @@ public class GameManager : MonoBehaviourPunCallbacks
 
             name.text = p.NickName;
 
-            if (p.CustomProperties.ContainsKey("Point"))
+            if (p.CustomProperties.ContainsKey("RoundPoint"))
             {
-                point.text = p.CustomProperties["Point"].ToString();
+                point.text = p.CustomProperties["RoundPoint"].ToString();
             }
             else
             {

@@ -2,6 +2,7 @@ using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class DoorController : MonoBehaviourPun
 {
@@ -16,6 +17,19 @@ public class DoorController : MonoBehaviourPun
     public float rotateSpeed = 2f;
 
     public bool isOpen = false;
+
+    private int agentsInRange = 0;
+
+    private NavMeshObstacle obstacle;
+
+    void Start()
+    {
+        //obstacle = GetComponent<NavMeshObstacle>();
+        //if (obstacle != null)
+        //{
+        //    obstacle.carving = !isOpen;
+        //}
+    }
 
     void Update()
     {
@@ -32,6 +46,34 @@ public class DoorController : MonoBehaviourPun
         }
     }
 
+    public void AgentEntered()
+    {
+        if (photonView.IsMine)
+        {
+            agentsInRange++;
+            if (agentsInRange == 1 && !isOpen)
+            {
+                ToggleDoor();
+            }
+        }
+    }
+
+    public void AgentExited()
+    {
+        if (photonView.IsMine)
+        {
+            agentsInRange--;
+            if (agentsInRange <= 0)
+            {
+                agentsInRange = 0;
+                if (isOpen)
+                {
+                    StartCoroutine(CloseDoorCoroutine(3f));
+                }
+            }
+        }
+    }
+
     public void ToggleDoor()
     {
         photonView.RPC("RPC_ToggleDoor", RpcTarget.AllBuffered);
@@ -41,14 +83,10 @@ public class DoorController : MonoBehaviourPun
     void RPC_ToggleDoor()
     {
         isOpen = !isOpen;
-    }
-
-    public void CloseDoorAfterDelay(float delay)
-    {
-        if (photonView.IsMine)
-        {
-            StartCoroutine(CloseDoorCoroutine(delay));
-        }
+        //if (obstacle != null)
+        //{
+        //    obstacle.carving = !isOpen;
+        //}
     }
 
     private IEnumerator CloseDoorCoroutine(float delay)
@@ -65,10 +103,12 @@ public class DoorController : MonoBehaviourPun
         if (stream.IsWriting)
         {
             stream.SendNext(isOpen);
+            stream.SendNext(agentsInRange);
         }
         else
         {
             isOpen = (bool)stream.ReceiveNext();
+            agentsInRange = (int)stream.ReceiveNext();
         }
     }
 }

@@ -65,8 +65,13 @@ public class AIController : MonoBehaviour
         if (patrolPoints.Length > 0)
         {
             currentIndex = 0;
-            float distanceToFirstPoint = Vector3.Distance(transform.position, patrolPoints[currentIndex].position);
             agent.SetDestination(patrolPoints[currentIndex].position);
+
+            if (Vector3.Distance(transform.position, patrolPoints[currentIndex].position) <= pointReachThreshold)
+            {
+                currentIndex = (currentIndex + 1) % patrolPoints.Length;
+                agent.SetDestination(patrolPoints[currentIndex].position);
+            }
         }
     }
 
@@ -164,7 +169,7 @@ public class AIController : MonoBehaviour
             currentIndex = 0;
             agent.SetDestination(patrolPoints[currentIndex].position);
         }
-        else if (agent.remainingDistance <= pointReachThreshold && agent.hasPath && !float.IsNaN(agent.remainingDistance))
+        else if (!agent.pathPending && agent.remainingDistance <= pointReachThreshold && !float.IsNaN(agent.remainingDistance))
         {
             currentIndex = (currentIndex + 1) % patrolPoints.Length;
             agent.SetDestination(patrolPoints[currentIndex].position);
@@ -206,29 +211,40 @@ public class AIController : MonoBehaviour
         agent.SetDestination(target.position);
     }
 
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    if (collision.collider.CompareTag("Door"))
-    //    {
-    //        DoorController door = collision.collider.GetComponent<DoorController>();
-    //        if (door != null)
-    //        {
-    //            StartCoroutine(AIDoor(door));
-    //        }
-    //    }
-    //}
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Door"))
+        {
+            DoorController door = other.GetComponent<DoorController>();
+            if (door != null)
+            {
+                door.AgentEntered();
+                StartCoroutine(AIDoor(door));
+            }
+        }
+    }
 
-    //IEnumerator AIDoor(DoorController door)
-    //{
-    //    agent.isStopped = true;
-    //    door.ToggleDoor();
-    //    yield return new WaitForSeconds(1f); // 문 열림 대기
-    //    agent.isStopped = false;
-    //    agent.SetDestination(patrolPoints[currentIndex].position);
-    //    Debug.Log($"Resuming patrol to point {currentIndex} at {patrolPoints[currentIndex].position}");
-    //    yield return new WaitForSeconds(3f);
-    //    door.CloseDoorAfterDelay(0f);
-    //}
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Door"))
+        {
+            DoorController door = other.GetComponent<DoorController>();
+            if (door != null)
+            {
+                door.AgentExited();
+            }
+        }
+    }
+
+    IEnumerator AIDoor(DoorController door)
+    {
+        agent.isStopped = true;
+
+        yield return new WaitForSeconds(1f);
+
+        agent.isStopped = false;
+        agent.SetDestination(patrolPoints[currentIndex].position);
+    }
 
     void OnDrawGizmosSelected()
     {

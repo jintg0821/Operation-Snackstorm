@@ -7,8 +7,15 @@ public class PlayerController : MonoBehaviourPunCallbacks
 {
     public Camera cam;
     public float raycastRange = 100f;
+
     public int coin = 100;
-    public int point;
+
+    public int roundPoint;
+    public int bonusPoint;
+    public int minusPoint;
+
+    public int totalPoint;
+
     public bool isPanelOn = false;
 
     [SerializeField] private float wallTime;
@@ -158,22 +165,43 @@ public class PlayerController : MonoBehaviourPunCallbacks
         isFireExtinguisherExplode = false;
     }
 
-    public void GetPoint()
+    public void GetRoundPoint()
     {
         if (inventory == null || inventory.items == null)
             return;
 
+        roundPoint = 0;
         List<Item> itemsCopy = new List<Item>(inventory.items);
         foreach (Item item in itemsCopy)
         {
-            point += item.point;
+            roundPoint += item.point;
             inventory.RemoveItem(item);
         }
         itemsCopy.Clear();
         inventory.items.Clear();
 
         var hash = new ExitGames.Client.Photon.Hashtable();
-        hash["Point"] = point;
+        hash["RoundPoint"] = roundPoint;
+        PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+
+        totalPoint += roundPoint;
+    }
+    
+    public void GetBonusPoint(int point)
+    {
+        bonusPoint += point;
+
+        var hash = new ExitGames.Client.Photon.Hashtable();
+        hash["BonusPoint"] = bonusPoint;
+        PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+    }
+
+    public void GetMinusPoint(int point)
+    {
+        minusPoint += point;
+
+        var hash = new ExitGames.Client.Photon.Hashtable();
+        hash["MinusPoint"] = minusPoint;
         PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
     }
 }

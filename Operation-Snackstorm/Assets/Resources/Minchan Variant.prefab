@@ -390,7 +390,10 @@ MonoBehaviour:
   cam: {fileID: 0}
   raycastRange: 7
   coin: 100
-  point: 0
+  roundPoint: 0
+  bonusPoint: 0
+  minusPoint: 0
+  totalPoint: 0
   isPanelOn: 0
   wallTime: 1
 --- !u!114 &8136365177005427259
