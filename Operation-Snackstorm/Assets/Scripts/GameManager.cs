@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public static GameManager Instance;
 
     public Transform spawnPoint;
+    public Transform laborSpawnPoint;
 
     [SerializeField] private List<PhotonView> players = new List<PhotonView>();
     [SerializeField] private GameObject[] startWalls;
@@ -25,7 +26,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] private float currentTimerTime;
     [SerializeField] private GameObject timerPanel;
     [SerializeField] private double timerStartTime;
-    
 
     [Header("Round")]
     [SerializeField] private TextMeshProUGUI roundText;
@@ -128,7 +128,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         currentRound++;
         photonView.RPC("RPC_NextRound", RpcTarget.All, currentRound);
-
         GameStart();
     }
 
@@ -156,13 +155,14 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
     }
 
-
     [PunRPC]
     void RPC_GameStart(double startTime)
     {
         timerStartTime = startTime;
         onTimer = true;
         currentTimerTime = timerTime;
+
+        FindObjectOfType<LibraryItemSpawner>()?.SpawnItems();
     }
 
     public void GameStart()
@@ -175,9 +175,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            playersUpdated = 0; //
+            playersUpdated = 0;
             photonView.RPC("RPC_RoundOver", RpcTarget.All);
-            //photonView.RPC("RPC_OnPointPanel", RpcTarget.All);
         }
     }
 
@@ -189,8 +188,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             if (players.Contains(pv) && pv.IsMine)
             {
-                PlayerController playerController;
-                if (pv.gameObject.TryGetComponent<PlayerController>(out playerController))
+                if (pv.gameObject.TryGetComponent<PlayerController>(out PlayerController playerController))
                 {
                     playerController.GetRoundPoint();
                     var playerCC = playerController.GetComponent<CharacterController>();
@@ -215,7 +213,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             if (playersUpdated >= PhotonNetwork.PlayerList.Length)
             {
                 photonView.RPC("RPC_OnPointPanel", RpcTarget.All);
-                playersUpdated = 0;  // Reset for next round
+                playersUpdated = 0;
             }
         }
     }
@@ -261,10 +259,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
         {
             GameObject pointSlot = Instantiate(pointSlotPrefab, pointSlotContent.transform);
-
             TextMeshProUGUI name = pointSlot.transform.Find("Name").GetComponent<TextMeshProUGUI>();
             TextMeshProUGUI point = pointSlot.transform.Find("Point").GetComponent<TextMeshProUGUI>();
-
             name.text = p.NickName;
 
             if (p.CustomProperties.ContainsKey("RoundPoint"))
@@ -274,6 +270,34 @@ public class GameManager : MonoBehaviourPunCallbacks
             else
             {
                 point.text = "0";
+            }
+        }
+    }
+
+    public void StartPunishment(int viewID)
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            photonView.RPC("RPC_ExecutePunishment", RpcTarget.All, viewID);
+        }
+    }
+
+    [PunRPC]
+    void RPC_ExecutePunishment(int viewID)
+    {
+        PhotonView targetPV = PhotonView.Find(viewID);
+        if (targetPV != null)
+        {
+            CharacterController cc = targetPV.GetComponent<CharacterController>();
+            if (cc != null)
+            {
+                cc.enabled = false;
+                targetPV.transform.position = laborSpawnPoint.position;
+                cc.enabled = true;
+            }
+            if (targetPV.IsMine)
+            {
+                Debug.Log("강제 노동 장소로 이동되었습니다.");
             }
         }
     }

@@ -1394,6 +1394,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 1041987048}
+  laborSpawnPoint: {fileID: 0}
   players: []
   startWalls:
   - {fileID: 635486254}
@@ -4020,6 +4021,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!1001 &965189247
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8630806435792654341, guid: 21d8e6de2840dc443b7918faeb759e9f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 106.79
+      objectReference: {fileID: 0}
+    - target: {fileID: 8630806435792654341, guid: 21d8e6de2840dc443b7918faeb759e9f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -14.916901
+      objectReference: {fileID: 0}
+    - target: {fileID: 8630806435792654341, guid: 21d8e6de2840dc443b7918faeb759e9f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -25.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8630806435792654341, guid: 21d8e6de2840dc443b7918faeb759e9f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.0000006407499
+      objectReference: {fileID: 0}
+    - target: {fileID: 8630806435792654341, guid: 21d8e6de2840dc443b7918faeb759e9f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8630806435792654341, guid: 21d8e6de2840dc443b7918faeb759e9f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8630806435792654341, guid: 21d8e6de2840dc443b7918faeb759e9f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8630806435792654341, guid: 21d8e6de2840dc443b7918faeb759e9f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8630806435792654341, guid: 21d8e6de2840dc443b7918faeb759e9f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -180
+      objectReference: {fileID: 0}
+    - target: {fileID: 8630806435792654341, guid: 21d8e6de2840dc443b7918faeb759e9f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8974856111566080703, guid: 21d8e6de2840dc443b7918faeb759e9f, type: 3}
+      propertyPath: m_Name
+      value: library
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 21d8e6de2840dc443b7918faeb759e9f, type: 3}
 --- !u!114 &967359871 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: -7071560103351537375, guid: edfd6e4abbbbf1e40abd38a7c622e80d, type: 3}
@@ -9301,6 +9359,7 @@ MonoBehaviour:
   specialClassrooms:
   - {fileID: 3047184806393496074, guid: 1734af53d83f76848addcfbdb01836cc, type: 3}
   - {fileID: 3047184806393496074, guid: 7e41aab8401571646a7e58d63830429b, type: 3}
+  - {fileID: 8974856111566080703, guid: 21d8e6de2840dc443b7918faeb759e9f, type: 3}
   classroomSlots:
   - {fileID: 1814101717}
   - {fileID: 1354953094}
@@ -317259,3 +317318,4 @@ SceneRoots:
   - {fileID: 635486258}
   - {fileID: 1101758137}
   - {fileID: 940825314}
+  - {fileID: 965189247}

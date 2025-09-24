@@ -25,6 +25,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private Cafeteria cafeteria;
     private CharacterController characterController;
 
+    private bool isInLibrary = false;
+    public float runningSpeedThreshold = 3.0f;
+    private bool hasBeenPunished = false;
+
     private void Awake()
     {
         if (string.IsNullOrEmpty(PhotonNetwork.NickName))
@@ -48,13 +52,14 @@ public class PlayerController : MonoBehaviourPunCallbacks
             cafeteria = FindObjectOfType<Cafeteria>();
             characterController = GetComponent<CharacterController>();
         }
-        
     }
 
     void Update()
     {
         if (!photonView.IsMine && PhotonNetwork.IsConnected)
             return;
+
+        CheckForRunningInLibrary();
 
         if (!isPanelOn)
         {
@@ -87,11 +92,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
         Cursor.visible = isVisible;
         if (!isVisible)
         {
-            Cursor.lockState = CursorLockMode.Locked; // ?????? ???? ?????? ????
+            Cursor.lockState = CursorLockMode.Locked;
         }
         else
         {
-            Cursor.lockState = CursorLockMode.None; // ?????? ?????? ?????? ???? ???????? ??????
+            Cursor.lockState = CursorLockMode.None;
         }
     }
 
@@ -186,7 +191,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
         totalPoint += roundPoint;
     }
-    
+
     public void GetBonusPoint(int point)
     {
         bonusPoint += point;
@@ -203,5 +208,32 @@ public class PlayerController : MonoBehaviourPunCallbacks
         var hash = new ExitGames.Client.Photon.Hashtable();
         hash["MinusPoint"] = minusPoint;
         PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+    }
+    public void EnterLibraryZone(bool isEntering)
+    {
+        isInLibrary = isEntering;
+        if (!isEntering)
+        {
+            hasBeenPunished = false;
+        }
+    }
+
+    private void CheckForRunningInLibrary()
+    {
+        if (isInLibrary && !hasBeenPunished && photonView.IsMine)
+        {
+            if (characterController.velocity.magnitude > runningSpeedThreshold)
+            {
+                Debug.Log("도서관에서 뛰어서 걸렸습니다!");
+                photonView.RPC("RPC_RequestPunishment", RpcTarget.MasterClient);
+                hasBeenPunished = true;
+            }
+        }
+    }
+
+    [PunRPC]
+    void RPC_RequestPunishment()
+    {
+        GameManager.Instance.StartPunishment(photonView.ViewID);
     }
 }
