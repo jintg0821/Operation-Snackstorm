@@ -60,7 +60,6 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
             {
                 cam.gameObject.SetActive(true);
             }
-            animator = GetComponent<Animator>();
             playerController = GetComponent<PlayerController>();
         }
     }

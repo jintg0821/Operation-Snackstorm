@@ -5700,7 +5700,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 274b537fcb16607429e1a834f64f03b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPoint: {fileID: 0}
   viewAngle: 90
   viewRadius: 20
   restrictedViewAngle: 2.5
@@ -114640,6 +114639,7 @@ MonoBehaviour:
   playerPrefabs:
   - {fileID: 6373089970470972489, guid: 011328659ba707e4a95cf3bbbba7c388, type: 3}
   - {fileID: 1616706237792485427, guid: d65b2e200e92aad4dae2140f4a0c11d0, type: 3}
+  - {fileID: 1305968215052800338, guid: abf0683b4993c1543b27904a91c001e2, type: 3}
 --- !u!1 &3113181951834480627
 GameObject:
   m_ObjectHideFlags: 0

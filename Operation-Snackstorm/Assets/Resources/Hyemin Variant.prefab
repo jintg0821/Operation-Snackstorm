@@ -287,7 +287,7 @@ MonoBehaviour:
   xRotation: 0
   cam: {fileID: 0}
   canLook: 1
-  animator: {fileID: 0}
+  animator: {fileID: 7477789306188550054}
 --- !u!114 &1560274495945645295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -309,6 +309,7 @@ MonoBehaviour:
   totalPoint: 0
   isPanelOn: 0
   wallTime: 1
+  runningSpeedThreshold: 3
 --- !u!114 &6542223075637914937
 MonoBehaviour:
   m_ObjectHideFlags: 0
