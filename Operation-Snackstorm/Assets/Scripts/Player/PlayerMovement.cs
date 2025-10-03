@@ -46,6 +46,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         AssignAnimationIDs();
         cam = GetComponentInChildren<Camera>();
         characterController = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
 
         if (!photonView.IsMine)
         {

@@ -1,48 +1,54 @@
+using Photon.Pun;
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UI;
+using TMPro;
 
-public class VendingMachine : MonoBehaviour
+public class VendingMachine : MonoBehaviourPun
 {
-    [SerializeField] private List<Item> availableItems; // 판매 아이템 목록
-    [SerializeField] private GameObject vendingMachineUI; // UI Canvas
-    [SerializeField] private Inventory inventory; // Inventory로 변경
+    public  Item[] availableItems; // 판매 아이템 목록
+    public  GameObject vendingMachineUI; // UI Canva
 
-    void Start()
+    public bool vendingMachineOpen;
+
+    public Transform itemSpawnPoint;
+
+    public void Start()
     {
-        // 동적 참조 (옵션)
-        if (inventory == null)
+        availableItems = Resources.LoadAll<Item>("Item");
+    }
+
+    [PunRPC]
+    void RPC_VenBuy(string id, int actorNumber)
+    {
+        if (PhotonNetwork.LocalPlayer.ActorNumber == actorNumber)
         {
-            inventory = FindObjectOfType<Inventory>();
-            if (inventory == null)
+            Item item = Resources.Load<Item>($"Item/{id}");
+            if (item != null)
             {
-                Debug.LogError("Inventory 컴포넌트를 찾을 수 없습니다!");
+                GameObject itemObj = PhotonNetwork.Instantiate($"Prefabs/Items/{item.prefab.name}", itemSpawnPoint.position, Quaternion.identity);
+
+                itemObj.transform.localScale = Vector3.one;
+
+                PhotonView itemPV = itemObj.GetComponent<PhotonView>();
+                if (itemPV != null)
+                {
+                    itemPV.TransferOwnership(PhotonNetwork.MasterClient);
+                }
             }
         }
     }
 
-    public void ActivateUI()
+    public void OnBuyButtonClick(Item item, PlayerController PlayerController)
     {
-        if (vendingMachineUI != null)
+        if (PlayerController.coin >= item.price)
         {
-            vendingMachineUI.SetActive(true);
-            VendingMachineUI uiScript = vendingMachineUI.GetComponent<VendingMachineUI>();
-            if (uiScript != null)
-            {
-                uiScript.SetupItems(availableItems, inventory, this);
-            }
-        }
-    }
+            PlayerController.coin -= item.price;
 
-    public void AddItemToInventory(Item item)
-    {
-        if (inventory != null)
-        {
-            inventory.AddItem(item); // Inventory의 AddItem 호출
-            Debug.Log($"아이템 추가: {item.name}");
-        }
-        else
-        {
-            Debug.LogError("Inventory가 설정되지 않았습니다!");
+            if (PlayerController.photonView.IsMine)
+            {
+                photonView.RPC("RPC_VenBuy", RpcTarget.All, item.id, PhotonNetwork.LocalPlayer.ActorNumber);
+            }
         }
     }
 }

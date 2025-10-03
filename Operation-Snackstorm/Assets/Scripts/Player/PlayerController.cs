@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private bool isFireExtinguisherExplode;
 
     private Inventory inventory;
+    private VendingMachineUI VendingMachineUI;
+    private VendingMachine vendingMachine;
     private Cafeteria cafeteria;
     private CharacterController characterController;
 
@@ -50,6 +52,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             inventory = FindObjectOfType<Inventory>();
             cafeteria = FindObjectOfType<Cafeteria>();
+            vendingMachine = FindObjectOfType<VendingMachine>();
+            VendingMachineUI = FindObjectOfType<VendingMachineUI>();
             characterController = GetComponent<CharacterController>();
         }
     }
@@ -79,6 +83,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
             if (Input.GetKeyDown(KeyCode.E))
             {
                 inventory.OnInventoryPanel(this);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                VendingMachineUI.OnvendingMachinePanel(this);
             }
 
             PerformRaycast();

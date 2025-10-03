@@ -2180,6 +2180,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 439017546aa2f684a900f30da6bc77c6, type: 2}
   vendingMachineUI: {fileID: 1265420298}
   inventory: {fileID: 0}
+  PlayerController: {fileID: 0}
+  vendingMachineOpen: 0
+  itemSpawnPoint: {fileID: 0}
 --- !u!65 &1402836386
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3676,7 +3679,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2115780338
 RectTransform:
   m_ObjectHideFlags: 0
