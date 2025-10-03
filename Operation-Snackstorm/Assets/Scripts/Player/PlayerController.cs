@@ -218,6 +218,33 @@ public class PlayerController : MonoBehaviourPunCallbacks
         hash["MinusPoint"] = minusPoint;
         PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
     }
+
+    public void UpdateTotalPoint()
+    {
+        int roundPoint = this.roundPoint;
+
+        int accumulatedRoundPoint = 0;
+        if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("AccumulatedRoundPoint"))
+        {
+            accumulatedRoundPoint = (int)PhotonNetwork.LocalPlayer.CustomProperties["AccumulatedRoundPoint"];
+        }
+
+        accumulatedRoundPoint += roundPoint;
+
+        int bonusPoint = this.bonusPoint;
+        int minusPoint = this.minusPoint;
+
+        int totalPoint = accumulatedRoundPoint + bonusPoint - minusPoint;
+
+        var hash = new ExitGames.Client.Photon.Hashtable();
+        hash["AccumulatedRoundPoint"] = accumulatedRoundPoint;
+        hash["BonusPoint"] = bonusPoint;
+        hash["MinusPoint"] = minusPoint;
+        hash["TotalPoint"] = totalPoint;
+
+        PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+    }
+
     public void EnterLibraryZone(bool isEntering)
     {
         isInLibrary = isEntering;

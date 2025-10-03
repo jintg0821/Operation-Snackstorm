@@ -32,10 +32,15 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] private int currentRound;
     [SerializeField] private int maxRound;
 
-    [Header("Point")]
+    [Header("RoundPoint")]
     [SerializeField] private GameObject pointPanel;
     [SerializeField] private GameObject pointSlotPrefab;
     [SerializeField] private GameObject pointSlotContent;
+
+    [Header("TotalPoint")]
+    [SerializeField] private GameObject totalPointPanel;
+    [SerializeField] private GameObject totalPointSlotPrefab;
+    [SerializeField] private Transform totalPointSlotContent;
     #endregion
 
     private int playersUpdated = 0;
@@ -263,14 +268,57 @@ public class GameManager : MonoBehaviourPunCallbacks
             TextMeshProUGUI point = pointSlot.transform.Find("Point").GetComponent<TextMeshProUGUI>();
             name.text = p.NickName;
 
-            if (p.CustomProperties.ContainsKey("RoundPoint"))
+            if (currentRound >= maxRound)
             {
-                point.text = p.CustomProperties["RoundPoint"].ToString();
+                if (p.CustomProperties.ContainsKey("RoundPoint"))
+                {
+                    point.text = p.CustomProperties["RoundPoint"].ToString();
+                }
+                else
+                {
+                    point.text = "0";
+                }
             }
+        }
+    }
+
+    public void SetTotalPointPanel()
+    {
+        foreach (Transform child in totalPointSlotContent.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
+        {
+            GameObject totalPointSlot = Instantiate(totalPointSlotPrefab, totalPointSlotContent.transform);
+            TextMeshProUGUI name = totalPointSlot.transform.Find("Name").GetComponent<TextMeshProUGUI>();
+            TextMeshProUGUI roundPoint = totalPointSlot.transform.Find("RoundPoint").GetComponent<TextMeshProUGUI>();
+            TextMeshProUGUI bonusPoint = totalPointSlot.transform.Find("BonusPoint").GetComponent<TextMeshProUGUI>();
+            TextMeshProUGUI minusPoint = totalPointSlot.transform.Find("MinusPoint").GetComponent<TextMeshProUGUI>();
+            TextMeshProUGUI totalPoint = totalPointSlot.transform.Find("TotalPoint").GetComponent<TextMeshProUGUI>();
+
+            name.text = p.NickName;
+
+            if (p.CustomProperties.ContainsKey("AccumulatedRoundPoint"))
+                roundPoint.text = p.CustomProperties["AccumulatedRoundPoint"].ToString();
             else
-            {
-                point.text = "0";
-            }
+                roundPoint.text = "0";
+
+            if (p.CustomProperties.ContainsKey("BonusPoint"))
+                bonusPoint.text = p.CustomProperties["BonusPoint"].ToString();
+            else
+                bonusPoint.text = "0";
+
+            if (p.CustomProperties.ContainsKey("MinusPoint"))
+                minusPoint.text = p.CustomProperties["MinusPoint"].ToString();
+            else
+                minusPoint.text = "0";
+
+            if (p.CustomProperties.ContainsKey("TotalPoint"))
+                totalPoint.text = p.CustomProperties["TotalPoint"].ToString();
+            else
+                totalPoint.text = "0";
         }
     }
 
