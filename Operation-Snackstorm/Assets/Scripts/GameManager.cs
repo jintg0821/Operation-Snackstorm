@@ -196,6 +196,8 @@ public class GameManager : MonoBehaviourPunCallbacks
                 if (pv.gameObject.TryGetComponent<PlayerController>(out PlayerController playerController))
                 {
                     playerController.GetRoundPoint();
+                    playerController.UpdateTotalPoint();
+
                     var playerCC = playerController.GetComponent<CharacterController>();
                     if (playerCC != null)
                     {
@@ -236,18 +238,24 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     IEnumerator PointPanel()
     {
-        pointPanel.SetActive(true);
-        SetPointPanel();
+        if (currentRound >= maxRound)
+        {
+            totalPointPanel.SetActive(true);
+            SetTotalPointPanel();
+        }
+        else
+        {
+            pointPanel.SetActive(true);
+            SetPointPanel();
+        }
+
         yield return new WaitForSeconds(5f);
         pointPanel.SetActive(false);
+        totalPointPanel.SetActive(false);
 
         if (PhotonNetwork.IsMasterClient)
         {
-            if (currentRound >= maxRound)
-            {
-                PhotonNetwork.LoadLevel("LobbyScene");
-            }
-            else
+            if (currentRound < maxRound)
             {
                 NextRound();
             }
@@ -268,16 +276,13 @@ public class GameManager : MonoBehaviourPunCallbacks
             TextMeshProUGUI point = pointSlot.transform.Find("Point").GetComponent<TextMeshProUGUI>();
             name.text = p.NickName;
 
-            if (currentRound >= maxRound)
+            if (p.CustomProperties.ContainsKey("RoundPoint"))
             {
-                if (p.CustomProperties.ContainsKey("RoundPoint"))
-                {
-                    point.text = p.CustomProperties["RoundPoint"].ToString();
-                }
-                else
-                {
-                    point.text = "0";
-                }
+                point.text = p.CustomProperties["RoundPoint"].ToString();
+            }
+            else
+            {
+                point.text = "0";
             }
         }
     }

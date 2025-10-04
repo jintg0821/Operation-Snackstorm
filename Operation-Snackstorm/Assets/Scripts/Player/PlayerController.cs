@@ -67,6 +67,15 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
         if (!isPanelOn)
         {
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                GetBonusPoint(10);
+            }
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                GetMinusPoint(10);
+            }    
+
             if (PhotonNetwork.IsMasterClient)
             {
                 if (Input.GetKeyDown(KeyCode.P))
