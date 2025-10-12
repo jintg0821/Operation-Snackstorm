@@ -387,6 +387,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fca6638a5159f8c49b3c06c04b0fe99c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  test: 0
   cam: {fileID: 0}
   raycastRange: 7
   coin: 100
@@ -396,6 +397,9 @@ MonoBehaviour:
   totalPoint: 0
   isPanelOn: 0
   wallTime: 1
+  isCatchable: 1
+  inventory: {fileID: 0}
+  characterController: {fileID: 0}
   runningSpeedThreshold: 3
 --- !u!114 &8136365177005427259
 MonoBehaviour:

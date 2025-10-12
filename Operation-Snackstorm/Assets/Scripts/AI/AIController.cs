@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Photon.Pun;
 
 public enum AIState
 {
@@ -23,7 +24,7 @@ public enum PatrolType
     RandomPoint
 }
 
-public class AIController : MonoBehaviour
+public class AIController : MonoBehaviourPun
 {
     [Header("FOV")]
     public float viewAngle;
@@ -118,6 +119,9 @@ public class AIController : MonoBehaviour
 
         foreach (Collider targetCol in targets)
         {
+            PlayerController player = targetCol.GetComponent<PlayerController>();
+            if (player != null && !player.isCatchable) continue;
+
             Transform targetTransform = targetCol.transform;
             Vector3 dirToTarget = (targetTransform.position - transform.position).normalized;
 
@@ -211,6 +215,38 @@ public class AIController : MonoBehaviour
         agent.SetDestination(target.position);
     }
 
+    public virtual void OnCatchTarget(PlayerController player)
+    {
+        player.characterController.enabled = false;
+        player.gameObject.transform.position = GameManager.Instance.spawnPoint.position;
+        player.characterController.enabled = true;
+    }
+
+    [PunRPC]
+    private void RPC_HandleCatch(int playerViewID)
+    {
+        if (!PhotonNetwork.IsMasterClient) return;
+
+        PhotonView playerPV = PhotonView.Find(playerViewID);
+        if (playerPV != null)
+        {
+            PlayerController player = playerPV.GetComponent<PlayerController>();
+            if (player != null && player.isCatchable)
+            {
+                switch (this)
+                {
+                    case TeachersController teachers:
+                        teachers.OnCatchTarget(player);
+                        break;
+
+                    default:
+                        OnCatchTarget(player);
+                        break;
+                }
+            }
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Door"))
@@ -220,6 +256,15 @@ public class AIController : MonoBehaviour
             {
                 door.AgentEntered();
                 StartCoroutine(AIDoor(door));
+            }
+        }
+
+        if (other.CompareTag("Player"))
+        {
+            PlayerController player = other.GetComponent<PlayerController>();
+            if (player != null)
+            {
+                photonView.RPC("RPC_HandleCatch", RpcTarget.MasterClient, player.photonView.ViewID);
             }
         }
     }

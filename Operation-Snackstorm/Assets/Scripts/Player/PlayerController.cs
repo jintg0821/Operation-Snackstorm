@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviourPunCallbacks
 {
+    public bool test = false;
+
     public Camera cam;
     public float raycastRange = 100f;
 
@@ -21,11 +23,13 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [SerializeField] private float wallTime;
     private bool isFireExtinguisherExplode;
 
-    private Inventory inventory;
+    public bool isCatchable = true;
+
+    public Inventory inventory;
     private VendingMachineUI VendingMachineUI;
     private VendingMachine vendingMachine;
     private Cafeteria cafeteria;
-    private CharacterController characterController;
+    public CharacterController characterController;
 
     private bool isInLibrary = false;
     public float runningSpeedThreshold = 3.0f;
@@ -67,15 +71,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
         if (!isPanelOn)
         {
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                GetBonusPoint(10);
-            }
-            if (Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                GetMinusPoint(10);
-            }    
-
             if (PhotonNetwork.IsMasterClient)
             {
                 if (Input.GetKeyDown(KeyCode.P))
@@ -100,6 +95,29 @@ public class PlayerController : MonoBehaviourPunCallbacks
             }
 
             PerformRaycast();
+        }
+
+        if (test)
+        {
+            Item[] items = Resources.LoadAll<Item>("Item");
+
+
+            if (!isPanelOn)
+            {
+                if (Input.GetKeyDown(KeyCode.L))
+                {
+                    GetBonusPoint(10);
+                }
+                if (Input.GetKeyDown(KeyCode.K))
+                {
+                    GetMinusPoint(10);
+                }
+                if (Input.GetKeyDown(KeyCode.LeftAlt))
+                {
+                    int RandNum = Random.Range(0, items.Length);
+                    inventory.AddItem(items[RandNum]);
+                }
+            }
         }
 
         SetCursorState(isPanelOn);
@@ -173,19 +191,18 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 StartCoroutine(WallCoolTime());
             }
         }
-
-        if (hit.gameObject.CompareTag("NPC"))
-        {
-            characterController.enabled = false;
-            gameObject.transform.position = GameManager.Instance.spawnPoint.position;
-            characterController.enabled = true;
-        }
     }
 
     private IEnumerator WallCoolTime()
     {
         yield return new WaitForSeconds(wallTime);
         isFireExtinguisherExplode = false;
+    }
+
+    [PunRPC]
+    private void RPC_SetCatchable(bool value)
+    {
+        isCatchable = value;
     }
 
     public void GetRoundPoint()

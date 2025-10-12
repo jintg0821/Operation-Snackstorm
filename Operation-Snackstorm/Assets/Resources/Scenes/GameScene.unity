@@ -735,9 +735,6 @@ PrefabInstance:
       addedObject: {fileID: 1355358312}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6b9ac512c51998148a2bcc1a7b246cd2, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1355358311}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6b9ac512c51998148a2bcc1a7b246cd2, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1355358314}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6b9ac512c51998148a2bcc1a7b246cd2, type: 3}
       insertIndex: -1
@@ -751,6 +748,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6b9ac512c51998148a2bcc1a7b246cd2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1355358317}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6b9ac512c51998148a2bcc1a7b246cd2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1355358318}
   m_SourcePrefab: {fileID: 100100000, guid: 6b9ac512c51998148a2bcc1a7b246cd2, type: 3}
 --- !u!114 &152860336
 MonoBehaviour:
@@ -1509,7 +1509,7 @@ MonoBehaviour:
   roundStart: 0
   onTimer: 0
   timerText: {fileID: 493008232}
-  timerTime: 10
+  timerTime: 90
   currentTimerTime: 0
   timerPanel: {fileID: 1015346794}
   timerStartTime: 0
@@ -6655,47 +6655,6 @@ CapsuleCollider:
   m_Height: 6
   m_Direction: 1
   m_Center: {x: 0, y: 3.0092402, z: 0}
---- !u!114 &1355358311
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1355358307}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 274b537fcb16607429e1a834f64f03b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  viewAngle: 90
-  viewRadius: 20
-  restrictedViewAngle: 2.5
-  restrictedViewRadius: 5
-  targetMask:
-    serializedVersion: 2
-    m_Bits: 8
-  obstacleMask:
-    serializedVersion: 2
-    m_Bits: 1
-  isSightRestricted: 0
-  patrolPoints:
-  - {fileID: 2050696732}
-  - {fileID: 214922034}
-  - {fileID: 891216110}
-  - {fileID: 450901104}
-  - {fileID: 2112974454}
-  - {fileID: 503639427}
-  - {fileID: 1158163430}
-  - {fileID: 1390003368}
-  - {fileID: 747621652}
-  - {fileID: 2052052505}
-  - {fileID: 1213981611}
-  currentIndex: -1
-  pointReachThreshold: 0.5
-  target: {fileID: 0}
-  losetargetDistance: 15
-  patrolType: 0
-  currentState: 0
 --- !u!195 &1355358312
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -6805,6 +6764,47 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1355358318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1355358307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c15f967888964e4892eddc0273b3c18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewAngle: 90
+  viewRadius: 20
+  restrictedViewAngle: 2.5
+  restrictedViewRadius: 5
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 8
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 1
+  isSightRestricted: 0
+  patrolPoints:
+  - {fileID: 2050696732}
+  - {fileID: 214922034}
+  - {fileID: 891216110}
+  - {fileID: 450901104}
+  - {fileID: 2112974454}
+  - {fileID: 503639427}
+  - {fileID: 1158163430}
+  - {fileID: 1390003368}
+  - {fileID: 747621652}
+  - {fileID: 2052052505}
+  - {fileID: 1213981611}
+  currentIndex: -1
+  pointReachThreshold: 0.5
+  target: {fileID: 0}
+  losetargetDistance: 15
+  patrolType: 0
+  currentState: 0
 --- !u!1001 &1358700419
 PrefabInstance:
   m_ObjectHideFlags: 0
