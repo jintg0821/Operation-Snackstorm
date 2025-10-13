@@ -204,6 +204,15 @@ public class AIController : MonoBehaviourPun
             return;
         }
 
+        PlayerController player = target.GetComponent<PlayerController>();
+        if (player == null || !player.isCatchable)
+        {
+            target = null;
+            currentState = AIState.Patrol;
+            agent.SetDestination(patrolPoints[currentIndex].position);
+            return;
+        }
+
         float distance = Vector3.Distance(transform.position, target.position);
         if (distance > losetargetDistance)
         {
