@@ -1,11 +1,11 @@
-using Photon.Pun;
+ï»¿using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using ExitGames.Client.Photon;
 
-public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
+public class PlayerController : MonoBehaviourPunCallbacks
 {
     public bool test = false;
 
@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     private VendingMachine vendingMachine;
     private Cafeteria cafeteria;
     public CharacterController characterController;
+    private TestHotbar testHotbar;
 
     public bool isInLibrary = false;
     public float runningSpeedThreshold = 3.0f;
@@ -40,6 +41,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     [SerializeField]
     private TextMeshProUGUI penaltyText;
+
+    private GameObject currentInteractableObject;
 
     private void Awake()
     {
@@ -60,11 +63,12 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         }
         if (photonView.IsMine)
         {
-            inventory = GetComponent<Inventory>(); // GetComponent°¡ ´õ ¾ÈÁ¤ÀûÀÏ ¼ö ÀÖ½À´Ï´Ù.
+            inventory = GetComponent<Inventory>();
             cafeteria = FindObjectOfType<Cafeteria>();
             vendingMachine = FindObjectOfType<VendingMachine>();
             VendingMachineUI = FindObjectOfType<VendingMachineUI>();
             characterController = GetComponent<CharacterController>();
+            testHotbar = FindObjectOfType<TestHotbar>();
         }
         if (penaltyText != null)
         {
@@ -103,11 +107,37 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
             }
 
             PerformRaycast();
+
+            if (currentInteractableObject != null && Input.GetKeyDown(KeyCode.F))
+            {
+                DoorController door = currentInteractableObject.GetComponent<DoorController>();
+                if (door != null)
+                {
+                    door.ToggleDoor();
+                }
+                else
+                {
+                    ItemObj itemObj = currentInteractableObject.GetComponent<ItemObj>();
+                    if (itemObj != null)
+                    {
+                        if (itemObj.type == ItemObj.InteractionType.Item)
+                        {
+                            GetComponent<Inventory>().AddItem(itemObj.item);
+                            itemObj.GetComponent<PhotonView>().RPC("RPC_RequestDestroy", RpcTarget.All);
+                        }
+                        else
+                        {
+                            itemObj.Interact();
+                        }
+                    }
+                }
+            }
         }
 
         if (test)
         {
             Item[] items = Resources.LoadAll<Item>("Item");
+
 
             if (!isPanelOn)
             {
@@ -124,7 +154,38 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                     int RandNum = Random.Range(0, items.Length);
                     inventory.AddItem(items[RandNum]);
                 }
+                if (Input.GetKeyDown(KeyCode.Alpha1))
+                {
+                    testHotbar.ChangeItem(0);
+                }
+                if (Input.GetKeyDown(KeyCode.Alpha2))
+                {
+                    testHotbar.ChangeItem(1);
+                }
+                if (Input.GetKeyDown(KeyCode.Alpha3))
+                {
+                    testHotbar.ChangeItem(2);
+                }
+                if (Input.GetKeyDown(KeyCode.Alpha4))
+                {
+                    testHotbar.ChangeItem(3);
+                }
             }
+        }
+
+        SetCursorState(isPanelOn);
+    }
+
+    public void SetCursorState(bool isVisible)
+    {
+        Cursor.visible = isVisible;
+        if (!isVisible)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
         }
     }
 
@@ -134,6 +195,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
         Ray ray = cam.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
         RaycastHit hit;
+
+        //Debug.DrawRay(ray.origin, ray.direction * raycastRange, Color.red, 1f);
 
         if (Physics.Raycast(ray, out hit, raycastRange))
         {
@@ -147,7 +210,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                         cafeteria.OnCafeteriaPanel(this);
                     }
                 }
-                else if (hit.collider.CompareTag("Item"))
+
+                if (hit.collider.CompareTag("Item"))
                 {
                     ItemObj itemObj = hit.collider.gameObject.GetComponentInParent<ItemObj>();
                     if (itemObj != null)
@@ -161,12 +225,32 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                         }
                     }
                 }
-                else if (hit.collider.CompareTag("Door"))
+
+                if (hit.collider.CompareTag("Door"))
                 {
                     DoorController door = hit.collider.GetComponent<DoorController>();
                     door.ToggleDoor();
                 }
-                else if (hit.collider.CompareTag("Trash"))
+
+                //if (hit.collider.CompareTag("AttendanceBook"))
+                //{
+                //    ItemObj itemObj = hit.collider.GetComponent<ItemObj>();
+                //    if (itemObj != null)
+                //    {
+                //        itemObj.Interact();
+                //    }
+                //}
+
+                //if (hit.collider.CompareTag("NewsletterBox"))
+                //{
+                //    ItemObj itemObj = hit.collider.GetComponent<ItemObj>();
+                //    if (itemObj != null)
+                //    {
+                //        itemObj.Interact();
+                //    }
+                //}
+
+                if (hit.collider.CompareTag("Trash"))
                 {
                     TrashObject trash = hit.collider.GetComponent<TrashObject>();
                     if (trash != null)
@@ -174,22 +258,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                         trash.Interact();
                     }
                 }
-                // ÁÖ¼® Ã³¸®µÈ ¹Ì´Ï°ÔÀÓµé
-                // else if (hit.collider.CompareTag("AttendanceBook"))
-                // {
-                //     ItemObj itemObj = hit.collider.GetComponent<ItemObj>();
-                //     if (itemObj != null) itemObj.Interact();
-                // }
-                // else if (hit.collider.CompareTag("NewsletterBox"))
-                // {
-                //     ItemObj itemObj = hit.collider.GetComponent<ItemObj>();
-                //     if (itemObj != null) itemObj.Interact();
-                // }
             }
         }
     }
-
-    // ----- ¾Æ·¡ºÎÅÍ´Â ¸ðµç Ãß°¡/º¹±¸µÈ ÇÔ¼öµéÀÔ´Ï´Ù -----
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
@@ -227,6 +298,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
             {
                 inventory.RemoveItem(item);
             }
+            else
+            {
+                Debug.LogWarning($"Random item not found.");
+            }
         }
     }
 
@@ -244,7 +319,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     public void GetRoundPoint()
     {
-        if (inventory == null || inventory.items == null) return;
+        if (inventory == null || inventory.items == null)
+            return;
 
         roundPoint = 0;
         List<Item> itemsCopy = new List<Item>(inventory.items);
@@ -266,6 +342,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     public void GetBonusPoint(int point)
     {
         bonusPoint += point;
+
         var hash = new ExitGames.Client.Photon.Hashtable();
         hash["BonusPoint"] = bonusPoint;
         PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
@@ -274,6 +351,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     public void GetMinusPoint(int point)
     {
         minusPoint += point;
+
         var hash = new ExitGames.Client.Photon.Hashtable();
         hash["MinusPoint"] = minusPoint;
         PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
@@ -282,15 +360,18 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     public void UpdateTotalPoint()
     {
         int roundPoint = this.roundPoint;
+
         int accumulatedRoundPoint = 0;
         if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("AccumulatedRoundPoint"))
         {
             accumulatedRoundPoint = (int)PhotonNetwork.LocalPlayer.CustomProperties["AccumulatedRoundPoint"];
         }
+
         accumulatedRoundPoint += roundPoint;
 
         int bonusPoint = this.bonusPoint;
         int minusPoint = this.minusPoint;
+
         int totalPoint = accumulatedRoundPoint + bonusPoint - minusPoint;
 
         var hash = new ExitGames.Client.Photon.Hashtable();
@@ -298,6 +379,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         hash["BonusPoint"] = bonusPoint;
         hash["MinusPoint"] = minusPoint;
         hash["TotalPoint"] = totalPoint;
+
         PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
     }
 
@@ -310,6 +392,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
+    //ÂµÂµÂ¼Â­Â°Ã¼Â¿Â¡Â¼Â­Â¶Ã›Â¶Â§
     public void RequestPunishment()
     {
         photonView.RPC("RPC_RequestPunishment", RpcTarget.MasterClient);
@@ -323,7 +406,18 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     public void ApplyPenaltyPoints(int points)
     {
-        UpdateCustomProperty("MinusPoint", points);
+        ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
+
+        int currentPoints = 0;
+        if (photonView.Owner.CustomProperties.ContainsKey("MinusPoint"))
+        {
+            currentPoints = (int)photonView.Owner.CustomProperties["MinusPoint"];
+        }
+
+        currentPoints += points;
+        hash.Add("MinusPoint", currentPoints);
+
+        photonView.Owner.SetCustomProperties(hash);
     }
 
     public void ShowPenaltyText(string message, float duration)
@@ -339,11 +433,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     private IEnumerator PenaltyTextCoroutine(string message, float duration)
     {
-        if (penaltyText == null)
-        {
-            yield break;
-        }
-
         penaltyText.text = message;
         penaltyText.gameObject.SetActive(true);
 
@@ -365,13 +454,16 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     private void UpdateCustomProperty(string key, int amount)
     {
         ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
+
         int currentValue = 0;
         if (photonView.Owner.CustomProperties.ContainsKey(key))
         {
             currentValue = (int)photonView.Owner.CustomProperties[key];
         }
+
         currentValue += amount;
         hash.Add(key, currentValue);
+
         photonView.Owner.SetCustomProperties(hash);
     }
     public void GrantPunishmentImmunity(float duration)
@@ -384,19 +476,5 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         isPunishmentImmune = true;
         yield return new WaitForSeconds(duration);
         isPunishmentImmune = false;
-    }
-
-    public void OpenUIPanel()
-    {
-        isPanelOn = true;
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-    }
-
-    public void CloseUIPanel()
-    {
-        isPanelOn = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
 }
