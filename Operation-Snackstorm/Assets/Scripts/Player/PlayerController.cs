@@ -5,7 +5,7 @@ using UnityEngine;
 using TMPro;
 using ExitGames.Client.Photon;
 
-public class PlayerController : MonoBehaviourPunCallbacks
+public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 {
     public bool test = false;
 
@@ -41,8 +41,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [SerializeField]
     private TextMeshProUGUI penaltyText;
 
-    private GameObject currentInteractableObject;
-
     private void Awake()
     {
         if (string.IsNullOrEmpty(PhotonNetwork.NickName))
@@ -62,7 +60,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
         if (photonView.IsMine)
         {
-            inventory = GetComponent<Inventory>();
+            inventory = GetComponent<Inventory>(); // GetComponent가 더 안정적일 수 있습니다.
             cafeteria = FindObjectOfType<Cafeteria>();
             vendingMachine = FindObjectOfType<VendingMachine>();
             VendingMachineUI = FindObjectOfType<VendingMachineUI>();
@@ -105,37 +103,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
             }
 
             PerformRaycast();
-
-            if (currentInteractableObject != null && Input.GetKeyDown(KeyCode.F))
-            {
-                DoorController door = currentInteractableObject.GetComponent<DoorController>();
-                if (door != null)
-                {
-                    door.ToggleDoor();
-                }
-                else
-                {
-                    ItemObj itemObj = currentInteractableObject.GetComponent<ItemObj>();
-                    if (itemObj != null)
-                    {
-                        if (itemObj.type == ItemObj.InteractionType.Item)
-                        {
-                            GetComponent<Inventory>().AddItem(itemObj.item);
-                            itemObj.GetComponent<PhotonView>().RPC("RPC_RequestDestroy", RpcTarget.All);
-                        }
-                        else
-                        {
-                            itemObj.Interact();
-                        }
-                    }
-                }
-            }
         }
 
         if (test)
         {
             Item[] items = Resources.LoadAll<Item>("Item");
-
 
             if (!isPanelOn)
             {
@@ -154,21 +126,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 }
             }
         }
-
-        SetCursorState(isPanelOn);
-    }
-
-    public void SetCursorState(bool isVisible)
-    {
-        Cursor.visible = isVisible;
-        if (!isVisible)
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-        }
-        else
-        {
-            Cursor.lockState = CursorLockMode.None;
-        }
     }
 
     void PerformRaycast()
@@ -177,8 +134,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
         Ray ray = cam.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
         RaycastHit hit;
-
-        //Debug.DrawRay(ray.origin, ray.direction * raycastRange, Color.red, 1f);
 
         if (Physics.Raycast(ray, out hit, raycastRange))
         {
@@ -192,8 +147,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                         cafeteria.OnCafeteriaPanel(this);
                     }
                 }
-
-                if (hit.collider.CompareTag("Item"))
+                else if (hit.collider.CompareTag("Item"))
                 {
                     ItemObj itemObj = hit.collider.gameObject.GetComponentInParent<ItemObj>();
                     if (itemObj != null)
@@ -207,32 +161,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
                         }
                     }
                 }
-
-                if (hit.collider.CompareTag("Door"))
+                else if (hit.collider.CompareTag("Door"))
                 {
                     DoorController door = hit.collider.GetComponent<DoorController>();
                     door.ToggleDoor();
                 }
-
-                //if (hit.collider.CompareTag("AttendanceBook"))
-                //{
-                //    ItemObj itemObj = hit.collider.GetComponent<ItemObj>();
-                //    if (itemObj != null)
-                //    {
-                //        itemObj.Interact();
-                //    }
-                //}
-
-                //if (hit.collider.CompareTag("NewsletterBox"))
-                //{
-                //    ItemObj itemObj = hit.collider.GetComponent<ItemObj>();
-                //    if (itemObj != null)
-                //    {
-                //        itemObj.Interact();
-                //    }
-                //}
-
-                if (hit.collider.CompareTag("Trash"))
+                else if (hit.collider.CompareTag("Trash"))
                 {
                     TrashObject trash = hit.collider.GetComponent<TrashObject>();
                     if (trash != null)
@@ -240,9 +174,22 @@ public class PlayerController : MonoBehaviourPunCallbacks
                         trash.Interact();
                     }
                 }
+                // 주석 처리된 미니게임들
+                // else if (hit.collider.CompareTag("AttendanceBook"))
+                // {
+                //     ItemObj itemObj = hit.collider.GetComponent<ItemObj>();
+                //     if (itemObj != null) itemObj.Interact();
+                // }
+                // else if (hit.collider.CompareTag("NewsletterBox"))
+                // {
+                //     ItemObj itemObj = hit.collider.GetComponent<ItemObj>();
+                //     if (itemObj != null) itemObj.Interact();
+                // }
             }
         }
     }
+
+    // ----- 아래부터는 모든 추가/복구된 함수들입니다 -----
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
@@ -280,10 +227,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
             {
                 inventory.RemoveItem(item);
             }
-            else
-            {
-                Debug.LogWarning($"Random item not found.");
-            }
         }
     }
 
@@ -301,8 +244,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     public void GetRoundPoint()
     {
-        if (inventory == null || inventory.items == null)
-            return;
+        if (inventory == null || inventory.items == null) return;
 
         roundPoint = 0;
         List<Item> itemsCopy = new List<Item>(inventory.items);
@@ -324,7 +266,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public void GetBonusPoint(int point)
     {
         bonusPoint += point;
-
         var hash = new ExitGames.Client.Photon.Hashtable();
         hash["BonusPoint"] = bonusPoint;
         PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
@@ -333,7 +274,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public void GetMinusPoint(int point)
     {
         minusPoint += point;
-
         var hash = new ExitGames.Client.Photon.Hashtable();
         hash["MinusPoint"] = minusPoint;
         PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
@@ -342,18 +282,15 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public void UpdateTotalPoint()
     {
         int roundPoint = this.roundPoint;
-
         int accumulatedRoundPoint = 0;
         if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("AccumulatedRoundPoint"))
         {
             accumulatedRoundPoint = (int)PhotonNetwork.LocalPlayer.CustomProperties["AccumulatedRoundPoint"];
         }
-
         accumulatedRoundPoint += roundPoint;
 
         int bonusPoint = this.bonusPoint;
         int minusPoint = this.minusPoint;
-
         int totalPoint = accumulatedRoundPoint + bonusPoint - minusPoint;
 
         var hash = new ExitGames.Client.Photon.Hashtable();
@@ -361,7 +298,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
         hash["BonusPoint"] = bonusPoint;
         hash["MinusPoint"] = minusPoint;
         hash["TotalPoint"] = totalPoint;
-
         PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
     }
 
@@ -374,7 +310,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
     }
 
-    //도서관에서뛸때
     public void RequestPunishment()
     {
         photonView.RPC("RPC_RequestPunishment", RpcTarget.MasterClient);
@@ -388,18 +323,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     public void ApplyPenaltyPoints(int points)
     {
-        ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
-
-        int currentPoints = 0;
-        if (photonView.Owner.CustomProperties.ContainsKey("MinusPoint"))
-        {
-            currentPoints = (int)photonView.Owner.CustomProperties["MinusPoint"];
-        }
-
-        currentPoints += points;
-        hash.Add("MinusPoint", currentPoints);
-
-        photonView.Owner.SetCustomProperties(hash);
+        UpdateCustomProperty("MinusPoint", points);
     }
 
     public void ShowPenaltyText(string message, float duration)
@@ -415,6 +339,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     private IEnumerator PenaltyTextCoroutine(string message, float duration)
     {
+        if (penaltyText == null)
+        {
+            yield break;
+        }
+
         penaltyText.text = message;
         penaltyText.gameObject.SetActive(true);
 
@@ -436,16 +365,13 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private void UpdateCustomProperty(string key, int amount)
     {
         ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
-
         int currentValue = 0;
         if (photonView.Owner.CustomProperties.ContainsKey(key))
         {
             currentValue = (int)photonView.Owner.CustomProperties[key];
         }
-
         currentValue += amount;
         hash.Add(key, currentValue);
-
         photonView.Owner.SetCustomProperties(hash);
     }
     public void GrantPunishmentImmunity(float duration)
@@ -458,5 +384,19 @@ public class PlayerController : MonoBehaviourPunCallbacks
         isPunishmentImmune = true;
         yield return new WaitForSeconds(duration);
         isPunishmentImmune = false;
+    }
+
+    public void OpenUIPanel()
+    {
+        isPanelOn = true;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    public void CloseUIPanel()
+    {
+        isPanelOn = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 }
