@@ -10,7 +10,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     public static GameManager Instance;
 
     public Transform spawnPoint;
-    public Transform laborSpawnPoint;
 
     [SerializeField] private List<PhotonView> players = new List<PhotonView>();
     [SerializeField] private GameObject[] startWalls;
@@ -131,9 +130,42 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void NextRound()
     {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            DistributeBonusCoins();
+        }
+
         currentRound++;
         photonView.RPC("RPC_NextRound", RpcTarget.All, currentRound);
         GameStart();
+    }
+
+    private void DistributeBonusCoins()
+    {
+        if (!PhotonNetwork.IsMasterClient) return;
+
+        foreach (var player in PhotonNetwork.PlayerList)
+        {
+            if (player.CustomProperties.ContainsKey("NextRoundBonusCoin"))
+            {
+                int bonus = (int)player.CustomProperties["NextRoundBonusCoin"];
+                if (bonus > 0)
+                {
+                    foreach (var pc in FindObjectsOfType<PlayerController>())
+                    {
+                        if (pc.GetComponent<Photon.Pun.PhotonView>().Owner.ActorNumber == player.ActorNumber)
+                        {
+                            pc.AddCoin(bonus);
+                            break;
+                        }
+                    }
+
+                    ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
+                    hash.Add("NextRoundBonusCoin", 0);
+                    player.SetCustomProperties(hash);
+                }
+            }
+        }
     }
 
     void SetPlayerPosition()
@@ -167,7 +199,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         onTimer = true;
         currentTimerTime = timerTime;
 
-        //FindObjectOfType<LibraryItemSpawner>()?.SpawnItems();
+        FindObjectOfType<LibraryItemSpawner>()?.SpawnItems();
     }
 
     public void GameStart()
@@ -269,7 +301,9 @@ public class GameManager : MonoBehaviourPunCallbacks
             Destroy(child.gameObject);
         }
 
-        foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
+        var sortedPlayers = PhotonNetwork.PlayerList.OrderByDescending(p => (int)(p.CustomProperties["RoundPoint"] ?? 0));
+
+        foreach (Photon.Realtime.Player p in sortedPlayers)
         {
             GameObject pointSlot = Instantiate(pointSlotPrefab, pointSlotContent.transform);
             TextMeshProUGUI name = pointSlot.transform.Find("Name").GetComponent<TextMeshProUGUI>();
@@ -294,7 +328,9 @@ public class GameManager : MonoBehaviourPunCallbacks
             Destroy(child.gameObject);
         }
 
-        foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
+        var sortedPlayers = PhotonNetwork.PlayerList.OrderByDescending(p => (int)(p.CustomProperties["TotalPoint"] ?? 0));
+
+        foreach (Photon.Realtime.Player p in sortedPlayers)
         {
             GameObject totalPointSlot = Instantiate(totalPointSlotPrefab, totalPointSlotContent.transform);
             TextMeshProUGUI name = totalPointSlot.transform.Find("Name").GetComponent<TextMeshProUGUI>();
@@ -339,19 +375,9 @@ public class GameManager : MonoBehaviourPunCallbacks
     void RPC_ExecutePunishment(int viewID)
     {
         PhotonView targetPV = PhotonView.Find(viewID);
-        if (targetPV != null)
+        if (targetPV != null && targetPV.IsMine)
         {
-            CharacterController cc = targetPV.GetComponent<CharacterController>();
-            if (cc != null)
-            {
-                cc.enabled = false;
-                targetPV.transform.position = laborSpawnPoint.position;
-                cc.enabled = true;
-            }
-            if (targetPV.IsMine)
-            {
-                Debug.Log("강제 노동 장소로 이동되었습니다.");
-            }
+            TrashCleanupMission.Instance.StartMission(targetPV.GetComponent<PlayerController>());
         }
     }
 }

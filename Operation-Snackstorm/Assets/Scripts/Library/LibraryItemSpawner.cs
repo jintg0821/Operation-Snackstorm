@@ -11,7 +11,7 @@ public class LibraryItemSpawner : MonoBehaviour
     public int minSpawnCount = 10;
     public int maxSpawnCount = 20;
 
-    private BoxCollider spawnArea;
+    public BoxCollider spawnArea;
 
     void Awake()
     {
