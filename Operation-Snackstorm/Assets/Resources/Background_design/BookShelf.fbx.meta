@@ -1,9 +1,19 @@
 fileFormatVersion: 2
-guid: 16b6ad617f9d84846aa426002fb2d5b4
+guid: cc0722f659390c446ac8e104c552ed63
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: standardSurface3
+    second: {fileID: 2100000, guid: ed8e3b5adae03bc4a95b4d4f84a02517, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: "\uC2A4\uD06C\uB9B0\uC0F7 2025-10-14 120807"
+    second: {fileID: 2800000, guid: a6eea984697676149abd9c2c00bb21d4, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
