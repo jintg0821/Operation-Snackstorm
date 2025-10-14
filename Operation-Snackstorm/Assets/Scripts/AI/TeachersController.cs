@@ -9,27 +9,28 @@ public class TeachersController : AIController
     {
         if (!PhotonNetwork.IsMasterClient) return;
 
+        if (player == null)
+        {
+            Debug.Log("Player null");
+            return;
+        }
+
         PhotonView playerPV = player.photonView;
         if (playerPV != null)
         {
-            var inventory = player.inventory;
+            playerPV.RPC("RPC_RemoveRandomItemFromInventory", playerPV.Owner);
 
-            if (inventory.items.Count > 0)
-            {
-                int randNum = Random.Range(0, inventory.items.Count);
-                inventory.RemoveItem(inventory.items[randNum]);
-            }
-
-            playerPV.RPC("RPC_SetCatchable", playerPV.Owner, false);
-
+            playerPV.RPC("RPC_SetCatchable", RpcTarget.All, false);
             StartCoroutine(ResetCatchableAfterDelay(playerPV));
         }
     }
 
+    
+
     private IEnumerator ResetCatchableAfterDelay(PhotonView playerPV)
     {
         yield return new WaitForSeconds(3f);
-        playerPV.RPC("RPC_SetCatchable", playerPV.Owner, true);
+        playerPV.RPC("RPC_SetCatchable", RpcTarget.All, true);
     }
 
     [PunRPC]
@@ -47,4 +48,5 @@ public class TeachersController : AIController
             }
         }
     }
+
 }

@@ -301,6 +301,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2933337869208457793, guid: 3dee014e4acacbb489e9907ebde6861d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7811390828076940313}
+    - targetCorrespondingSourceObject: {fileID: 2933337869208457793, guid: 3dee014e4acacbb489e9907ebde6861d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5971369642175956657}
   m_SourcePrefab: {fileID: 100100000, guid: 3dee014e4acacbb489e9907ebde6861d, type: 3}
 --- !u!4 &1915431435035407032 stripped
 Transform:
@@ -387,7 +390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fca6638a5159f8c49b3c06c04b0fe99c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  test: 0
+  test: 1
   cam: {fileID: 0}
   raycastRange: 7
   coin: 100
@@ -487,3 +490,21 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 2.9, z: 0}
+--- !u!114 &5971369642175956657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6373089970470972489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8be4506b1665d7646aa607d0b7d7f7b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items: []
+  slotParent: {fileID: 0}
+  slots: []
+  inventoryPanel: {fileID: 0}
+  isOpen: 0
+  PlayerController: {fileID: 0}

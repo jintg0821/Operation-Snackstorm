@@ -17,17 +17,30 @@ public class Inventory : MonoBehaviourPunCallbacks
 
     public PlayerController PlayerController;
 
-#if UNITY_EDITOR
-    private void OnValidate()
-    {
-        slots = slotParent.GetComponentsInChildren<Slot>();
-    }
-#endif
+//#if UNITY_EDITOR
+//    private void OnValidate()
+//    {
+//        slots = slotParent.GetComponentsInChildren<Slot>();
+//    }
+//#endif
 
-    void Awake()
+    //void Awake()
+    //{
+    //    FreshSlot();
+    //}
+
+    void Start()
     {
-        FreshSlot();
+        if (photonView.IsMine)
+        {
+            inventoryPanel = GameObject.Find("InventoryUI");
+            slotParent = inventoryPanel.transform.Find("Panels/Store");
+            slots = slotParent.GetComponentsInChildren<Slot>();
+
+            inventoryPanel.SetActive(false);
+        }
     }
+
 
     void Update()
     {

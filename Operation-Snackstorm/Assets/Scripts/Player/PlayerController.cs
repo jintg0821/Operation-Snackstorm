@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
         if (photonView.IsMine)
         {
-            inventory = FindObjectOfType<Inventory>();
+            inventory = GetComponent<Inventory>();
             cafeteria = FindObjectOfType<Cafeteria>();
             vendingMachine = FindObjectOfType<VendingMachine>();
             VendingMachineUI = FindObjectOfType<VendingMachineUI>();
@@ -203,6 +203,36 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private void RPC_SetCatchable(bool value)
     {
         isCatchable = value;
+    }
+
+    [PunRPC]
+    private void RPC_RemoveRandomItemFromInventory()
+    {
+        if (inventory != null && inventory.items.Count > 0)
+        {
+            int randNum = Random.Range(0, inventory.items.Count);
+            Item item = inventory.items[randNum];
+            if (item != null)
+            {
+                inventory.RemoveItem(item);
+            }
+            else
+            {
+                Debug.LogWarning($"Random item not found.");
+            }
+        }
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(isCatchable);
+        }
+        else
+        {
+            isCatchable = (bool)stream.ReceiveNext();
+        }
     }
 
     public void GetRoundPoint()

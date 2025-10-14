@@ -282,6 +282,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2269866992568265883, guid: 59302b886178e374db835e5e3540003b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8687695649190743219}
+    - targetCorrespondingSourceObject: {fileID: 2269866992568265883, guid: 59302b886178e374db835e5e3540003b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -8606673593302210824}
   m_SourcePrefab: {fileID: 100100000, guid: 59302b886178e374db835e5e3540003b, type: 3}
 --- !u!1 &1305968215052800338 stripped
 GameObject:
@@ -350,7 +353,7 @@ MonoBehaviour:
   xRotation: 0
   cam: {fileID: 0}
   canLook: 1
-  animator: {fileID: 0}
+  animator: {fileID: 8769400104496785504}
 --- !u!114 &5613107609228266283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -363,7 +366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fca6638a5159f8c49b3c06c04b0fe99c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  test: 0
+  test: 1
   cam: {fileID: 0}
   raycastRange: 7
   coin: 100
@@ -397,7 +400,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1305968215052800338}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: d19345e5735dc2a47adf34fb111de8dc, type: 2}
   m_CullingMode: 0
@@ -443,7 +446,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1305968215052800338}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
   m_Name: 
@@ -455,14 +458,32 @@ MonoBehaviour:
     SynchronizeType: 2
     Name: Speed
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Jump
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: isThrow
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
+--- !u!114 &-8606673593302210824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1305968215052800338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8be4506b1665d7646aa607d0b7d7f7b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items: []
+  slotParent: {fileID: 0}
+  slots: []
+  inventoryPanel: {fileID: 0}
+  isOpen: 0
+  PlayerController: {fileID: 0}
 --- !u!4 &4436343264826010981 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3462852073536655532, guid: 59302b886178e374db835e5e3540003b, type: 3}

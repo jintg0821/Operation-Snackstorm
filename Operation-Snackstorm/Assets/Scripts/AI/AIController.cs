@@ -66,18 +66,23 @@ public class AIController : MonoBehaviourPun
         if (patrolPoints.Length > 0)
         {
             currentIndex = 0;
-            agent.SetDestination(patrolPoints[currentIndex].position);
-
-            if (Vector3.Distance(transform.position, patrolPoints[currentIndex].position) <= pointReachThreshold)
+            if (PhotonNetwork.IsMasterClient)
             {
-                currentIndex = (currentIndex + 1) % patrolPoints.Length;
                 agent.SetDestination(patrolPoints[currentIndex].position);
+
+                if (Vector3.Distance(transform.position, patrolPoints[currentIndex].position) <= pointReachThreshold)
+                {
+                    currentIndex = (currentIndex + 1) % patrolPoints.Length;
+                    agent.SetDestination(patrolPoints[currentIndex].position);
+                }
             }
         }
     }
 
     void Update()
     {
+        if (!PhotonNetwork.IsMasterClient) return;
+
         if (isSightRestricted)
         {
             viewAngle = restrictedViewAngle;
@@ -264,7 +269,10 @@ public class AIController : MonoBehaviourPun
             if (door != null)
             {
                 door.AgentEntered();
-                StartCoroutine(AIDoor(door));
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    StartCoroutine(AIDoor(door));
+                }
             }
         }
 
@@ -326,5 +334,22 @@ public class AIController : MonoBehaviourPun
             angleInDegrees += transform.eulerAngles.y;
         }
         return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(transform.position);
+            stream.SendNext(transform.rotation);
+            stream.SendNext(agent.velocity);
+        }
+        else
+        {
+            transform.position = (Vector3)stream.ReceiveNext();
+            transform.rotation = (Quaternion)stream.ReceiveNext();
+            agent.velocity = (Vector3)stream.ReceiveNext();
+            agent.nextPosition = transform.position;
+        }
     }
 }
