@@ -214,23 +214,23 @@ public class PlayerController : MonoBehaviourPunCallbacks
                     door.ToggleDoor();
                 }
 
-                if (hit.collider.CompareTag("AttendanceBook"))
-                {
-                    ItemObj itemObj = hit.collider.GetComponent<ItemObj>();
-                    if (itemObj != null)
-                    {
-                        itemObj.Interact();
-                    }
-                }
+                //if (hit.collider.CompareTag("AttendanceBook"))
+                //{
+                //    ItemObj itemObj = hit.collider.GetComponent<ItemObj>();
+                //    if (itemObj != null)
+                //    {
+                //        itemObj.Interact();
+                //    }
+                //}
 
-                if (hit.collider.CompareTag("NewsletterBox"))
-                {
-                    ItemObj itemObj = hit.collider.GetComponent<ItemObj>();
-                    if (itemObj != null)
-                    {
-                        itemObj.Interact();
-                    }
-                }
+                //if (hit.collider.CompareTag("NewsletterBox"))
+                //{
+                //    ItemObj itemObj = hit.collider.GetComponent<ItemObj>();
+                //    if (itemObj != null)
+                //    {
+                //        itemObj.Interact();
+                //    }
+                //}
 
                 if (hit.collider.CompareTag("Trash"))
                 {
