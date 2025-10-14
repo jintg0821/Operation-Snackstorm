@@ -70,6 +70,11 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         if (!photonView.IsMine && PhotonNetwork.IsConnected)
             return;
 
+        if (playerController.isInLibrary && currentState == PlayerState.Run && !TrashCleanupMission.Instance.isMissionActive && !playerController.isPunishmentImmune)
+        {
+            playerController.RequestPunishment();
+        }
+
         if (!playerController.isPanelOn)
         {
             CameraLook();
