@@ -199,7 +199,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         onTimer = true;
         currentTimerTime = timerTime;
 
-        FindObjectOfType<LibraryItemSpawner>()?.SpawnItems();
+        //FindObjectOfType<LibraryItemSpawner>()?.SpawnItems();
     }
 
     public void GameStart()
