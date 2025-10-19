@@ -97,7 +97,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53767370a6db7d746baf342bd4c3c6e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 0
   item: {fileID: 11400000, guid: ab6c3dbf92fa6be4cac1d1daf4997aa5, type: 2}
+  targetUI: {fileID: 0}
 --- !u!114 &-234290960192244215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,8 +119,7 @@ MonoBehaviour:
   OwnershipTransfer: 1
   observableSearch: 2
   ObservedComponents:
-  - {fileID: 2416331227359318874, guid: 37755c685daa6934bafc98eefa3b9047, type: 3}
-  - {fileID: 0}
+  - {fileID: 4972626559432957491}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0

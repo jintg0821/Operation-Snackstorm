@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private Cafeteria cafeteria;
     public CharacterController characterController;
     private TestHotbar testHotbar;
+    private WaterDispenser waterDispenser;
 
     public bool isInLibrary = false;
     public float runningSpeedThreshold = 3.0f;
@@ -69,6 +70,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             VendingMachineUI = FindObjectOfType<VendingMachineUI>();
             characterController = GetComponent<CharacterController>();
             testHotbar = FindObjectOfType<TestHotbar>();
+            waterDispenser = FindObjectOfType<WaterDispenser>();
         }
         if (penaltyText != null)
         {
@@ -107,31 +109,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
             }
 
             PerformRaycast();
-
-            if (currentInteractableObject != null && Input.GetKeyDown(KeyCode.F))
-            {
-                DoorController door = currentInteractableObject.GetComponent<DoorController>();
-                if (door != null)
-                {
-                    door.ToggleDoor();
-                }
-                else
-                {
-                    ItemObj itemObj = currentInteractableObject.GetComponent<ItemObj>();
-                    if (itemObj != null)
-                    {
-                        if (itemObj.type == ItemObj.InteractionType.Item)
-                        {
-                            GetComponent<Inventory>().AddItem(itemObj.item);
-                            itemObj.GetComponent<PhotonView>().RPC("RPC_RequestDestroy", RpcTarget.All);
-                        }
-                        else
-                        {
-                            itemObj.Interact();
-                        }
-                    }
-                }
-            }
         }
 
         if (test)
@@ -153,6 +130,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 {
                     int RandNum = Random.Range(0, items.Length);
                     inventory.AddItem(items[RandNum]);
+                }
+                if (Input.GetKeyDown(KeyCode.Z))
+                {
+                    if (waterDispenser != null) 
+                        waterDispenser.photonView.RPC("RPC_AssignRoleAndStart", RpcTarget.All, photonView.ViewID);
                 }
                 if (Input.GetKeyDown(KeyCode.Alpha1))
                 {
