@@ -250,14 +250,14 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 //    }
                 //}
 
-                if (hit.collider.CompareTag("Trash"))
-                {
-                    TrashObject trash = hit.collider.GetComponent<TrashObject>();
-                    if (trash != null)
-                    {
-                        trash.Interact();
-                    }
-                }
+                //if (hit.collider.CompareTag("Trash"))
+                //{
+                //    TrashObject trash = hit.collider.GetComponent<TrashObject>();
+                //    if (trash != null)
+                //    {
+                //        trash.Interact();
+                //    }
+                //}
             }
         }
     }
