@@ -62,6 +62,14 @@ MonoBehaviour:
   - DestroyTrash
   - RPC_RemoveItemFromInventory
   - RPC_RemoveRandomItemFromInventory
+  - RPC_FailEffects
+  - RPC_FillCup
+  - RPC_MissionSuccess
+  - RPC_Overflow
+  - RPC_SuccessRound
+  - RPC_TrySwap
+  - StartMission
+  - RPC_AssignRoleAndStart
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
