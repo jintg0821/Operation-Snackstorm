@@ -42524,7 +42524,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -42546,7 +42546,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 31.585285, y: 10.814303, z: 32.41521}
   m_Center: {x: -6.5469074, y: 5.937672, z: 10.0992}
@@ -42591,6 +42591,7 @@ MonoBehaviour:
   waterMesh: {fileID: 78727111}
   fillGauge: {fileID: 0}
   stateText: {fileID: 900584337}
+  WaterArea: {fileID: 2061519752}
 --- !u!4 &2061519755
 Transform:
   m_ObjectHideFlags: 0

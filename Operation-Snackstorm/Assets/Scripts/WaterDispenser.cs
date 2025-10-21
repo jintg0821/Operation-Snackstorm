@@ -24,6 +24,8 @@ public class WaterDispenser : MonoBehaviourPun
     private bool isOverflowing = false;
     private bool isMyRoleA = false;
 
+    [SerializeField] private Collider WaterArea;
+
     private static List<int> interactingPlayers = new List<int>();
     private static bool isInUse = false;
 
@@ -101,7 +103,7 @@ public class WaterDispenser : MonoBehaviourPun
             stateText.text = $"Round {currentRound}/3 - Danger!";
 
         if (currentFill >= maxFill)
-            RPC_Overflow();
+            photonView.RPC("RPC_Overflow", RpcTarget.All);
     }
 
     [PunRPC]
@@ -109,23 +111,34 @@ public class WaterDispenser : MonoBehaviourPun
     {
         if (currentFill >= dangerZoneStart && currentFill < maxFill)
         {
-            RPC_SuccessRound();
+            if (PhotonNetwork.IsMasterClient)
+                photonView.RPC("RPC_SuccessRound", RpcTarget.All);
         }
         else
         {
-            RPC_Overflow();
+            if (PhotonNetwork.IsMasterClient)
+                photonView.RPC("RPC_Overflow", RpcTarget.All);
         }
     }
 
     [PunRPC]
     void RPC_SuccessRound()
     {
-        stateText.text = $" Round {currentRound} Success!";
-        currentRound++;
+        if (PhotonNetwork.IsMasterClient)
+        {
+            currentRound++;
+            photonView.RPC("RPC_UpdateRound", RpcTarget.All, currentRound);
+        }
+    }
+
+    [PunRPC]
+    void RPC_UpdateRound(int round)
+    {
+        currentRound = round;
 
         if (currentRound > totalRounds)
         {
-            RPC_MissionSuccess();
+            photonView.RPC("RPC_MissionSuccess", RpcTarget.All);
         }
         else
         {
@@ -140,9 +153,8 @@ public class WaterDispenser : MonoBehaviourPun
         isOverflowing = true;
 
         stateText.text = " Overflow! Mission Failed!";
-
-        photonView.RPC("RPC_FailEffects", RpcTarget.All);
-        //StartCoroutine(ApplySlipPenalty(0.6f, 10f));
+        
+        StartCoroutine(ApplySlipPenalty(10));
     }
 
     [PunRPC]
@@ -150,14 +162,19 @@ public class WaterDispenser : MonoBehaviourPun
     {
         missionActive = false;
         stateText.text = " All Success! +10% Speed (15s)";
-        //StartCoroutine(ApplyTeamBuff(1.1f, 15f));
+
+        photonView.RPC("RPC_ApplyTeamBuff", RpcTarget.All, 1.1f, 15f);
     }
 
     [PunRPC]
-    void RPC_FailEffects()
+    void RPC_ApplyTeamBuff(float multiplier, float duration)
     {
-        // 컵 뒤집히는 개그 연출 (로컬 오브젝트로 가능)
-        // 예: 머리 위에 컵+물고기 아이콘 띄우기
+        PlayerMovement[] players = FindObjectsOfType<PlayerMovement>();
+        foreach (PlayerMovement player in players)
+        {
+            if (player != null && player.photonView.IsMine)
+                player.ApplySpeedModifier(multiplier, duration);
+        }
     }
 
     IEnumerator NextRound()
@@ -182,18 +199,36 @@ public class WaterDispenser : MonoBehaviourPun
         waterMesh.localPosition = pos;
     }
 
+    IEnumerator ApplySlipPenalty(int t)
+    {
+        WaterArea.enabled = true;
+        yield return new WaitForSeconds(t);
+        WaterArea.enabled = false;
+    }
 
-    //IEnumerator ApplyTeamBuff(float speedMultiplier, float duration)
-    //{
-    //    TeamStats.Instance.ApplySpeedMultiplier(speedMultiplier);
-    //    yield return new WaitForSeconds(duration);
-    //    TeamStats.Instance.ResetSpeed();
-    //}
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!WaterArea.enabled) return;
 
-    //IEnumerator ApplySlipPenalty(float slowMultiplier, float duration)
-    //{
-    //    TeamStats.Instance.ApplySpeedMultiplier(slowMultiplier);
-    //    yield return new WaitForSeconds(duration);
-    //    TeamStats.Instance.ResetSpeed();
-    //}
+        if (other.CompareTag("Player"))
+        {
+            PlayerMovement player = other.GetComponent<PlayerMovement>();
+            if (player != null && player.photonView.IsMine)
+            {
+                player.ApplySpeedModifier(0.6f, Mathf.Infinity);
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            PlayerMovement player = other.GetComponent<PlayerMovement>();
+            if (player != null && player.photonView.IsMine)
+            {
+                player.ApplySpeedModifier(1f, 0f);
+            }
+        }
+    }
 }

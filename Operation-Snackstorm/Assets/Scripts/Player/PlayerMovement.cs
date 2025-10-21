@@ -21,6 +21,9 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
     public float runSpeed = 6f;
     private float moveSpeed;
 
+    private float speedMultiplier = 1f;
+    private Coroutine speedCoroutine;
+
     [Header("Gravity")]
     public float gravity = -9.81f;
     private Vector3 velocity;
@@ -111,7 +114,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
 
         Vector3 moveVec = transform.forward * Vertical + transform.right * Horizontal;
 
-        characterController.Move(moveVec.normalized * moveSpeed * Time.deltaTime);
+        characterController.Move(moveVec.normalized * (moveSpeed * speedMultiplier) * Time.deltaTime);
 
         if (characterController.isGrounded && velocity.y < 0)
         {
@@ -170,5 +173,20 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
                 break;
         }
         animator.SetFloat(_animIDSpeed, blendSpeed);
+    }
+
+    public void ApplySpeedModifier(float multiplier, float duration)
+    {
+        if (speedCoroutine != null)
+            StopCoroutine(speedCoroutine);
+
+        speedCoroutine = StartCoroutine(SpeedModifierRoutine(multiplier, duration));
+    }
+
+    private IEnumerator SpeedModifierRoutine(float multiplier, float duration)
+    {
+        speedMultiplier = multiplier;
+        yield return new WaitForSeconds(duration);
+        speedMultiplier = 1f;
     }
 }
