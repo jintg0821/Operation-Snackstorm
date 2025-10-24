@@ -9737,6 +9737,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 958837907}
     m_Modifications:
+    - target: {fileID: 3968275528326086195, guid: 26bd79df777740b47b89d64cbd5edfe9, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 96a4f83c88c8c4c4e91bda089e4ae653, type: 2}
     - target: {fileID: 6528671598369357759, guid: 26bd79df777740b47b89d64cbd5edfe9, type: 3}
       propertyPath: m_Name
       value: principal's office (1)
@@ -13866,10 +13870,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1703664684}
     m_Modifications:
+    - target: {fileID: 2730627594303412882, guid: 23b3e41ef3347f14590ecb435dd9f598, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 96a4f83c88c8c4c4e91bda089e4ae653, type: 2}
     - target: {fileID: 2973352747972687479, guid: 23b3e41ef3347f14590ecb435dd9f598, type: 3}
       propertyPath: m_Name
       value: Art classroom  (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3743846997893123162, guid: 23b3e41ef3347f14590ecb435dd9f598, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 96a4f83c88c8c4c4e91bda089e4ae653, type: 2}
     - target: {fileID: 7655576374444605190, guid: 23b3e41ef3347f14590ecb435dd9f598, type: 3}
       propertyPath: m_LocalPosition.x
       value: -127.54003
