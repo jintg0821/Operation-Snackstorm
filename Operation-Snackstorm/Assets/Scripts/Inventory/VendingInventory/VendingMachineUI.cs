@@ -27,7 +27,7 @@ public class VendingMachineUI : MonoBehaviour
 
     public void GenerateItem()
     {
-        for (int i = 0; i < vendingMachine.availableItems.Length; i++)
+        for (int i = 0; i < vendingMachine.availableItems.Count; i++)
         {
             GameObject itemUIObj = Instantiate(slotPrefab, slotParent.transform);
 
@@ -35,10 +35,12 @@ public class VendingMachineUI : MonoBehaviour
             TextMeshProUGUI itemName = itemUIObj.transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>();
             TextMeshProUGUI itemPrice = itemUIObj.transform.GetChild(2).GetComponentInChildren<TextMeshProUGUI>();
             Button buyBtn = itemUIObj.transform.GetChild(3).GetComponentInChildren<Button>();
+            if (buyBtn == null)
+                Debug.Log("dddd");
 
             int index = i;
 
-            buyBtn.onClick.AddListener(() => vendingMachine.OnBuyButtonClick(vendingMachine.availableItems[index], PlayerController));
+            buyBtn.onClick.AddListener(() => vendingMachine.OnBuyButtonClick(vendingMachine.availableItems[index]));
 
             if (itemUIObj != null && vendingMachine.availableItems[index] != null)
             {

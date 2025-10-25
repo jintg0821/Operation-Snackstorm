@@ -30,7 +30,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public bool isCatchable = true;
 
     public Inventory inventory;
-    private VendingMachineUI VendingMachineUI;
     private VendingMachine vendingMachine;
     private Cafeteria cafeteria;
     public CharacterController characterController;
@@ -70,7 +69,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
             inventory = GetComponent<Inventory>();
             cafeteria = FindObjectOfType<Cafeteria>();
             vendingMachine = FindObjectOfType<VendingMachine>();
-            VendingMachineUI = FindObjectOfType<VendingMachineUI>();
             characterController = GetComponent<CharacterController>();
             playerMovement = GetComponent<PlayerMovement>();
             testHotbar = FindObjectOfType<TestHotbar>();
@@ -105,11 +103,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
             if (Input.GetKeyDown(KeyCode.E))
             {
                 inventory.OnInventoryPanel(this);
-            }
-
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                VendingMachineUI.OnvendingMachinePanel(this);
             }
 
             PerformRaycast();
@@ -214,6 +207,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
                             itemPV.RPC("RPC_RequestDestroy", RpcTarget.MasterClient);
                         }
                     }
+                }
+
+                if (hit.collider.CompareTag("VendingMachine"))
+                {
+                    vendingMachine.OnvendingMachinePanel(this);
                 }
 
                 if (hit.collider.CompareTag("Door"))

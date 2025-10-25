@@ -23,8 +23,8 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
     public float crouchSpeed = 2f;
     public float walkSpeed = 4f;
     public float runSpeed = 6f;
-    private float skateSpeed = 10f;
-    private float moveSpeed;
+    public float skateSpeed = 10f;
+    [SerializeField] private float moveSpeed;
 
     [SerializeField] private GameObject skateboard;
     [SerializeField] private float rideYOffset = 0.1f;
@@ -194,7 +194,6 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
             else
             {
                 currentState = PlayerState.Idle;
-                Debug.Log("1");
             }
         }
 

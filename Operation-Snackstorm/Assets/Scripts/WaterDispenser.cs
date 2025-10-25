@@ -99,6 +99,16 @@ public class WaterDispenser : MonoBehaviourPun
             photonView.RPC("RPC_TrySwap", RpcTarget.All);
     }
 
+    void ResetGame()
+    {
+        isInUse = false;
+        interactingPlayers.Clear();
+        currentRound = 1;
+        currentFill = 0f;
+        missionActive = false;
+        isOverflowing = false;
+}
+
     [PunRPC]
     void RPC_FillCup(float delta)
     {
@@ -167,6 +177,7 @@ public class WaterDispenser : MonoBehaviourPun
         missionActive = false;
         stateText.text = "성공! 15초 동안 이동속도 10% 증가";
         SetPlayerPanelState(false);
+        ResetGame();
 
         photonView.RPC("RPC_ApplyTeamBuff", RpcTarget.All, 1.1f, 15f);
     }
@@ -209,6 +220,8 @@ public class WaterDispenser : MonoBehaviourPun
         WaterArea.enabled = true;
         yield return new WaitForSeconds(t);
         WaterArea.enabled = false;
+        stateText.text = "";
+        ResetGame();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -219,7 +232,9 @@ public class WaterDispenser : MonoBehaviourPun
         {
             PlayerMovement player = other.GetComponent<PlayerMovement>();
             if (player != null && player.photonView.IsMine)
+            {
                 player.ApplySpeedModifier(0.6f, Mathf.Infinity);
+            }
         }
     }
 

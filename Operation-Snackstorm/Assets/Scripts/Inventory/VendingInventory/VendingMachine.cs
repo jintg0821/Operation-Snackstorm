@@ -6,16 +6,79 @@ using TMPro;
 
 public class VendingMachine : MonoBehaviourPun
 {
-    public  Item[] availableItems; // 판매 아이템 목록
-    public  GameObject vendingMachineUI; // UI Canva
+    private Item[] allItems;
+    public List<Item> availableItems; // 판매 아이템 목록
 
     public bool vendingMachineOpen;
 
-    public Transform itemSpawnPoint;
+    public Transform itemSpawnPoint; 
+    public GameObject vendingMachineUI;
+
+    [Header("UI")]
+    [SerializeField] private Transform slotParent; // 슬롯 부모 (GridLayoutGroup)
+    [SerializeField] private GameObject slotPrefab; // 슬롯 Prefab
+
+    [SerializeField] private PlayerController PlayerController;
 
     public void Start()
     {
-        availableItems = Resources.LoadAll<Item>("Item");
+        allItems = Resources.LoadAll<Item>("Item");
+
+        foreach (Item item in allItems)
+        {
+            if (item.category != "매점")
+            {
+                availableItems.Add(item);
+            }
+        }
+
+        GenerateItem();
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (vendingMachineOpen)
+            {
+                vendingMachineUI.SetActive(false);
+                vendingMachineOpen = false;
+                PlayerController.isPanelOn = vendingMachineOpen;
+            }
+        }
+    }
+
+    public void GenerateItem()
+    {
+        for (int i = 0; i < availableItems.Count; i++)
+        {
+            GameObject itemUIObj = Instantiate(slotPrefab, slotParent.transform);
+
+            Image itemImage = itemUIObj.transform.GetChild(0).GetComponentInChildren<Image>();
+            TextMeshProUGUI itemName = itemUIObj.transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>();
+            TextMeshProUGUI itemPrice = itemUIObj.transform.GetChild(2).GetComponentInChildren<TextMeshProUGUI>();
+            Button buyBtn = itemUIObj.transform.GetChild(3).GetComponentInChildren<Button>();
+
+            int index = i;
+
+            buyBtn.onClick.AddListener(() => OnBuyButtonClick(availableItems[index]));
+
+            if (itemUIObj != null && availableItems[index] != null)
+            {
+                itemImage.sprite = availableItems[index].icon;
+                itemName.text = availableItems[index].name;
+                itemPrice.text = availableItems[index].price.ToString();
+            }
+        }
+    }
+
+    public void OnvendingMachinePanel(PlayerController playerController)
+    {
+        vendingMachineOpen = !vendingMachineUI.activeSelf;
+        vendingMachineUI.SetActive(vendingMachineOpen);
+
+        PlayerController = playerController;
+        PlayerController.isPanelOn = vendingMachineOpen;
     }
 
     [PunRPC]
@@ -39,7 +102,7 @@ public class VendingMachine : MonoBehaviourPun
         }
     }
 
-    public void OnBuyButtonClick(Item item, PlayerController PlayerController)
+    public void OnBuyButtonClick(Item item)
     {
         if (PlayerController.coin >= item.price)
         {

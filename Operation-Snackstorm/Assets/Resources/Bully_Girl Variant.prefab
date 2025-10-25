@@ -351,6 +351,8 @@ MonoBehaviour:
   crouchSpeed: 5
   walkSpeed: 10
   runSpeed: 20
+  skateSpeed: 30
+  moveSpeed: 0
   skateboard: {fileID: 2949845535390978972}
   rideYOffset: -0.5
   playerBody: {fileID: 94154770609280424}
@@ -561,7 +563,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7144363967670570653, guid: d9a4681342b57dc4ab98f06d48ec1c9e, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

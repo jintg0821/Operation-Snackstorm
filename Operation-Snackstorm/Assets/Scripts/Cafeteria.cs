@@ -1,5 +1,4 @@
 using Photon.Pun;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -7,7 +6,8 @@ using UnityEngine.UI;
 
 public class Cafeteria : MonoBehaviourPun
 {
-    public Item[] items;
+    private Item[] allItems;
+    public List<Item> cafeteriaItems;
     
     public GameObject cafeteriaPanel;
     public GameObject cafeteriaContent;
@@ -22,7 +22,14 @@ public class Cafeteria : MonoBehaviourPun
 
     void Start()
     {
-        items = Resources.LoadAll<Item>("Item");
+        allItems = Resources.LoadAll<Item>("Item");
+        foreach (Item item in allItems)
+        {
+            if (item.category != "ÀÚÆÇ±â")
+            {
+                cafeteriaItems.Add(item);
+            }
+        }
         GenerateItem();
     }
 
@@ -50,7 +57,7 @@ public class Cafeteria : MonoBehaviourPun
 
     public void GenerateItem()
     {
-        for (int i = 0; i < items.Length; i++)
+        for (int i = 0; i < cafeteriaItems.Count; i++)
         {
             GameObject itemUIObj = Instantiate(itemUIPrefab, cafeteriaContent.transform);
 
@@ -61,13 +68,13 @@ public class Cafeteria : MonoBehaviourPun
 
             int index = i;
 
-            buyBtn.onClick.AddListener(() => OnBuyButtonClick(items[index]));
+            buyBtn.onClick.AddListener(() => OnBuyButtonClick(cafeteriaItems[index]));
 
-            if (itemUIObj != null && items[index] != null)
+            if (itemUIObj != null && cafeteriaItems[index] != null)
             {
-                itemImage.sprite = items[index].icon;
-                itemName.text = items[index].name;
-                itemPrice.text = items[index].price.ToString();
+                itemImage.sprite = cafeteriaItems[index].icon;
+                itemName.text = cafeteriaItems[index].name;
+                itemPrice.text = cafeteriaItems[index].price.ToString();
             }
         }
     }
