@@ -1,4 +1,5 @@
 using Photon.Pun;
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,18 +9,31 @@ public enum PlayerState
     Idle, 
     Walk, 
     Run, 
-    Crouch 
+    Crouch,
+    Skate,
+    FallDown
 }
 
 public class PlayerMovement : MonoBehaviourPunCallbacks
 {
     public PlayerState currentState = PlayerState.Idle;
+    public bool miniGameStart = false;
 
     [Header("Move Speeds")]
     public float crouchSpeed = 2f;
     public float walkSpeed = 4f;
     public float runSpeed = 6f;
+    private float skateSpeed = 10f;
     private float moveSpeed;
+
+    [SerializeField] private GameObject skateboard;
+    [SerializeField] private float rideYOffset = 0.1f;
+    
+
+    [SerializeField] private Transform playerBody;
+
+    private float originalY;
+    private Vector3 originalCenter;
 
     private float speedMultiplier = 1f;
     private Coroutine speedCoroutine;
@@ -39,6 +53,8 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
     private int _animIDSpeed;
     private int _animIDJump;
     private int _animIDThrow;
+    private int _animIDSkate;
+    private int _animIDFallDown;
 
     [SerializeField] private Animator animator;
     private PlayerController playerController;
@@ -78,10 +94,21 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
             playerController.RequestPunishment();
         }
 
-        if (!playerController.isPanelOn)
+        if (!playerController.isPanelOn && !playerController.miniGameStart)
         {
             CameraLook();
-            PlayerMove();
+            if (playerController.rideSkate)
+                SkateMove();
+            else
+            {
+                if (currentState != PlayerState.Skate && currentState != PlayerState.FallDown)
+                    PlayerMove();
+            }
+        }
+
+        if (playerController.miniGameStart)
+        {
+            CameraLook();
         }
         HandleState();
     }
@@ -91,6 +118,8 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         _animIDSpeed = Animator.StringToHash("Speed");
         _animIDJump = Animator.StringToHash("Jump");
         _animIDThrow = Animator.StringToHash("isThrow");
+        _animIDSkate = Animator.StringToHash("Skate");
+        _animIDFallDown = Animator.StringToHash("FallDown");
     }
 
     void CameraLook()
@@ -125,6 +154,20 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         characterController.Move(velocity * Time.deltaTime);
     }
 
+    void SkateMove()
+    {
+        Vector3 moveVec = transform.forward * skateSpeed * Time.deltaTime;
+        characterController.Move(moveVec);
+
+        if (characterController.isGrounded && velocity.y < 0)
+            velocity.y = -2f;
+
+        velocity.y += gravity * Time.deltaTime;
+        characterController.Move(velocity * Time.deltaTime);
+
+        animator.SetBool(_animIDSkate, true);
+    }
+
     void HandleState()
     {
         bool moveInput =
@@ -134,21 +177,40 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         bool runKey = Input.GetKey(KeyCode.LeftShift);
         bool crouchKey = Input.GetKey(KeyCode.LeftControl);
 
-        if (crouchKey)
+        if (!playerController.rideSkate && currentState != PlayerState.Skate && currentState != PlayerState.FallDown)
         {
-            currentState = moveInput ? PlayerState.Crouch : PlayerState.Crouch;
+            if (crouchKey)
+            {
+                currentState = moveInput ? PlayerState.Crouch : PlayerState.Crouch;
+            }
+            else if (moveInput && runKey)
+            {
+                currentState = PlayerState.Run;
+            }
+            else if (moveInput)
+            {
+                currentState = PlayerState.Walk;
+            }
+            else
+            {
+                currentState = PlayerState.Idle;
+                Debug.Log("1");
+            }
         }
-        else if (moveInput && runKey)
+
+        if (currentState == PlayerState.FallDown)
         {
-            currentState = PlayerState.Run;
+            if (!animator.GetBool(_animIDFallDown))
+                animator.SetBool(_animIDFallDown, true);
+
+            return;
         }
-        else if (moveInput)
+
+        if (playerController.rideSkate)
         {
-            currentState = PlayerState.Walk;
-        }
-        else
-        {
-            currentState = PlayerState.Idle;
+            currentState = PlayerState.Skate;
+            animator.SetBool(_animIDSkate, true);
+            return;
         }
 
         float blendSpeed = 0f;
@@ -188,5 +250,52 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         speedMultiplier = multiplier;
         yield return new WaitForSeconds(duration);
         speedMultiplier = 1f;
+    }
+
+    public void StartSkate()
+    {
+        if (playerController.rideSkate) return;
+
+        originalCenter = characterController.center;
+
+        skateboard.SetActive(true);
+
+        Vector3 newCenter = originalCenter;
+        newCenter.y += rideYOffset;
+        characterController.center = newCenter;
+
+        Vector3 bodyPos = playerBody.localPosition;
+        bodyPos.y += rideYOffset;
+        playerBody.localPosition = bodyPos;
+
+        playerController.rideSkate = true;
+        currentState = PlayerState.Skate;
+        animator.SetBool(_animIDSkate, true);
+    }
+
+    public void OnFallDown()
+    {
+        playerController.rideSkate = false;
+        currentState = PlayerState.FallDown;
+        animator.SetBool(_animIDSkate, false);
+        animator.SetBool(_animIDFallDown, true);
+
+        if (playerController.photonView.IsMine)
+        {
+            playerController.photonView.RPC("RPC_DropRandomItem", RpcTarget.MasterClient);
+        }
+    }
+
+    public void OnFallDownEnd()
+    {
+        characterController.center = originalCenter;
+        playerBody.localPosition = Vector3.zero;
+
+        skateboard.SetActive(false);
+
+        animator.SetBool(_animIDSkate, false);
+        animator.SetBool(_animIDFallDown, false);
+        currentState = PlayerState.Idle;
+        Debug.Log("2");
     }
 }

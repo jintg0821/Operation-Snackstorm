@@ -15,7 +15,6 @@ public class WaterDispenser : MonoBehaviourPun
 
     [Header("References")]
     public Transform waterMesh;
-    public Image fillGauge;
     public TextMeshProUGUI stateText;
 
     private int currentRound = 1;
@@ -24,6 +23,8 @@ public class WaterDispenser : MonoBehaviourPun
     private bool isOverflowing = false;
     private bool isMyRoleA = false;
 
+    [SerializeField] private Transform RoleA_Point;
+    [SerializeField] private Transform RoleB_Point;
     [SerializeField] private Collider WaterArea;
 
     private static List<int> interactingPlayers = new List<int>();
@@ -36,9 +37,7 @@ public class WaterDispenser : MonoBehaviourPun
         {
             PhotonView pv = PhotonView.Find(playerViewID);
             if (pv != null && pv.IsMine)
-            {
                 Debug.Log("이미 다른 플레이어들이 사용 중입니다");
-            }
             return;
         }
 
@@ -54,7 +53,6 @@ public class WaterDispenser : MonoBehaviourPun
 
             stateText.text = "플레이어 대기 중...";
         }
-
         else if (interactingPlayers.Count == 2)
         {
             PhotonView pv = PhotonView.Find(playerViewID);
@@ -72,23 +70,33 @@ public class WaterDispenser : MonoBehaviourPun
         currentRound = 1;
         missionActive = true;
         stateText.text = $"Round {currentRound}/3 - Ready!";
+
+        PhotonView playerPV = GetLocalPlayerView();
+        if (playerPV == null && !interactingPlayers.Contains(playerPV.ViewID)) return;
+
+        SetPlayerPanelState(true);
+
+        if (isMyRoleA)
+            playerPV.transform.position = RoleA_Point.position;
+        else
+            playerPV.transform.position = RoleB_Point.position;
     }
 
     void Update()
     {
         if (!missionActive || isOverflowing) return;
 
+        PhotonView playerPV = GetLocalPlayerView();
+        if (playerPV == null) return;
+        if (!interactingPlayers.Contains(playerPV.ViewID)) return;
+
         // 플레이어 A (정수기 담당)
         if (isMyRoleA && Input.GetKey(KeyCode.X))
-        {
             photonView.RPC("RPC_FillCup", RpcTarget.All, Time.deltaTime);
-        }
 
         // 플레이어 B (컵 교체 담당)
         if (!isMyRoleA && Input.GetKeyDown(KeyCode.C))
-        {
             photonView.RPC("RPC_TrySwap", RpcTarget.All);
-        }
     }
 
     [PunRPC]
@@ -96,11 +104,10 @@ public class WaterDispenser : MonoBehaviourPun
     {
         currentFill += fillSpeed * delta;
         currentFill = Mathf.Clamp01(currentFill);
-        //fillGauge.fillAmount = currentFill;
         UpdateWaterVisual();
 
         if (currentFill >= dangerZoneStart)
-            stateText.text = $"Round {currentRound}/3 - Danger!";
+            stateText.text = $"Round {currentRound}/3 - 위험!";
 
         if (currentFill >= maxFill)
             photonView.RPC("RPC_Overflow", RpcTarget.All);
@@ -137,13 +144,9 @@ public class WaterDispenser : MonoBehaviourPun
         currentRound = round;
 
         if (currentRound > totalRounds)
-        {
             photonView.RPC("RPC_MissionSuccess", RpcTarget.All);
-        }
         else
-        {
             StartCoroutine(NextRound());
-        }
     }
 
     [PunRPC]
@@ -152,8 +155,9 @@ public class WaterDispenser : MonoBehaviourPun
         if (isOverflowing) return;
         isOverflowing = true;
 
-        stateText.text = " Overflow! Mission Failed!";
-        
+        stateText.text = "미션 실패! 물이 넘쳤습니다.";
+        SetPlayerPanelState(false);
+
         StartCoroutine(ApplySlipPenalty(10));
     }
 
@@ -161,7 +165,8 @@ public class WaterDispenser : MonoBehaviourPun
     void RPC_MissionSuccess()
     {
         missionActive = false;
-        stateText.text = " All Success! +10% Speed (15s)";
+        stateText.text = "성공! 15초 동안 이동속도 10% 증가";
+        SetPlayerPanelState(false);
 
         photonView.RPC("RPC_ApplyTeamBuff", RpcTarget.All, 1.1f, 15f);
     }
@@ -183,7 +188,7 @@ public class WaterDispenser : MonoBehaviourPun
         currentFill = 0f;
         UpdateWaterVisual();
         isOverflowing = false;
-        stateText.text = $"Round {currentRound}/3 - Ready!";
+        stateText.text = $"Round {currentRound}/3";
     }
 
     void UpdateWaterVisual()
@@ -214,9 +219,7 @@ public class WaterDispenser : MonoBehaviourPun
         {
             PlayerMovement player = other.GetComponent<PlayerMovement>();
             if (player != null && player.photonView.IsMine)
-            {
                 player.ApplySpeedModifier(0.6f, Mathf.Infinity);
-            }
         }
     }
 
@@ -226,8 +229,30 @@ public class WaterDispenser : MonoBehaviourPun
         {
             PlayerMovement player = other.GetComponent<PlayerMovement>();
             if (player != null && player.photonView.IsMine)
-            {
                 player.ApplySpeedModifier(1f, 0f);
+        }
+    }
+
+    PhotonView GetLocalPlayerView()
+    {
+        foreach (var player in FindObjectsOfType<PhotonView>())
+        {
+            if (player.IsMine && player.CompareTag("Player"))
+                return player;
+        }
+        return null;
+    }
+
+    void SetPlayerPanelState(bool state)
+    {
+        foreach (int id in interactingPlayers)
+        {
+            PhotonView pv = PhotonView.Find(id);
+            if (pv != null)
+            {
+                PlayerController pc = pv.GetComponent<PlayerController>();
+                if (pc != null)
+                    pc.miniGameStart = state;
             }
         }
     }

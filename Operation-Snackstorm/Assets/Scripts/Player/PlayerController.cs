@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public int totalPoint;
 
     public bool isPanelOn = false;
+    public bool miniGameStart = false;
+    public bool rideSkate = false;
 
     [SerializeField] private float wallTime;
     private bool isFireExtinguisherExplode;
@@ -32,6 +34,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private VendingMachine vendingMachine;
     private Cafeteria cafeteria;
     public CharacterController characterController;
+    private PlayerMovement playerMovement;
     private TestHotbar testHotbar;
     private WaterDispenser waterDispenser;
 
@@ -69,6 +72,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             vendingMachine = FindObjectOfType<VendingMachine>();
             VendingMachineUI = FindObjectOfType<VendingMachineUI>();
             characterController = GetComponent<CharacterController>();
+            playerMovement = GetComponent<PlayerMovement>();
             testHotbar = FindObjectOfType<TestHotbar>();
             waterDispenser = FindObjectOfType<WaterDispenser>();
         }
@@ -118,6 +122,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
             if (!isPanelOn)
             {
+                if (Input.GetKeyDown(KeyCode.Y))
+                {
+                    playerMovement.StartSkate();
+                }
                 if (Input.GetKeyDown(KeyCode.L))
                 {
                     GetBonusPoint(10);
@@ -255,6 +263,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 StartCoroutine(WallCoolTime());
             }
         }
+        if (hit.gameObject.layer == 8 && rideSkate)
+        {
+            playerMovement.OnFallDown();
+        }    
     }
 
     private IEnumerator WallCoolTime()
@@ -283,6 +295,27 @@ public class PlayerController : MonoBehaviourPunCallbacks
             else
             {
                 Debug.LogWarning($"Random item not found.");
+            }
+        }
+    }
+
+    [PunRPC]
+    private void RPC_DropRandomItem()
+    {
+        if (inventory != null && inventory.items.Count > 0)
+        {
+            int randNum = Random.Range(0, inventory.items.Count);
+            Item item = inventory.items[randNum];
+            if (item != null)
+            {
+                float dropRadius = 2f;
+
+                Vector2 randomCircle = Random.insideUnitCircle * dropRadius;
+                Vector3 randomOffset = new Vector3(randomCircle.x, 0f, randomCircle.y);
+                Vector3 itemDropPoint = transform.position + randomOffset + Vector3.up * 0.5f;
+
+                GameObject itemObj = PhotonNetwork.Instantiate($"Prefabs/Items/{item.prefab.name}", itemDropPoint, Quaternion.identity);
+                inventory.RemoveItem(item);
             }
         }
     }
@@ -384,43 +417,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
     void RPC_RequestPunishment()
     {
         GameManager.Instance.StartPunishment(photonView.ViewID);
-    }
-
-    public void ApplyPenaltyPoints(int points)
-    {
-        ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
-
-        int currentPoints = 0;
-        if (photonView.Owner.CustomProperties.ContainsKey("MinusPoint"))
-        {
-            currentPoints = (int)photonView.Owner.CustomProperties["MinusPoint"];
-        }
-
-        currentPoints += points;
-        hash.Add("MinusPoint", currentPoints);
-
-        photonView.Owner.SetCustomProperties(hash);
-    }
-
-    public void ShowPenaltyText(string message, float duration)
-    {
-        photonView.RPC("RPC_ShowPenaltyText", RpcTarget.All, message, duration);
-    }
-
-    [PunRPC]
-    private void RPC_ShowPenaltyText(string message, float duration)
-    {
-        StartCoroutine(PenaltyTextCoroutine(message, duration));
-    }
-
-    private IEnumerator PenaltyTextCoroutine(string message, float duration)
-    {
-        penaltyText.text = message;
-        penaltyText.gameObject.SetActive(true);
-
-        yield return new WaitForSeconds(duration);
-
-        penaltyText.gameObject.SetActive(false);
     }
 
     public void AddNextRoundCoin(int amount)

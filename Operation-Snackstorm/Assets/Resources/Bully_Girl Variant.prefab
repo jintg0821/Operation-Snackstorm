@@ -208,7 +208,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3462852073536655532, guid: 59302b886178e374db835e5e3540003b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3462852073536655532, guid: 59302b886178e374db835e5e3540003b, type: 3}
       propertyPath: m_LocalPosition.y
@@ -257,6 +257,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3462852073536655532, guid: 59302b886178e374db835e5e3540003b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 94154770609280424}
+    - targetCorrespondingSourceObject: {fileID: 3462852073536655532, guid: 59302b886178e374db835e5e3540003b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1593080732018001289}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2269866992568265883, guid: 59302b886178e374db835e5e3540003b, type: 3}
       insertIndex: -1
@@ -344,9 +347,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
+  miniGameStart: 0
   crouchSpeed: 5
   walkSpeed: 10
   runSpeed: 20
+  skateboard: {fileID: 2949845535390978972}
+  rideYOffset: -0.5
+  playerBody: {fileID: 94154770609280424}
   gravity: -12
   mouseSpeed: 125
   yRotation: 0
@@ -375,6 +382,8 @@ MonoBehaviour:
   minusPoint: 0
   totalPoint: 0
   isPanelOn: 0
+  miniGameStart: 0
+  rideSkate: 0
   wallTime: 1
   isCatchable: 1
   inventory: {fileID: 0}
@@ -435,7 +444,7 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 6.15
+  m_Height: 6
   m_Radius: 0.6
   m_SlopeLimit: 100
   m_StepOffset: 1.5
@@ -466,6 +475,12 @@ MonoBehaviour:
   - Type: 4
     SynchronizeType: 1
     Name: isThrow
+  - Type: 4
+    SynchronizeType: 0
+    Name: Skate
+  - Type: 4
+    SynchronizeType: 0
+    Name: FallDown
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
@@ -491,4 +506,75 @@ MonoBehaviour:
 Transform:
   m_CorrespondingSourceObject: {fileID: 3462852073536655532, guid: 59302b886178e374db835e5e3540003b, type: 3}
   m_PrefabInstance: {fileID: 981656269067009481}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5461201480035507457
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4436343264826010981}
+    m_Modifications:
+    - target: {fileID: 6760421681642690696, guid: d9a4681342b57dc4ab98f06d48ec1c9e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760421681642690696, guid: d9a4681342b57dc4ab98f06d48ec1c9e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760421681642690696, guid: d9a4681342b57dc4ab98f06d48ec1c9e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760421681642690696, guid: d9a4681342b57dc4ab98f06d48ec1c9e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760421681642690696, guid: d9a4681342b57dc4ab98f06d48ec1c9e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760421681642690696, guid: d9a4681342b57dc4ab98f06d48ec1c9e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760421681642690696, guid: d9a4681342b57dc4ab98f06d48ec1c9e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760421681642690696, guid: d9a4681342b57dc4ab98f06d48ec1c9e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760421681642690696, guid: d9a4681342b57dc4ab98f06d48ec1c9e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6760421681642690696, guid: d9a4681342b57dc4ab98f06d48ec1c9e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7144363967670570653, guid: d9a4681342b57dc4ab98f06d48ec1c9e, type: 3}
+      propertyPath: m_Name
+      value: Skateboard
+      objectReference: {fileID: 0}
+    - target: {fileID: 7144363967670570653, guid: d9a4681342b57dc4ab98f06d48ec1c9e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d9a4681342b57dc4ab98f06d48ec1c9e, type: 3}
+--- !u!4 &1593080732018001289 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6760421681642690696, guid: d9a4681342b57dc4ab98f06d48ec1c9e, type: 3}
+  m_PrefabInstance: {fileID: 5461201480035507457}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2949845535390978972 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7144363967670570653, guid: d9a4681342b57dc4ab98f06d48ec1c9e, type: 3}
+  m_PrefabInstance: {fileID: 5461201480035507457}
   m_PrefabAsset: {fileID: 0}
