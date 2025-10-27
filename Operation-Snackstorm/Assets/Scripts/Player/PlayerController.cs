@@ -24,6 +24,14 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public bool miniGameStart = false;
     public bool rideSkate = false;
 
+    [Header("Mop")]
+    [SerializeField] private GameObject MopObj;
+
+    private bool isHoldingMop = false;
+    public bool isMopping = false;
+    public bool isAttacking = false;
+    public bool isHit = false;
+
     [SerializeField] private float wallTime;
     private bool isFireExtinguisherExplode;
 
@@ -33,7 +41,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private VendingMachine vendingMachine;
     private Cafeteria cafeteria;
     public CharacterController characterController;
-    private PlayerMovement playerMovement;
+    public PlayerMovement playerMovement;
+    private PlayerAnimController playerAnimController;
     private TestHotbar testHotbar;
     private WaterDispenser waterDispenser;
 
@@ -71,6 +80,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             vendingMachine = FindObjectOfType<VendingMachine>();
             characterController = GetComponent<CharacterController>();
             playerMovement = GetComponent<PlayerMovement>();
+            playerAnimController = GetComponent<PlayerAnimController>();
             testHotbar = FindObjectOfType<TestHotbar>();
             waterDispenser = FindObjectOfType<WaterDispenser>();
         }
@@ -115,10 +125,20 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
             if (!isPanelOn)
             {
-                if (Input.GetKeyDown(KeyCode.Y))
+                if (isHoldingMop)
                 {
-                    playerMovement.StartSkate();
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        if (!isAttacking)
+                            Attack();
+                    }
+                    if (Input.GetMouseButtonDown(1))
+                    {
+                        if (!isMopping)
+                            Mopping();
+                    }
                 }
+
                 if (Input.GetKeyDown(KeyCode.L))
                 {
                     GetBonusPoint(10);
@@ -139,11 +159,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 }
                 if (Input.GetKeyDown(KeyCode.Alpha1))
                 {
-                    testHotbar.ChangeItem(0);
+                    playerMovement.StartSkate();
                 }
                 if (Input.GetKeyDown(KeyCode.Alpha2))
                 {
-                    testHotbar.ChangeItem(1);
+                    MopObj.SetActive(!isHoldingMop);
+                    isHoldingMop = !isHoldingMop;
                 }
                 if (Input.GetKeyDown(KeyCode.Alpha3))
                 {
@@ -248,6 +269,43 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 //}
             }
         }
+    }
+
+    void Mopping()
+    {
+        isMopping = true;
+
+        playerAnimController.SetMop(isMopping);
+    }
+
+    public void MoppingEnd()
+    {
+        isMopping = false;
+
+        playerAnimController.SetMop(isMopping);
+    }
+
+    void Attack()
+    {
+        isAttacking = true;
+
+        playerAnimController.SetAttack(isAttacking);
+    }
+
+    public void AttackEnd()
+    {
+        isAttacking = false;
+
+        playerAnimController.SetAttack(isAttacking);
+    }
+
+    public void Hit()
+    {
+        if (isHit) return;
+
+        isHit = true;
+
+        playerMovement.OnFallDown();
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)

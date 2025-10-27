@@ -217,18 +217,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1276034262}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
 --- !u!114 &17220954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1428,6 +1416,8 @@ MonoBehaviour:
   roomNameInput: {fileID: 445714740}
   roomListContent: {fileID: 2006989820}
   roomSlotPrefab: {fileID: 2403383963857477319, guid: 1182880ecc0db0f45a8d6df9048aa852, type: 3}
+  nicknamePanel: {fileID: 1946827433}
+  lobbyPanel: {fileID: 1276034262}
   gameSceneName: GameScene
 --- !u!4 &1151300841
 Transform:

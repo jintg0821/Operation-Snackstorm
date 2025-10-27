@@ -11,6 +11,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     [SerializeField] private TMP_InputField roomNameInput;
     [SerializeField] private Transform roomListContent;
     [SerializeField] private GameObject roomSlotPrefab;
+    [SerializeField] private GameObject nicknamePanel;
+    [SerializeField] private GameObject lobbyPanel;
 
     [SerializeField] private string gameSceneName = "GameScene";
 
@@ -38,6 +40,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
         PhotonNetwork.NickName = nicknameInput.text;
         Debug.Log("닉네임 설정됨: " + PhotonNetwork.NickName);
+        nicknamePanel.SetActive(false);
+        lobbyPanel.SetActive(true);
     }
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)

@@ -56,16 +56,16 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
     private int _animIDSkate;
     private int _animIDFallDown;
 
-    [SerializeField] private Animator animator;
     private PlayerController playerController;
     private CharacterController characterController;
+    private PlayerAnimController playerAnimController;
 
     void Start()
     {
-        AssignAnimationIDs();
         cam = GetComponentInChildren<Camera>();
         characterController = GetComponent<CharacterController>();
-        animator = GetComponent<Animator>();
+        playerAnimController = GetComponent<PlayerAnimController>();
+        playerController = GetComponent<PlayerController>();
 
         if (!photonView.IsMine)
         {
@@ -80,7 +80,6 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
             {
                 cam.gameObject.SetActive(true);
             }
-            playerController = GetComponent<PlayerController>();
         }
     }
 
@@ -111,15 +110,6 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
             CameraLook();
         }
         HandleState();
-    }
-
-    private void AssignAnimationIDs()
-    {
-        _animIDSpeed = Animator.StringToHash("Speed");
-        _animIDJump = Animator.StringToHash("Jump");
-        _animIDThrow = Animator.StringToHash("isThrow");
-        _animIDSkate = Animator.StringToHash("Skate");
-        _animIDFallDown = Animator.StringToHash("FallDown");
     }
 
     void CameraLook()
@@ -165,7 +155,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         velocity.y += gravity * Time.deltaTime;
         characterController.Move(velocity * Time.deltaTime);
 
-        animator.SetBool(_animIDSkate, true);
+        playerAnimController.SetSkate(true);
     }
 
     void HandleState()
@@ -199,8 +189,8 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
 
         if (currentState == PlayerState.FallDown)
         {
-            if (!animator.GetBool(_animIDFallDown))
-                animator.SetBool(_animIDFallDown, true);
+            if (!playerAnimController.GetFallDown())
+                playerAnimController.SetFallDown(true);
 
             return;
         }
@@ -208,7 +198,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         if (playerController.rideSkate)
         {
             currentState = PlayerState.Skate;
-            animator.SetBool(_animIDSkate, true);
+            playerAnimController.SetSkate(true);
             return;
         }
 
@@ -233,7 +223,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
                 blendSpeed = crouchSpeed;
                 break;
         }
-        animator.SetFloat(_animIDSpeed, blendSpeed);
+        playerAnimController.SetSpeed(blendSpeed);
     }
 
     public void ApplySpeedModifier(float multiplier, float duration)
@@ -269,31 +259,39 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
 
         playerController.rideSkate = true;
         currentState = PlayerState.Skate;
-        animator.SetBool(_animIDSkate, true);
+        playerAnimController.SetSkate(true);
     }
 
     public void OnFallDown()
     {
-        playerController.rideSkate = false;
-        currentState = PlayerState.FallDown;
-        animator.SetBool(_animIDSkate, false);
-        animator.SetBool(_animIDFallDown, true);
-
-        if (playerController.photonView.IsMine)
+        if (playerController.rideSkate)
         {
-            playerController.photonView.RPC("RPC_DropRandomItem", RpcTarget.MasterClient);
+            playerController.rideSkate = false;
+            playerAnimController.SetSkate(false);
+
+            if (playerController.photonView.IsMine)
+            {
+                playerController.photonView.RPC("RPC_DropRandomItem", RpcTarget.MasterClient);
+            }
         }
+        
+        currentState = PlayerState.FallDown;
+        playerAnimController.SetFallDown(true);
     }
 
     public void OnFallDownEnd()
     {
-        characterController.center = originalCenter;
-        playerBody.localPosition = Vector3.zero;
+        if (skateboard.activeInHierarchy)
+        {
+            characterController.center = originalCenter;
+            playerBody.localPosition = Vector3.zero;
+        }
 
         skateboard.SetActive(false);
+        playerController.isHit = false;
 
-        animator.SetBool(_animIDSkate, false);
-        animator.SetBool(_animIDFallDown, false);
+        playerAnimController.SetSkate(false);
+        playerAnimController.SetFallDown(false);
         currentState = PlayerState.Idle;
         Debug.Log("2");
     }
