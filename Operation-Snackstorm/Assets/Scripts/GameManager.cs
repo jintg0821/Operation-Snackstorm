@@ -10,10 +10,12 @@ public class GameManager : MonoBehaviourPunCallbacks
     public static GameManager Instance;
 
     public Transform spawnPoint;
+    public Collider PointArea;
 
     [SerializeField] private List<PhotonView> players = new List<PhotonView>();
     [SerializeField] private GameObject[] startWalls;
     public List<GameObject> aiList = new List<GameObject>();
+    [SerializeField] private List<PhotonView> inPointAreaPlayers = new List<PhotonView>();
 
     [SerializeField] private bool roundStart = false;
 
@@ -225,7 +227,14 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             if (players.Contains(pv) && pv.IsMine)
             {
-                if (pv.gameObject.TryGetComponent<PlayerController>(out PlayerController playerController))
+                if (!inPointAreaPlayers.Contains(pv))
+                {
+                    ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
+                    hash["RoundPoint"] = 0;
+                    pv.Owner.SetCustomProperties(hash);
+                    continue;
+                }
+                else if (pv.gameObject.TryGetComponent<PlayerController>(out PlayerController playerController))
                 {
                     playerController.GetRoundPoint();
                     playerController.UpdateTotalPoint();
@@ -240,6 +249,8 @@ public class GameManager : MonoBehaviourPunCallbacks
                 }
             }
         }
+
+        inPointAreaPlayers.Clear();
     }
 
     public override void OnPlayerPropertiesUpdate(Photon.Realtime.Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
@@ -378,6 +389,30 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (targetPV != null && targetPV.IsMine)
         {
             TrashCleanupMission.Instance.StartMission(targetPV.GetComponent<PlayerController>());
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            PhotonView player = other.GetComponent<PhotonView>();
+            if (!inPointAreaPlayers.Contains(player))
+            {
+                inPointAreaPlayers.Add(player);
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            PhotonView player = other.GetComponent<PhotonView>();
+            if (inPointAreaPlayers.Contains(player))
+            {
+                inPointAreaPlayers.Remove(player);
+            }
         }
     }
 }

@@ -189,6 +189,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
 
         if (currentState == PlayerState.FallDown)
         {
+            playerAnimController.SetSkate(false);
             if (!playerAnimController.GetFallDown())
                 playerAnimController.SetFallDown(true);
 
@@ -266,13 +267,14 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
     {
         if (playerController.rideSkate)
         {
-            playerController.rideSkate = false;
             playerAnimController.SetSkate(false);
 
             if (playerController.photonView.IsMine)
             {
                 playerController.photonView.RPC("RPC_DropRandomItem", RpcTarget.MasterClient);
             }
+
+            playerController.rideSkate = false;
         }
         
         currentState = PlayerState.FallDown;
