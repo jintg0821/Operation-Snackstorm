@@ -19,6 +19,8 @@ public class VendingMachine : MonoBehaviourPun
     [SerializeField] private GameObject slotPrefab; // ½½·Ô Prefab
 
     [SerializeField] private PlayerController PlayerController;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip audioClip;
 
     public void Start()
     {
@@ -31,8 +33,6 @@ public class VendingMachine : MonoBehaviourPun
                 availableItems.Add(item);
             }
         }
-
-        GenerateItem();
     }
 
     void Update()
@@ -50,6 +50,11 @@ public class VendingMachine : MonoBehaviourPun
 
     public void GenerateItem()
     {
+        foreach (Transform child in slotParent)
+        {
+            Destroy(child.gameObject);
+        }
+
         for (int i = 0; i < availableItems.Count; i++)
         {
             GameObject itemUIObj = Instantiate(slotPrefab, slotParent.transform);
@@ -76,20 +81,27 @@ public class VendingMachine : MonoBehaviourPun
     {
         vendingMachineOpen = !vendingMachineUI.activeSelf;
         vendingMachineUI.SetActive(vendingMachineOpen);
+        GenerateItem();
 
         PlayerController = playerController;
         PlayerController.isPanelOn = vendingMachineOpen;
     }
 
     [PunRPC]
-    void RPC_VenBuy(string id, int actorNumber)
+    void RPC_VenBuy(string id, int actorNumber, int vendingViewID)
     {
+        PhotonView targetView = PhotonView.Find(vendingViewID);
+        if (targetView == null) return;
+
+        VendingMachine targetVM = targetView.GetComponent<VendingMachine>();
+        if (targetVM == null) return;
+
         if (PhotonNetwork.LocalPlayer.ActorNumber == actorNumber)
         {
             Item item = Resources.Load<Item>($"Item/{id}");
             if (item != null)
             {
-                GameObject itemObj = PhotonNetwork.Instantiate($"Prefabs/Items/{item.prefab.name}", itemSpawnPoint.position, Quaternion.identity);
+                GameObject itemObj = PhotonNetwork.Instantiate($"Prefabs/Items/{item.prefab.name}",targetVM.itemSpawnPoint.position,Quaternion.identity);
 
                 itemObj.transform.localScale = Vector3.one;
 
@@ -110,7 +122,8 @@ public class VendingMachine : MonoBehaviourPun
 
             if (PlayerController.photonView.IsMine)
             {
-                photonView.RPC("RPC_VenBuy", RpcTarget.All, item.id, PhotonNetwork.LocalPlayer.ActorNumber);
+                photonView.RPC("RPC_VenBuy", RpcTarget.All, item.id, PhotonNetwork.LocalPlayer.ActorNumber, photonView.ViewID);
+                audioSource.PlayOneShot(audioClip);
             }
         }
     }

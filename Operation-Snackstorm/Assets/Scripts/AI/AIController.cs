@@ -142,15 +142,15 @@ public class AIController : MonoBehaviourPun
             }
         }
 
-        if (seeTarget)
+        if (seeTarget)  // 시야에 플레이어가 있다면
         {
-            currentState = AIState.Chase;
+            currentState = AIState.Chase;   // 추적 상태
         }
         else
         {
-            if (currentState != AIState.Chase)
+            if (currentState != AIState.Chase)  //시야에 플레이어가 없으며 추적 상태가 아니라면
             {
-                currentState = AIState.Patrol;
+                currentState = AIState.Patrol;  // 순찰 상태
             }
         }
     }
@@ -203,26 +203,26 @@ public class AIController : MonoBehaviourPun
 
     void ChaseTarget()
     {
-        if (target == null)
+        if (target == null)                 // 타겟이 없으면
         {
-            currentState = AIState.Patrol;
+            currentState = AIState.Patrol;  // 순찰 상태
             return;
         }
 
         PlayerController player = target.GetComponent<PlayerController>();
-        if (player == null || !player.isCatchable)
+        if (player == null || !player.isCatchable)  // 플레이어를 잡을 수 없는 상태라면
         {
-            target = null;
-            currentState = AIState.Patrol;
+            target = null;                          // 타겟을 null 로 바꾼 후
+            currentState = AIState.Patrol;          // 순찰 상태
             agent.SetDestination(patrolPoints[currentIndex].position);
             return;
         }
 
         float distance = Vector3.Distance(transform.position, target.position);
-        if (distance > losetargetDistance)
+        if (distance > losetargetDistance)  // 타겟 플레이어와의 거리가 멀어지면
         {
-            target = null;
-            currentState = AIState.Patrol;
+            target = null;                  // 타겟을 null로 바꾼 후
+            currentState = AIState.Patrol;  //순찰 상태
             return;
         }
 

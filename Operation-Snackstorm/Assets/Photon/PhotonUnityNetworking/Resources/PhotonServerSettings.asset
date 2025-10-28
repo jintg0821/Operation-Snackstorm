@@ -77,6 +77,10 @@ MonoBehaviour:
   - RPC_StartGame
   - RPC_RequestArtDestroy
   - RPC_Restart
+  - RPC_RestartGame
+  - RPC_TakeHit
+  - RPC_MopHit
+  - RPC_SelfHit
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

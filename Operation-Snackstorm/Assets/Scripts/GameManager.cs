@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Linq;
 
 public class GameManager : MonoBehaviourPunCallbacks
@@ -42,6 +43,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject totalPointPanel;
     [SerializeField] private GameObject totalPointSlotPrefab;
     [SerializeField] private Transform totalPointSlotContent;
+
+    [SerializeField] private GameObject resultOptionPanel;
     #endregion
 
     private int playersUpdated = 0;
@@ -242,9 +245,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                     var playerCC = playerController.GetComponent<CharacterController>();
                     if (playerCC != null)
                     {
-                        playerCC.enabled = false;
-                        pv.transform.position = spawnPoint.position;
-                        playerCC.enabled = true;
+                        StartCoroutine(Stop_CC(playerCC));
                     }
                 }
             }
@@ -285,20 +286,34 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             totalPointPanel.SetActive(true);
             SetTotalPointPanel();
+
+            yield return new WaitForSeconds(5f);
+
+            PhotonView[] photonViews = FindObjectsOfType<PhotonView>();
+
+            foreach (PhotonView pv in photonViews)
+            {
+                if (players.Contains(pv) && pv.IsMine)
+                {
+                    if (pv.gameObject.TryGetComponent<PlayerController>(out PlayerController playerController))
+                    {
+                        playerController.isPanelOn = true;
+                    }
+                }
+            }
+                totalPointPanel.SetActive(false);
+
+            resultOptionPanel.SetActive(true);
         }
         else
         {
             pointPanel.SetActive(true);
             SetPointPanel();
-        }
 
-        yield return new WaitForSeconds(5f);
-        pointPanel.SetActive(false);
-        totalPointPanel.SetActive(false);
+            yield return new WaitForSeconds(5f);
+            pointPanel.SetActive(false);
 
-        if (PhotonNetwork.IsMasterClient)
-        {
-            if (currentRound < maxRound)
+            if (PhotonNetwork.IsMasterClient)
             {
                 NextRound();
             }
@@ -390,6 +405,81 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             TrashCleanupMission.Instance.StartMission(targetPV.GetComponent<PlayerController>());
         }
+    }
+
+    public void OnClick_PlayAgain()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            photonView.RPC("RPC_RestartGame", RpcTarget.All);
+        }
+    }
+
+    [PunRPC]
+    void RPC_RestartGame()
+    {
+        currentRound = 1;
+        roundText.text = $"Round {currentRound}";
+        currentTimerTime = timerTime;
+        onTimer = false;
+
+        inPointAreaPlayers.Clear();
+        playersUpdated = 0;
+
+        foreach (var playerObj in FindObjectsOfType<PlayerController>())
+        {
+            var pv = playerObj.GetComponent<PhotonView>();
+            if (pv != null && pv.IsMine)
+            {
+                CharacterController cc = playerObj.GetComponent<CharacterController>();
+                if (cc != null) cc.enabled = false;
+
+                playerObj.transform.position = spawnPoint.position;
+
+                if (cc != null) cc.enabled = true;
+                playerObj.isPanelOn = false;
+            }
+        }
+
+        foreach (var ai in aiList)
+        {
+            if (ai != null)
+            {
+                ai.SetActive(false);
+            }
+        }
+
+        pointPanel.SetActive(false);
+        totalPointPanel.SetActive(false);
+        resultOptionPanel.SetActive(false);
+    }
+
+    public void OnClick_ReturnToLobby()
+    {
+        StartCoroutine(ReturnToLobbyCoroutine());
+    }
+
+    IEnumerator ReturnToLobbyCoroutine()
+    {
+        PhotonNetwork.LeaveRoom();
+
+        while (PhotonNetwork.InRoom)
+            yield return null;
+
+        SceneManager.LoadScene("LobbyScene");
+    }
+
+    public void OnClick_QuitGame()
+    {
+        Application.Quit();
+    }
+
+    IEnumerator Stop_CC(CharacterController cc)
+    {
+        cc.enabled = false;
+        cc.transform.position = spawnPoint.position;
+        yield return new WaitForSeconds(0.5f);
+        cc.enabled = true;
     }
 
     private void OnTriggerEnter(Collider other)

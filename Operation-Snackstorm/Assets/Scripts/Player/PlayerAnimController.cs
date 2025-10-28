@@ -56,6 +56,7 @@ public class PlayerAnimController : MonoBehaviour
         animator.SetBool(_animIDMop, isMop);
     }
 
+
     public void SetAttack(bool isAttacking)
     {
         animator.SetBool (_animIDAttack, isAttacking);

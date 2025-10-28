@@ -39,11 +39,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public bool isCatchable = true;
 
     public Inventory inventory;
-    private VendingMachine vendingMachine;
     private Cafeteria cafeteria;
     public CharacterController characterController;
     public PlayerMovement playerMovement;
-    private PlayerAnimController playerAnimController;
+    [SerializeField]  private PlayerAnimController playerAnimController;
     private TestHotbar testHotbar;
     private WaterDispenser waterDispenser;
     private ArtClassroom art;
@@ -75,14 +74,14 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             GameManager.Instance.RegisterPlayer(photonView);
         }
+
+        playerMovement = GetComponent<PlayerMovement>();
+        playerAnimController = GetComponent<PlayerAnimController>();
+        characterController = GetComponent<CharacterController>();
         if (photonView.IsMine)
         {
             inventory = GetComponent<Inventory>();
             cafeteria = FindObjectOfType<Cafeteria>();
-            vendingMachine = FindObjectOfType<VendingMachine>();
-            characterController = GetComponent<CharacterController>();
-            playerMovement = GetComponent<PlayerMovement>();
-            playerAnimController = GetComponent<PlayerAnimController>();
             testHotbar = FindObjectOfType<TestHotbar>();
             waterDispenser = FindObjectOfType<WaterDispenser>();
             art = FindObjectOfType<ArtClassroom>();
@@ -238,7 +237,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
                 if (hit.collider.CompareTag("VendingMachine"))
                 {
-                    vendingMachine.OnvendingMachinePanel(this);
+                    VendingMachine vendingMachine = hit.collider.GetComponent<VendingMachine>();
+                    if (vendingMachine != null)
+                        vendingMachine.OnvendingMachinePanel(this);
                 }
 
                 if (hit.collider.CompareTag("Door"))
@@ -285,29 +286,31 @@ public class PlayerController : MonoBehaviourPunCallbacks
     void Mopping()
     {
         isMopping = true;
-
-        playerAnimController.SetMop(isMopping);
+        if (playerAnimController != null)
+            playerAnimController.SetMop(isMopping);
     }
 
     public void MoppingEnd()
     {
+        if (!photonView.IsMine) return;
         isMopping = false;
-
-        playerAnimController.SetMop(isMopping);
+        if (playerAnimController != null)
+            playerAnimController.SetMop(isMopping);
     }
 
     void Attack()
     {
         isAttacking = true;
-
-        playerAnimController.SetAttack(isAttacking);
+        if (playerAnimController != null)
+            playerAnimController.SetAttack(isAttacking);
     }
 
     public void AttackEnd()
     {
+        if (!photonView.IsMine) return;
         isAttacking = false;
-
-        playerAnimController.SetAttack(isAttacking);
+        if (playerAnimController != null)
+            playerAnimController.SetAttack(isAttacking);
     }
 
     public void Hit()
@@ -315,8 +318,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
         if (isHit) return;
 
         isHit = true;
-
-        playerMovement.OnFallDown();
+        if (photonView.IsMine && playerMovement != null)
+            playerMovement.OnFallDown();
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
@@ -332,8 +335,15 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
         if (hit.gameObject.layer == 8 && rideSkate)
         {
-            playerMovement.OnFallDown();
+            if (playerMovement != null)
+                photonView.RPC("RPC_SelfHit", RpcTarget.All);
         }    
+    }
+
+    [PunRPC]
+    void RPC_SelfHit() 
+    { 
+        Hit(); 
     }
 
     private IEnumerator WallCoolTime()
@@ -392,10 +402,22 @@ public class PlayerController : MonoBehaviourPunCallbacks
         if (stream.IsWriting)
         {
             stream.SendNext(isCatchable);
+            stream.SendNext(isAttacking);
+            stream.SendNext(isMopping);
+            stream.SendNext(isHit);
         }
         else
         {
             isCatchable = (bool)stream.ReceiveNext();
+            isAttacking = (bool)stream.ReceiveNext();
+            isMopping = (bool)stream.ReceiveNext();
+            isHit = (bool)stream.ReceiveNext();
+        }
+        if (!stream.IsWriting && playerAnimController != null)
+        {
+            playerAnimController.SetAttack(isAttacking);
+            playerAnimController.SetMop(isMopping);
+            playerAnimController.SetFallDown(isHit);
         }
     }
 

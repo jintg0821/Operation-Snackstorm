@@ -46,9 +46,9 @@ public class ArtClassroom : MonoBehaviourPunCallbacks
         List<Transform> spawnPoints = new List<Transform> { artPoint1, artPoint2 };
         ShuffleList(spawnPoints);
 
-        GameObject newSpawnedArt1 = PhotonNetwork.Instantiate($"Prefabs/Arts/{artList[0].name}", spawnPoints[0].position, Quaternion.identity);
+        GameObject newSpawnedArt1 = PhotonNetwork.Instantiate($"Picture/Prefab/{artList[0].name}", spawnPoints[0].position, Quaternion.identity);
 
-        GameObject newSpawnedArt2 = PhotonNetwork.Instantiate($"Prefabs/Arts/{artList[1].name}", spawnPoints[1].position, Quaternion.identity);
+        GameObject newSpawnedArt2 = PhotonNetwork.Instantiate($"Picture/Prefab/{artList[1].name}", spawnPoints[1].position, Quaternion.identity);
 
         spawnedArt1 = newSpawnedArt1;
         spawnedArt2 = newSpawnedArt2;

@@ -28,7 +28,6 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
 
     [SerializeField] private GameObject skateboard;
     [SerializeField] private float rideYOffset = 0.1f;
-    
 
     [SerializeField] private Transform playerBody;
 
@@ -37,6 +36,10 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
 
     private float speedMultiplier = 1f;
     private Coroutine speedCoroutine;
+
+    [Header("Audio")]
+    public AudioClip[] FootstepAudioClips;
+    public AudioSource footstepSource;
 
     [Header("Gravity")]
     public float gravity = -9.81f;
@@ -59,6 +62,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
     private CharacterController characterController;
     private PlayerAnimController playerAnimController;
     private Camera activeCam;
+    
 
     void Start()
     {
@@ -311,6 +315,15 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
             playerController.fpsCam.gameObject.SetActive(firstPerson);
             playerController.tpsCam.gameObject.SetActive(!firstPerson);
             activeCam = firstPerson ? playerController.fpsCam : playerController.tpsCam;
+        }
+    }
+
+    private void OnFootstep(AnimationEvent animationEvent)
+    {
+        if (animationEvent.animatorClipInfo.weight > 0.5f && FootstepAudioClips.Length > 0)
+        {
+            int index = Random.Range(0, FootstepAudioClips.Length);
+            footstepSource.PlayOneShot(FootstepAudioClips[index]);
         }
     }
 }
