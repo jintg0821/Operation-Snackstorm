@@ -50,8 +50,6 @@ MonoBehaviour:
   - RPC_RequestNextRound
   - RPC_Buy
   - RPC_ToggleDoor
-  - RPC_DestroyItem
-  - RPC_RequestDestroyItem
   - RPC_RequestDestroy
   - RPC_ExecutePunishment
   - RPC_RequestPunishment
@@ -74,6 +72,11 @@ MonoBehaviour:
   - RPC_UpdateRound
   - RPC_DropRandomItem
   - Hit
+  - RPC_EndGame
+  - RPC_GenerateQuestion
+  - RPC_StartGame
+  - RPC_RequestArtDestroy
+  - RPC_Restart
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

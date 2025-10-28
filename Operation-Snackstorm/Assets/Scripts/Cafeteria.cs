@@ -13,6 +13,10 @@ public class Cafeteria : MonoBehaviourPun
     public GameObject cafeteriaContent;
     public Transform itemSpawnPoint;
 
+
+    private Dictionary<string, int> originalPrices = new Dictionary<string, int>();
+    bool discountApplied = false;
+
     [Header("Item")]
     public GameObject itemUIPrefab;
 
@@ -30,6 +34,12 @@ public class Cafeteria : MonoBehaviourPun
                 cafeteriaItems.Add(item);
             }
         }
+
+        foreach (Item item in cafeteriaItems)
+        {
+            originalPrices[item.id] = item.price;
+        }
+
         GenerateItem();
     }
 
@@ -53,6 +63,47 @@ public class Cafeteria : MonoBehaviourPun
 
         PlayerController = playerController;
         PlayerController.isPanelOn = isCafeteriaPanelOpen;
+
+        if (PlayerController.artVIPCard && !discountApplied)
+        {
+            ApplyDiscount(2);
+        }
+        else if (!PlayerController.artVIPCard && discountApplied)
+        {
+            RestoreOriginalPrices();
+        }
+
+        RefreshUI();
+    }
+
+    void ApplyDiscount(int amount)
+    {
+        foreach (Item item in cafeteriaItems)
+        {
+            item.price = Mathf.Max(0, item.price - amount);
+        }
+        discountApplied = true;
+    }
+
+    void RestoreOriginalPrices()
+    {
+        foreach (Item item in cafeteriaItems)
+        {
+            if (originalPrices.ContainsKey(item.id))
+            {
+                item.price = originalPrices[item.id];
+            }
+        }
+        discountApplied = false;
+    }
+
+    void RefreshUI()
+    {
+        foreach (Transform child in cafeteriaContent.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        GenerateItem();
     }
 
     public void GenerateItem()
@@ -109,6 +160,13 @@ public class Cafeteria : MonoBehaviourPun
             if (PlayerController.photonView.IsMine) 
             {
                 photonView.RPC("RPC_Buy", RpcTarget.All, item.id, PhotonNetwork.LocalPlayer.ActorNumber);
+            }
+
+            if (PlayerController.artVIPCard && discountApplied)
+            {
+                RestoreOriginalPrices();
+                RefreshUI();
+                PlayerController.artVIPCard = false;
             }
         }
     }

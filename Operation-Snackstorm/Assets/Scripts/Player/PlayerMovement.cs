@@ -46,7 +46,6 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
     public float mouseSpeed;
     public float yRotation;
     public float xRotation;
-    public Camera cam;
     public bool canLook = true;
 
     [Header("AnimationID")]
@@ -59,27 +58,24 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
     private PlayerController playerController;
     private CharacterController characterController;
     private PlayerAnimController playerAnimController;
+    private Camera activeCam;
 
     void Start()
     {
-        cam = GetComponentInChildren<Camera>();
         characterController = GetComponent<CharacterController>();
         playerAnimController = GetComponent<PlayerAnimController>();
         playerController = GetComponent<PlayerController>();
 
         if (!photonView.IsMine)
         {
-            if (cam != null)
-            {
-                cam.gameObject.SetActive(false);
-            }
+            if (playerController.fpsCam != null)
+                playerController.fpsCam.gameObject.SetActive(false);
+            if (playerController.tpsCam != null)
+                playerController.tpsCam.gameObject.SetActive(false);
         }
         else
         {
-            if (cam != null)
-            {
-                cam.gameObject.SetActive(true);
-            }
+            SetCameraMode(true);
         }
     }
 
@@ -91,6 +87,14 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         if (playerController.isInLibrary && currentState == PlayerState.Run && !TrashCleanupMission.Instance.isMissionActive && !playerController.isPunishmentImmune)
         {
             playerController.RequestPunishment();
+        }
+
+        if (playerController.fpsCam != null && playerController.tpsCam != null)
+        {
+            if (playerController.rideSkate && playerController.fpsCam.gameObject.activeSelf)
+                SetCameraMode(false);
+            else if (!playerController.rideSkate && playerController.tpsCam.gameObject.activeSelf)
+                SetCameraMode(true);
         }
 
         if (!playerController.isPanelOn && !playerController.miniGameStart)
@@ -122,7 +126,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
 
         xRotation = Mathf.Clamp(xRotation, -60f, 60f);
 
-        cam.transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
+        activeCam.transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
         transform.rotation = Quaternion.Euler(0, yRotation, 0);
     }
 
@@ -296,5 +300,17 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         playerAnimController.SetFallDown(false);
         currentState = PlayerState.Idle;
         Debug.Log("2");
+    }
+
+    private void SetCameraMode(bool firstPerson)
+    {
+        if (!photonView.IsMine) return;
+
+        if (playerController.fpsCam != null && playerController.tpsCam != null)
+        {
+            playerController.fpsCam.gameObject.SetActive(firstPerson);
+            playerController.tpsCam.gameObject.SetActive(!firstPerson);
+            activeCam = firstPerson ? playerController.fpsCam : playerController.tpsCam;
+        }
     }
 }

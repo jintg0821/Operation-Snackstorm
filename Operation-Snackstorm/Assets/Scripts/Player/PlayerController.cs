@@ -9,7 +9,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
 {
     public bool test = false;
 
-    public Camera cam;
+    public Camera fpsCam;
+    public Camera tpsCam;
     public float raycastRange = 100f;
 
     public int coin = 100;
@@ -45,11 +46,13 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private PlayerAnimController playerAnimController;
     private TestHotbar testHotbar;
     private WaterDispenser waterDispenser;
+    private ArtClassroom art;
 
     public bool isInLibrary = false;
     public float runningSpeedThreshold = 3.0f;
     private bool hasBeenPunished = false;
     public bool isPunishmentImmune = false;
+    public bool artVIPCard = false;
 
     [SerializeField]
     private TextMeshProUGUI penaltyText;
@@ -67,7 +70,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
     void Start()
     {
         DontDestroyOnLoad(gameObject);
-        cam = GetComponentInChildren<Camera>();
 
         if (PhotonNetwork.IsConnected && photonView != null)
         {
@@ -83,6 +85,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             playerAnimController = GetComponent<PlayerAnimController>();
             testHotbar = FindObjectOfType<TestHotbar>();
             waterDispenser = FindObjectOfType<WaterDispenser>();
+            art = FindObjectOfType<ArtClassroom>();
         }
         if (penaltyText != null)
         {
@@ -163,8 +166,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 }
                 if (Input.GetKeyDown(KeyCode.Alpha2))
                 {
-                    MopObj.SetActive(!isHoldingMop);
-                    isHoldingMop = !isHoldingMop;
+                    if (!rideSkate)
+                    {
+                        MopObj.SetActive(!isHoldingMop);
+                        isHoldingMop = !isHoldingMop;
+                    }
                 }
                 if (Input.GetKeyDown(KeyCode.Alpha3))
                 {
@@ -195,9 +201,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     void PerformRaycast()
     {
-        if (cam == null) return;
+        if (fpsCam == null) return;
 
-        Ray ray = cam.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
+        Ray ray = fpsCam.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
         RaycastHit hit;
 
         //Debug.DrawRay(ray.origin, ray.direction * raycastRange, Color.red, 1f);
@@ -239,6 +245,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 {
                     DoorController door = hit.collider.GetComponent<DoorController>();
                     door.ToggleDoor();
+                }
+
+                if (hit.collider.CompareTag("Art"))
+                {
+                    art.TryAnswer(hit.collider.gameObject);
                 }
 
                 //if (hit.collider.CompareTag("AttendanceBook"))
