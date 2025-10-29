@@ -233,7 +233,7 @@ public class WaterDispenser : MonoBehaviourPun
             PlayerMovement player = other.GetComponent<PlayerMovement>();
             if (player != null && player.photonView.IsMine)
             {
-                player.ApplySpeedModifier(0.6f, Mathf.Infinity);
+                player.ApplySpeedModifier(0.6f, 10f);
             }
         }
     }
@@ -243,8 +243,12 @@ public class WaterDispenser : MonoBehaviourPun
         if (other.CompareTag("Player"))
         {
             PlayerMovement player = other.GetComponent<PlayerMovement>();
+            Debug.Log("1");
             if (player != null && player.photonView.IsMine)
+            {
                 player.ApplySpeedModifier(1f, 0f);
+                Debug.Log("2");
+            }
         }
     }
 

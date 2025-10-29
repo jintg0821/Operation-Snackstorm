@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Linq;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -28,6 +29,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] private float currentTimerTime;
     [SerializeField] private GameObject timerPanel;
     [SerializeField] private double timerStartTime;
+    private float fillAmount = 1;
+    [SerializeField] private Image timeImage;
 
     [Header("Round")]
     [SerializeField] private TextMeshProUGUI roundText;
@@ -80,6 +83,12 @@ public class GameManager : MonoBehaviourPunCallbacks
             double elapsed = PhotonNetwork.Time - timerStartTime;
             currentTimerTime = Mathf.Clamp((float)(timerTime - elapsed), 0f, timerTime);
             timerText.text = currentTimerTime.ToString("F1");
+
+            if (timerTime > 0f)
+            {
+                fillAmount = currentTimerTime / timerTime;
+                timeImage.fillAmount = Mathf.Clamp01(fillAmount);
+            }
 
             if (currentTimerTime <= 0f)
             {
@@ -135,42 +144,9 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void NextRound()
     {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            DistributeBonusCoins();
-        }
-
         currentRound++;
         photonView.RPC("RPC_NextRound", RpcTarget.All, currentRound);
         GameStart();
-    }
-
-    private void DistributeBonusCoins()
-    {
-        if (!PhotonNetwork.IsMasterClient) return;
-
-        foreach (var player in PhotonNetwork.PlayerList)
-        {
-            if (player.CustomProperties.ContainsKey("NextRoundBonusCoin"))
-            {
-                int bonus = (int)player.CustomProperties["NextRoundBonusCoin"];
-                if (bonus > 0)
-                {
-                    foreach (var pc in FindObjectsOfType<PlayerController>())
-                    {
-                        if (pc.GetComponent<Photon.Pun.PhotonView>().Owner.ActorNumber == player.ActorNumber)
-                        {
-                            pc.AddCoin(bonus);
-                            break;
-                        }
-                    }
-
-                    ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
-                    hash.Add("NextRoundBonusCoin", 0);
-                    player.SetCustomProperties(hash);
-                }
-            }
-        }
     }
 
     void SetPlayerPosition()
@@ -203,6 +179,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         timerStartTime = startTime;
         onTimer = true;
         currentTimerTime = timerTime;
+        fillAmount = 1f;
 
         //FindObjectOfType<LibraryItemSpawner>()?.SpawnItems();
     }

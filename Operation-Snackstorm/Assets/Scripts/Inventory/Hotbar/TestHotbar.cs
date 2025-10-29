@@ -38,7 +38,14 @@ public class TestHotbar : MonoBehaviour
             {
                 heldImage.color = new Color(0, 0, 0, 0);
             }
-            selected.amountText.text = selected.amount.ToString();
+            if (selected.amount == 0)
+            {
+                selected.amountText.text = "";
+            }
+            else
+            {
+                selected.amountText.text = selected.amount.ToString();
+            }
         }
     }
 }

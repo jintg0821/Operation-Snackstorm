@@ -168,12 +168,17 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 }
                 if (Input.GetKeyDown(KeyCode.Alpha1))
                 {
-                    playerMovement.StartSkate();
+                    if (!isHoldingMop)
+                    {
+                        testHotbar.ChangeItem(0);
+                        playerMovement.StartSkate();
+                    }
                 }
                 if (Input.GetKeyDown(KeyCode.Alpha2))
                 {
                     if (!rideSkate)
                     {
+                        testHotbar.ChangeItem(1);
                         photonView.RPC("RPC_ToggleMop", RpcTarget.AllBuffered);
                     }
                 }
@@ -238,6 +243,21 @@ public class PlayerController : MonoBehaviourPunCallbacks
                         {
                             itemPV.RPC("RPC_RequestDestroy", RpcTarget.MasterClient);
                         }
+                    }
+                }
+
+                if (hit.collider.CompareTag("Coin"))
+                {
+                    Coin coinObj = hit.collider.gameObject.GetComponent<Coin>();
+                    if (coinObj != null)
+                    {
+                        AddCoin(coinObj.value);
+                    }
+
+                    PhotonView coinPV = coinObj.GetComponent<PhotonView>();
+                    if (coinPV != null)
+                    {
+                        coinPV.RPC("RPC_RequestDestroy", RpcTarget.MasterClient);
                     }
                 }
 
@@ -541,14 +561,16 @@ public class PlayerController : MonoBehaviourPunCallbacks
         GameManager.Instance.StartPunishment(photonView.ViewID);
     }
 
-    public void AddNextRoundCoin(int amount)
-    {
-        UpdateCustomProperty("NextRoundBonusCoin", amount);
-    }
 
     public void AddCoin(int amount)
     {
-        UpdateCustomProperty("Coin", amount);
+        coin += amount;
+
+        if (testHotbar != null && testHotbar.slots != null && testHotbar.slots.Length > 2)
+        {
+            var coinSlot = testHotbar.slots[2];
+            coinSlot.SetAmount(coin);
+        }
     }
 
     private void UpdateCustomProperty(string key, int amount)

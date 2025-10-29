@@ -5,12 +5,13 @@ using UnityEngine.UI;
 using TMPro;
 
 public enum HotItem
-    {
-        Skateboard,
-        Mop,
-        Coin,
-        ArtVIP
-    }
+{
+    Skateboard,
+    Mop,
+    Coin,
+    ArtVIP
+}
+
 
 public class HotbarItem
 {
@@ -41,5 +42,17 @@ public class TestHotbarSlot : MonoBehaviour
                 itemRef = null;
             }
         }
+    }
+
+    public void SetAmount(int newAmount)
+    {
+        amount = Mathf.Max(0, newAmount);
+        if (amountText != null)
+            amountText.text = amount > 0 ? amount.ToString() : "";
+    }
+
+    public void AddAmount(int addValue)
+    {
+        SetAmount(amount + addValue);
     }
 }
