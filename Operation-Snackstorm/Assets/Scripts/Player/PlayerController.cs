@@ -358,9 +358,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 StartCoroutine(WallCoolTime());
             }
         }
-        if (hit.gameObject.layer == 8 && rideSkate)
+        if (hit.gameObject.layer == 8 || hit.gameObject.layer == 6)
         {
-            if (playerMovement != null)
+            if (playerMovement != null && rideSkate)
                 photonView.RPC("RPC_SelfHit", RpcTarget.All);
         }    
     }

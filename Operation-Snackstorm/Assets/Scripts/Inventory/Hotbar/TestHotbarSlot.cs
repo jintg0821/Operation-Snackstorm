@@ -4,6 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+public enum HotItem
+    {
+        Skateboard,
+        Mop,
+        Coin,
+        ArtVIP
+    }
+
 public class HotbarItem
 {
     public Sprite icon;
@@ -15,8 +23,8 @@ public class TestHotbarSlot : MonoBehaviour
     public int amount;
     public TextMeshProUGUI amountText;
 
-
     private HotbarItem _item;
+    private HotItem hotItem;
 
     public HotbarItem item
     {

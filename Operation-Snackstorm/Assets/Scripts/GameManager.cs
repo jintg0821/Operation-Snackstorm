@@ -476,18 +476,12 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     IEnumerator Stop_CC(CharacterController cc)
     {
-        Debug.Log("weqw");
         if (cc != null)
         {
             cc.enabled = false;
             cc.transform.position = spawnPoint.position;
             yield return new WaitForSeconds(0.5f);
             cc.enabled = true;
-            Debug.Log("µÅ¿ä");
-        }
-        else
-        {
-            Debug.Log("¾ÈµÅ¿ä");
         }
     }
 

@@ -45,10 +45,12 @@ public class AIController : MonoBehaviourPun
     public Transform[] patrolPoints;
     [SerializeField] private int currentIndex = -1;
     public float pointReachThreshold = 1f;
+    [SerializeField] private float patrolSpeed = 6f;
 
     [Header("Chase")]
     public Transform target;
     [SerializeField] private float losetargetDistance = 15f;
+    [SerializeField] private float chaseSpeed = 9f;
 
     public PatrolType patrolType;
 
@@ -101,10 +103,12 @@ public class AIController : MonoBehaviourPun
                 break;
 
             case AIState.Patrol:
+                agent.speed = patrolSpeed;
                 Patrol();
                 break;
 
             case AIState.Chase:
+                agent.speed = chaseSpeed;
                 ChaseTarget();
                 break;
         }

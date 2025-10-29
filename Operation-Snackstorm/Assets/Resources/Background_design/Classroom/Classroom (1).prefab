@@ -802,6 +802,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7786242295398196069}
+  - component: {fileID: 8912646078982643580}
   m_Layer: 0
   m_Name: chair_desk_1 (2)
   m_TagString: Untagged
@@ -832,6 +833,22 @@ Transform:
   - {fileID: 202454055607112315}
   m_Father: {fileID: 4714252450477753918}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!208 &8912646078982643580
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5617585712862059129}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.031464726, y: 0.017171595, z: 0.1044899}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 1.514663, y: 0.01794848, z: 0.4784457}
+  m_TimeToStationary: 0.5
 --- !u!1 &5762770497894878391
 GameObject:
   m_ObjectHideFlags: 0
@@ -1047,6 +1064,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5380571191535571872}
+  - component: {fileID: 4053295167628011569}
   m_Layer: 0
   m_Name: chair_desk_1
   m_TagString: Untagged
@@ -1079,6 +1097,22 @@ Transform:
   - {fileID: 8152820001759835115}
   m_Father: {fileID: 4714252450477753918}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!208 &4053295167628011569
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6363739560462561073}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.031464726, y: 0.017171595, z: 0.1044899}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 1.514663, y: 0.01794848, z: 0.4784457}
+  m_TimeToStationary: 0.5
 --- !u!1 &6426219727030103769
 GameObject:
   m_ObjectHideFlags: 0
@@ -1154,6 +1188,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 629155416490946180}
+  - component: {fileID: 8105496650474595680}
   m_Layer: 0
   m_Name: chair_desk_1 (1)
   m_TagString: Untagged
@@ -1184,6 +1219,22 @@ Transform:
   - {fileID: 870538107698767508}
   m_Father: {fileID: 4714252450477753918}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!208 &8105496650474595680
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7703966957813071026}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.031464726, y: 0.017171595, z: 0.1044899}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 1.514663, y: 0.01794848, z: 0.4784457}
+  m_TimeToStationary: 0.5
 --- !u!1 &8271151452025596960
 GameObject:
   m_ObjectHideFlags: 0
@@ -4171,37 +4222,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2970294732774414842}
     m_Modifications:
-    - target: {fileID: 266468098053131710, guid: f9f33794bbb8b904e93fb451dd743929, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 2109952540229239351, guid: f9f33794bbb8b904e93fb451dd743929, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 2883399507048175478, guid: f9f33794bbb8b904e93fb451dd743929, type: 3}
-      propertyPath: m_Center.x
-      value: 0.00000135642
-      objectReference: {fileID: 0}
-    - target: {fileID: 2883399507048175478, guid: f9f33794bbb8b904e93fb451dd743929, type: 3}
-      propertyPath: m_Center.y
-      value: 0.04002882
-      objectReference: {fileID: 0}
-    - target: {fileID: 2883399507048175478, guid: f9f33794bbb8b904e93fb451dd743929, type: 3}
-      propertyPath: m_Center.z
-      value: 0.01961477
-      objectReference: {fileID: 0}
-    - target: {fileID: 2883399507048175478, guid: f9f33794bbb8b904e93fb451dd743929, type: 3}
-      propertyPath: m_Extents.x
-      value: 0.0012732615
-      objectReference: {fileID: 0}
-    - target: {fileID: 2883399507048175478, guid: f9f33794bbb8b904e93fb451dd743929, type: 3}
-      propertyPath: m_Extents.y
-      value: 0.042228546
-      objectReference: {fileID: 0}
-    - target: {fileID: 4248695828253122954, guid: f9f33794bbb8b904e93fb451dd743929, type: 3}
-      propertyPath: m_Layer
-      value: 6
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6068039176465694383, guid: f9f33794bbb8b904e93fb451dd743929, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4243,41 +4266,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6872989262706524113, guid: f9f33794bbb8b904e93fb451dd743929, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 7726361355053019695, guid: f9f33794bbb8b904e93fb451dd743929, type: 3}
-      propertyPath: m_Size.x
-      value: 0.0025465225
-      objectReference: {fileID: 0}
-    - target: {fileID: 7726361355053019695, guid: f9f33794bbb8b904e93fb451dd743929, type: 3}
-      propertyPath: m_Size.y
-      value: 0.08445709
-      objectReference: {fileID: 0}
-    - target: {fileID: 7726361355053019695, guid: f9f33794bbb8b904e93fb451dd743929, type: 3}
-      propertyPath: m_Size.z
-      value: 0.040721755
-      objectReference: {fileID: 0}
-    - target: {fileID: 7726361355053019695, guid: f9f33794bbb8b904e93fb451dd743929, type: 3}
-      propertyPath: m_Center.x
-      value: 0.0000013564196
-      objectReference: {fileID: 0}
-    - target: {fileID: 7726361355053019695, guid: f9f33794bbb8b904e93fb451dd743929, type: 3}
-      propertyPath: m_Center.y
-      value: 0.04002882
-      objectReference: {fileID: 0}
-    - target: {fileID: 7726361355053019695, guid: f9f33794bbb8b904e93fb451dd743929, type: 3}
-      propertyPath: m_Center.z
-      value: 0.019614765
-      objectReference: {fileID: 0}
     - target: {fileID: 8698673789457334869, guid: f9f33794bbb8b904e93fb451dd743929, type: 3}
       propertyPath: m_Name
       value: Classroom_door (1) 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8698673789457334869, guid: f9f33794bbb8b904e93fb451dd743929, type: 3}
-      propertyPath: m_Layer
-      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6219,37 +6210,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2970294732774414842}
     m_Modifications:
-    - target: {fileID: 266468098053131710, guid: f9f33794bbb8b904e93fb451dd743929, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 2109952540229239351, guid: f9f33794bbb8b904e93fb451dd743929, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 2883399507048175478, guid: f9f33794bbb8b904e93fb451dd743929, type: 3}
-      propertyPath: m_Center.x
-      value: 0.00000135642
-      objectReference: {fileID: 0}
-    - target: {fileID: 2883399507048175478, guid: f9f33794bbb8b904e93fb451dd743929, type: 3}
-      propertyPath: m_Center.y
-      value: 0.04002882
-      objectReference: {fileID: 0}
-    - target: {fileID: 2883399507048175478, guid: f9f33794bbb8b904e93fb451dd743929, type: 3}
-      propertyPath: m_Center.z
-      value: 0.01961477
-      objectReference: {fileID: 0}
-    - target: {fileID: 2883399507048175478, guid: f9f33794bbb8b904e93fb451dd743929, type: 3}
-      propertyPath: m_Extents.x
-      value: 0.0012732615
-      objectReference: {fileID: 0}
-    - target: {fileID: 2883399507048175478, guid: f9f33794bbb8b904e93fb451dd743929, type: 3}
-      propertyPath: m_Extents.y
-      value: 0.042228546
-      objectReference: {fileID: 0}
-    - target: {fileID: 4248695828253122954, guid: f9f33794bbb8b904e93fb451dd743929, type: 3}
-      propertyPath: m_Layer
-      value: 6
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6068039176465694383, guid: f9f33794bbb8b904e93fb451dd743929, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6291,41 +6254,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6872989262706524113, guid: f9f33794bbb8b904e93fb451dd743929, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 7726361355053019695, guid: f9f33794bbb8b904e93fb451dd743929, type: 3}
-      propertyPath: m_Size.x
-      value: 0.0025465225
-      objectReference: {fileID: 0}
-    - target: {fileID: 7726361355053019695, guid: f9f33794bbb8b904e93fb451dd743929, type: 3}
-      propertyPath: m_Size.y
-      value: 0.08445709
-      objectReference: {fileID: 0}
-    - target: {fileID: 7726361355053019695, guid: f9f33794bbb8b904e93fb451dd743929, type: 3}
-      propertyPath: m_Size.z
-      value: 0.040721755
-      objectReference: {fileID: 0}
-    - target: {fileID: 7726361355053019695, guid: f9f33794bbb8b904e93fb451dd743929, type: 3}
-      propertyPath: m_Center.x
-      value: 0.0000013564196
-      objectReference: {fileID: 0}
-    - target: {fileID: 7726361355053019695, guid: f9f33794bbb8b904e93fb451dd743929, type: 3}
-      propertyPath: m_Center.y
-      value: 0.04002882
-      objectReference: {fileID: 0}
-    - target: {fileID: 7726361355053019695, guid: f9f33794bbb8b904e93fb451dd743929, type: 3}
-      propertyPath: m_Center.z
-      value: 0.019614765
-      objectReference: {fileID: 0}
     - target: {fileID: 8698673789457334869, guid: f9f33794bbb8b904e93fb451dd743929, type: 3}
       propertyPath: m_Name
       value: Classroom_door (1) 1 (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 8698673789457334869, guid: f9f33794bbb8b904e93fb451dd743929, type: 3}
-      propertyPath: m_Layer
-      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
