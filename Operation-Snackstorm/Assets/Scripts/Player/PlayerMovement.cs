@@ -27,6 +27,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
     [SerializeField] private float moveSpeed;
 
     [SerializeField] private GameObject skateboard;
+    [SerializeField] private Transform skateboardPos;
     [SerializeField] private float rideYOffset = 0.1f;
 
     [SerializeField] private Transform playerBody;
@@ -81,6 +82,10 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         {
             SetCameraMode(true);
         }
+        if (PhotonNetwork.IsMasterClient)
+        {
+            photonView.RPC("RPC_SetSkate", RpcTarget.AllBuffered);
+        }
     }
 
     void Update()
@@ -95,10 +100,28 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
 
         if (playerController.fpsCam != null && playerController.tpsCam != null)
         {
-            if (playerController.rideSkate && playerController.fpsCam.gameObject.activeSelf)
-                SetCameraMode(false);
-            else if (!playerController.rideSkate && playerController.tpsCam.gameObject.activeSelf)
-                SetCameraMode(true);
+            if (playerController.fpsCam.gameObject.activeSelf)
+            {
+                if (playerController.rideSkate)
+                {
+                    SetCameraMode(false);
+                    Debug.Log("TPS");
+                }
+                if (playerController.isFallDown)
+                {
+                    SetCameraMode(false);
+                    Debug.Log("TPS");
+                }
+            }
+
+            if (playerController.tpsCam.gameObject.activeSelf)
+            {
+                if (!playerController.isFallDown && !playerController.rideSkate)
+                {
+                    SetCameraMode(true);
+                    Debug.Log("FPS");
+                }
+            }
         }
 
         if (!playerController.isPanelOn && !playerController.miniGameStart)
@@ -136,8 +159,8 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
 
     void PlayerMove()
     {
-        float Horizontal = Input.GetAxis("Horizontal");
-        float Vertical = Input.GetAxis("Vertical");
+        float Horizontal = Input.GetAxisRaw("Horizontal");
+        float Vertical = Input.GetAxisRaw("Vertical");
 
         Vector3 moveVec = transform.forward * Vertical + transform.right * Horizontal;
 
@@ -250,6 +273,18 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         speedMultiplier = 1f;
     }
 
+    [PunRPC]
+    public void RPC_SetSkate()
+    {
+        GameObject skate = PhotonNetwork.Instantiate("Prefabs/Skateboard", skateboardPos.position, Quaternion.identity);
+        skate.transform.SetParent(skateboardPos);
+        skate.transform.localPosition = Vector3.zero;
+        skate.transform.localRotation = Quaternion.identity;
+        skate.transform.localScale = Vector3.one;
+        skateboard = skate;
+        skateboard.SetActive(false);
+    }
+
     public void StartSkate()
     {
         if (playerController.rideSkate) return;
@@ -273,6 +308,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
 
     public void OnFallDown()
     {
+        playerController.isFallDown = true;
         if (playerController.rideSkate)
         {
             playerAnimController.SetSkate(false);
@@ -302,6 +338,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
 
         playerAnimController.SetSkate(false);
         playerAnimController.SetFallDown(false);
+        playerController.isFallDown = false;
         currentState = PlayerState.Idle;
         Debug.Log("2");
     }

@@ -12,14 +12,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Son Variant
       objectReference: {fileID: 0}
-    - target: {fileID: 2115273199337600666, guid: abf0683b4993c1543b27904a91c001e2, type: 3}
-      propertyPath: animator
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2949845535390978972, guid: abf0683b4993c1543b27904a91c001e2, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4436343264826010981, guid: abf0683b4993c1543b27904a91c001e2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.4
@@ -60,27 +52,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5500946649163464136, guid: abf0683b4993c1543b27904a91c001e2, type: 3}
-      propertyPath: sceneViewId
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5500946649163464136, guid: abf0683b4993c1543b27904a91c001e2, type: 3}
-      propertyPath: ObservedComponents.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5613107609228266283, guid: abf0683b4993c1543b27904a91c001e2, type: 3}
-      propertyPath: cam
-      value: 
-      objectReference: {fileID: 9112249860741041893}
-    m_RemovedComponents:
-    - {fileID: 8687695649190743219, guid: abf0683b4993c1543b27904a91c001e2, type: 3}
-    - {fileID: 8769400104496785504, guid: abf0683b4993c1543b27904a91c001e2, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: abf0683b4993c1543b27904a91c001e2, type: 3}
---- !u!20 &9112249860741041893 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 433482703340548951, guid: abf0683b4993c1543b27904a91c001e2, type: 3}
-  m_PrefabInstance: {fileID: 8678784756058504626}
-  m_PrefabAsset: {fileID: 0}

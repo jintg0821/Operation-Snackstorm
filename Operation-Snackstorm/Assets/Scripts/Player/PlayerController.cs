@@ -32,9 +32,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public bool isMopping = false;
     public bool isAttacking = false;
     public bool isHit = false;
+    public bool isFallDown = false;
 
     [SerializeField] private float wallTime;
     private bool isFireExtinguisherExplode;
+
+    [SerializeField] private Transform mopPos;
 
     public bool isCatchable = true;
 
@@ -89,6 +92,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
         if (penaltyText != null)
         {
             penaltyText.gameObject.SetActive(false);
+        }
+        if (PhotonNetwork.IsMasterClient)
+        {
+            photonView.RPC("RPC_SetMop", RpcTarget.AllBuffered);
         }
     }
 
@@ -167,8 +174,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 {
                     if (!rideSkate)
                     {
-                        MopObj.SetActive(!isHoldingMop);
-                        isHoldingMop = !isHoldingMop;
+                        photonView.RPC("RPC_ToggleMop", RpcTarget.AllBuffered);
                     }
                 }
                 if (Input.GetKeyDown(KeyCode.Alpha3))
@@ -281,6 +287,25 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 //}
             }
         }
+    }
+
+    [PunRPC]
+    public void RPC_SetMop()
+    {
+        GameObject mop = PhotonNetwork.Instantiate("Prefabs/Mop", mopPos.position, Quaternion.identity);
+        mop.transform.SetParent(mopPos);
+        mop.transform.localPosition = Vector3.zero;
+        mop.transform.localRotation = Quaternion.identity;
+        mop.transform.localScale = Vector3.one;
+        MopObj = mop;
+        MopObj.SetActive(false);
+    }
+
+    [PunRPC]
+    public void RPC_ToggleMop()
+    {
+        MopObj.SetActive(!isHoldingMop);
+        isHoldingMop = !isHoldingMop;
     }
 
     void Mopping()
@@ -421,26 +446,34 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
     }
 
-    public void GetRoundPoint()
+    public void GetRoundPoint(bool inPointArea)
     {
         if (inventory == null || inventory.items == null)
             return;
 
         roundPoint = 0;
+
         List<Item> itemsCopy = new List<Item>(inventory.items);
         foreach (Item item in itemsCopy)
         {
             roundPoint += item.point;
             inventory.RemoveItem(item);
         }
+
+        if (inPointArea)
+        {
+            var hash = new ExitGames.Client.Photon.Hashtable();
+            hash["RoundPoint"] = roundPoint;
+            PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+        }
+        else
+        {
+            var hash = new ExitGames.Client.Photon.Hashtable();
+            hash["RoundPoint"] = 0;
+            PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+        }
         itemsCopy.Clear();
         inventory.items.Clear();
-
-        var hash = new ExitGames.Client.Photon.Hashtable();
-        hash["RoundPoint"] = roundPoint;
-        PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
-
-        totalPoint += roundPoint;
     }
 
     public void GetBonusPoint(int point)

@@ -32,6 +32,68 @@ Transform:
   - {fileID: 2813425968624668865}
   m_Father: {fileID: 4436343264826010981}
   m_LocalEulerAnglesHint: {x: 11.51, y: 0, z: 0}
+--- !u!1 &1405929032555406042
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3900268083517547702}
+  m_Layer: 0
+  m_Name: MopPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3900268083517547702
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1405929032555406042}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7151258, y: -0.094667226, z: -0.18152, w: 0.6683441}
+  m_LocalPosition: {x: -0.003, y: 0.0051, z: -0.017}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4812176120793976954}
+  m_LocalEulerAnglesHint: {x: 67.151, y: -96.021, z: -103.206}
+--- !u!1 &1440801592939449019
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2409552764634342289}
+  m_Layer: 3
+  m_Name: SkatePos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2409552764634342289
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1440801592939449019}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4436343264826010981}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &1677172592811601570
 GameObject:
   m_ObjectHideFlags: 0
@@ -302,12 +364,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -4319954173641317831, guid: 1d27c8f2e9aaff54d99552c6162a75e9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3900268083517547702}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d27c8f2e9aaff54d99552c6162a75e9, type: 3}
 --- !u!4 &94154770609280424 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1d27c8f2e9aaff54d99552c6162a75e9, type: 3}
+  m_PrefabInstance: {fileID: 487576501398434371}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4812176120793976954 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -4319954173641317831, guid: 1d27c8f2e9aaff54d99552c6162a75e9, type: 3}
   m_PrefabInstance: {fileID: 487576501398434371}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &981656269067009481
@@ -332,7 +402,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3462852073536655532, guid: 59302b886178e374db835e5e3540003b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 7.4
       objectReference: {fileID: 0}
     - target: {fileID: 3462852073536655532, guid: 59302b886178e374db835e5e3540003b, type: 3}
       propertyPath: m_LocalPosition.y
@@ -386,7 +456,7 @@ PrefabInstance:
       addedObject: {fileID: 94154770609280424}
     - targetCorrespondingSourceObject: {fileID: 3462852073536655532, guid: 59302b886178e374db835e5e3540003b, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1593080732018001289}
+      addedObject: {fileID: 2409552764634342289}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2269866992568265883, guid: 59302b886178e374db835e5e3540003b, type: 3}
       insertIndex: -1
@@ -489,7 +559,8 @@ MonoBehaviour:
   runSpeed: 20
   skateSpeed: 30
   moveSpeed: 0
-  skateboard: {fileID: 2949845535390978972}
+  skateboard: {fileID: 0}
+  skateboardPos: {fileID: 2409552764634342289}
   rideYOffset: -0.5
   playerBody: {fileID: 94154770609280424}
   FootstepAudioClips:
@@ -533,11 +604,13 @@ MonoBehaviour:
   isPanelOn: 0
   miniGameStart: 0
   rideSkate: 0
-  MopObj: {fileID: 2046995894553255962, guid: dba370fa8bb10f14d9bd86073ec1e1fd, type: 3}
+  MopObj: {fileID: 0}
   isMopping: 0
   isAttacking: 0
   isHit: 0
+  isFallDown: 0
   wallTime: 1
+  mopPos: {fileID: 3900268083517547702}
   isCatchable: 1
   inventory: {fileID: 0}
   characterController: {fileID: 0}
@@ -873,119 +946,3 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3462852073536655532, guid: 59302b886178e374db835e5e3540003b, type: 3}
   m_PrefabInstance: {fileID: 981656269067009481}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &5461201480035507457
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 4436343264826010981}
-    m_Modifications:
-    - target: {fileID: 6760421681642690696, guid: d9a4681342b57dc4ab98f06d48ec1c9e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6760421681642690696, guid: d9a4681342b57dc4ab98f06d48ec1c9e, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6760421681642690696, guid: d9a4681342b57dc4ab98f06d48ec1c9e, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6760421681642690696, guid: d9a4681342b57dc4ab98f06d48ec1c9e, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 6760421681642690696, guid: d9a4681342b57dc4ab98f06d48ec1c9e, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6760421681642690696, guid: d9a4681342b57dc4ab98f06d48ec1c9e, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 6760421681642690696, guid: d9a4681342b57dc4ab98f06d48ec1c9e, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6760421681642690696, guid: d9a4681342b57dc4ab98f06d48ec1c9e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6760421681642690696, guid: d9a4681342b57dc4ab98f06d48ec1c9e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 6760421681642690696, guid: d9a4681342b57dc4ab98f06d48ec1c9e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7144363967670570653, guid: d9a4681342b57dc4ab98f06d48ec1c9e, type: 3}
-      propertyPath: m_Name
-      value: Skateboard
-      objectReference: {fileID: 0}
-    - target: {fileID: 7144363967670570653, guid: d9a4681342b57dc4ab98f06d48ec1c9e, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7144363967670570653, guid: d9a4681342b57dc4ab98f06d48ec1c9e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3650749751766454859}
-    - targetCorrespondingSourceObject: {fileID: 7144363967670570653, guid: d9a4681342b57dc4ab98f06d48ec1c9e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2877045331598673828}
-  m_SourcePrefab: {fileID: 100100000, guid: d9a4681342b57dc4ab98f06d48ec1c9e, type: 3}
---- !u!4 &1593080732018001289 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6760421681642690696, guid: d9a4681342b57dc4ab98f06d48ec1c9e, type: 3}
-  m_PrefabInstance: {fileID: 5461201480035507457}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &2949845535390978972 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7144363967670570653, guid: d9a4681342b57dc4ab98f06d48ec1c9e, type: 3}
-  m_PrefabInstance: {fileID: 5461201480035507457}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &3650749751766454859
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2949845535390978972}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
---- !u!114 &2877045331598673828
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2949845535390978972}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents:
-  - {fileID: 3650749751766454859}
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0

@@ -23,8 +23,7 @@ public class Slot : MonoBehaviour
             }
             else
             {
-                //image.color = new Color(0, 0, 0, 0);
-
+                image.sprite = null;
             }
         }
     }

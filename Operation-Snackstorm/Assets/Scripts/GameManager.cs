@@ -230,16 +230,9 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             if (players.Contains(pv) && pv.IsMine)
             {
-                if (!inPointAreaPlayers.Contains(pv))
+                if (pv.gameObject.TryGetComponent<PlayerController>(out PlayerController playerController))
                 {
-                    ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
-                    hash["RoundPoint"] = 0;
-                    pv.Owner.SetCustomProperties(hash);
-                    continue;
-                }
-                else if (pv.gameObject.TryGetComponent<PlayerController>(out PlayerController playerController))
-                {
-                    playerController.GetRoundPoint();
+                    playerController.GetRoundPoint(inPointAreaPlayers.Contains(pv));
                     playerController.UpdateTotalPoint();
 
                     var playerCC = playerController.GetComponent<CharacterController>();
@@ -432,12 +425,19 @@ public class GameManager : MonoBehaviourPunCallbacks
             if (pv != null && pv.IsMine)
             {
                 CharacterController cc = playerObj.GetComponent<CharacterController>();
-                if (cc != null) cc.enabled = false;
 
-                playerObj.transform.position = spawnPoint.position;
+                if (cc != null)
+                {
+                    cc.enabled = false;
 
-                if (cc != null) cc.enabled = true;
-                playerObj.isPanelOn = false;
+                    playerObj.transform.position = spawnPoint.position;
+                    cc.enabled = true;
+                }
+                else
+                {
+                    Debug.Log("¾ÈµË´Ï´Ù");
+                }
+                    playerObj.isPanelOn = false;
             }
         }
 
@@ -476,10 +476,19 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     IEnumerator Stop_CC(CharacterController cc)
     {
-        cc.enabled = false;
-        cc.transform.position = spawnPoint.position;
-        yield return new WaitForSeconds(0.5f);
-        cc.enabled = true;
+        Debug.Log("weqw");
+        if (cc != null)
+        {
+            cc.enabled = false;
+            cc.transform.position = spawnPoint.position;
+            yield return new WaitForSeconds(0.5f);
+            cc.enabled = true;
+            Debug.Log("µÅ¿ä");
+        }
+        else
+        {
+            Debug.Log("¾ÈµÅ¿ä");
+        }
     }
 
     private void OnTriggerEnter(Collider other)
