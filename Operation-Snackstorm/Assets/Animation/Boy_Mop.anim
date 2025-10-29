@@ -29,15 +29,15 @@ AnimationClip:
       - serializedVersion: 3
         time: 0.18181819
         value: {x: -2.37, y: -23.158, z: 3.226}
-        inSlope: {x: 0, y: 0, z: 0}
-        outSlope: {x: 0, y: 0, z: 0}
+        inSlope: {x: 39.940998, y: 0, z: 0.18699963}
+        outSlope: {x: 39.940998, y: 0, z: 0.18699963}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 0.36363637
-        value: {x: -2.37, y: -23.158, z: 3.226}
+        value: {x: 6.33, y: -22.666, z: 3.243}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -55,9 +55,9 @@ AnimationClip:
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 0.72727275
-        value: {x: -2.37, y: -23.158, z: 3.226}
-        inSlope: {x: 0, y: 0, z: 0}
-        outSlope: {x: 0, y: 0, z: 0}
+        value: {x: 6.33, y: -22.666, z: 3.243}
+        inSlope: {x: 0, y: 5.4120064, z: 0}
+        outSlope: {x: 0, y: 5.4120064, z: 0}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
@@ -2844,7 +2844,7 @@ AnimationClip:
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 0.36363637
-        value: {x: 5.222082e-15, y: 0.005319992, z: 0.000000013969839}
+        value: {x: -6.9805683e-10, y: 0.005320038, z: -0.000000016763806}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -2862,7 +2862,7 @@ AnimationClip:
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 0.72727275
-        value: {x: 5.222082e-15, y: 0.005319992, z: 0.000000013969839}
+        value: {x: -6.9805683e-10, y: 0.005320038, z: -0.000000016763806}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -6511,7 +6511,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.36363637
-        value: 5.222082e-15
+        value: -6.9805683e-10
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -6529,7 +6529,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.72727275
-        value: 5.222082e-15
+        value: -6.9805683e-10
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -6577,7 +6577,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.36363637
-        value: 0.005319992
+        value: 0.005320038
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -6595,7 +6595,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.72727275
-        value: 0.005319992
+        value: 0.005320038
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -6643,7 +6643,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.36363637
-        value: 0.000000013969839
+        value: -0.000000016763806
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -6661,7 +6661,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.72727275
-        value: 0.000000013969839
+        value: -0.000000016763806
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -6701,15 +6701,15 @@ AnimationClip:
       - serializedVersion: 3
         time: 0.18181819
         value: -2.37
-        inSlope: 0
-        outSlope: 0
+        inSlope: 39.940998
+        outSlope: 39.940998
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.36363637
-        value: -2.37
+        value: 6.33
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -6727,7 +6727,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.72727275
-        value: -2.37
+        value: 6.33
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -6775,7 +6775,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.36363637
-        value: -23.158
+        value: -22.666
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -6793,9 +6793,9 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.72727275
-        value: -23.158
-        inSlope: 0
-        outSlope: 0
+        value: -22.666
+        inSlope: 5.4120064
+        outSlope: 5.4120064
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
@@ -6833,15 +6833,15 @@ AnimationClip:
       - serializedVersion: 3
         time: 0.18181819
         value: 3.226
-        inSlope: 0
-        outSlope: 0
+        inSlope: 0.18699963
+        outSlope: 0.18699963
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.36363637
-        value: 3.226
+        value: 3.243
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -6859,7 +6859,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.72727275
-        value: 3.226
+        value: 3.243
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -24712,7 +24712,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Little1.R
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Index1.R/Index2.R/Index3.R
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -24724,7 +24724,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Little1.R
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Index1.R/Index2.R/Index3.R
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -24736,7 +24736,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Little1.R
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Index1.R/Index2.R/Index3.R
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -24748,7 +24748,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Middle1.L/Middle2.L
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Middle1.L
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -24760,7 +24760,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Middle1.L/Middle2.L
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Middle1.L
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -24772,7 +24772,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Middle1.L/Middle2.L
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Middle1.L
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -24784,7 +24784,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Index1.R
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -24796,7 +24796,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Index1.R
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -24808,7 +24808,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Index1.R
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -24820,7 +24820,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Minchan/Armature.001
+    path: Minchan/Armature.001/Hip
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -24832,7 +24832,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Minchan/Armature.001
+    path: Minchan/Armature.001/Hip
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -24844,7 +24844,43 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Minchan/Armature.001
+    path: Minchan/Armature.001/Hip
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.z
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Ring1.L/Ring2.L/Ring3.L
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.y
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Ring1.L/Ring2.L/Ring3.L
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.x
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Ring1.L/Ring2.L/Ring3.L
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -24892,6 +24928,42 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Middle1.R/Middle2.R
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.y
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Middle1.R/Middle2.R
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.x
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Middle1.R/Middle2.R
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.z
     path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R
     classID: 4
     script: {fileID: 0}
@@ -24917,6 +24989,78 @@ AnimationClip:
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
     path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.z
+    path: Minchan/Armature.001/UpperLeg.R/LowLeg.R/Foot.R
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.y
+    path: Minchan/Armature.001/UpperLeg.R/LowLeg.R/Foot.R
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.x
+    path: Minchan/Armature.001/UpperLeg.R/LowLeg.R/Foot.R
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.z
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Little1.R/Little2.R/Little3.R
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.y
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Little1.R/Little2.R/Little3.R
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.x
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Little1.R/Little2.R/Little3.R
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -24964,7 +25108,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Ring1.R/Ring2.R
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -24976,7 +25120,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Ring1.R/Ring2.R
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -24988,79 +25132,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.z
-    path: Minchan/Armature.001/Hip/Chest
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.y
-    path: Minchan/Armature.001/Hip/Chest
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.x
-    path: Minchan/Armature.001/Hip/Chest
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.z
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Middle1.R
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.y
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Middle1.R
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.x
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Middle1.R
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Ring1.R/Ring2.R
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -25144,7 +25216,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Ring1.R/Ring2.R
+    path: Minchan/Armature.001/UpperLeg.L/LowLeg.L/Foot.L/Toes.L
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -25156,7 +25228,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Ring1.R/Ring2.R
+    path: Minchan/Armature.001/UpperLeg.L/LowLeg.L/Foot.L/Toes.L
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -25168,7 +25240,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Ring1.R/Ring2.R
+    path: Minchan/Armature.001/UpperLeg.L/LowLeg.L/Foot.L/Toes.L
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -25180,7 +25252,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Minchan/Armature.001/UpperLeg.L
+    path: Minchan/Armature.001/UpperLeg.L/LowLeg.L/Foot.L
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -25192,7 +25264,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Minchan/Armature.001/UpperLeg.L
+    path: Minchan/Armature.001/UpperLeg.L/LowLeg.L/Foot.L
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -25204,7 +25276,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Minchan/Armature.001/UpperLeg.L
+    path: Minchan/Armature.001/UpperLeg.L/LowLeg.L/Foot.L
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -25252,42 +25324,6 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Minchan/Armature.001/UpperLeg.L/LowLeg.L/Foot.L/Toes.L
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.y
-    path: Minchan/Armature.001/UpperLeg.L/LowLeg.L/Foot.L/Toes.L
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.x
-    path: Minchan/Armature.001/UpperLeg.L/LowLeg.L/Foot.L/Toes.L
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.z
     path: Minchan/Armature.001/UpperLeg.R/LowLeg.R
     classID: 4
     script: {fileID: 0}
@@ -25324,7 +25360,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Minchan/Armature.001/UpperLeg.R/LowLeg.R/Foot.R
+    path: Minchan/Armature.001
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -25336,7 +25372,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Minchan/Armature.001/UpperLeg.R/LowLeg.R/Foot.R
+    path: Minchan/Armature.001
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -25348,7 +25384,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Minchan/Armature.001/UpperLeg.R/LowLeg.R/Foot.R
+    path: Minchan/Armature.001
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -25360,7 +25396,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Minchan/Armature.001/Hip
+    path: Minchan/Armature.001/Hip/Chest
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -25372,7 +25408,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Minchan/Armature.001/Hip
+    path: Minchan/Armature.001/Hip/Chest
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -25384,7 +25420,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Minchan/Armature.001/Hip
+    path: Minchan/Armature.001/Hip/Chest
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -25396,7 +25432,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Minchan/Armature.001/Hip/Chest/UpperChest
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Neck/Head
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -25408,7 +25444,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Minchan/Armature.001/Hip/Chest/UpperChest
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Neck/Head
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -25420,7 +25456,79 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Minchan/Armature.001/Hip/Chest/UpperChest
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Neck/Head
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.z
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.y
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.x
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.z
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Little1.R/Little2.R
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.y
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Little1.R/Little2.R
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.x
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Little1.R/Little2.R
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -25468,78 +25576,6 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.y
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.x
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.z
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Little1.R/Little2.R/Little3.R
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.y
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Little1.R/Little2.R/Little3.R
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.x
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Little1.R/Little2.R/Little3.R
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.z
     path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L
     classID: 4
     script: {fileID: 0}
@@ -25565,150 +25601,6 @@ AnimationClip:
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
     path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.z
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.y
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.x
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.z
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Little1.L/Little2.L
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.y
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Little1.L/Little2.L
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.x
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Little1.L/Little2.L
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.z
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Index1.L/Index2.L/Index3.L
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.y
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Index1.L/Index2.L/Index3.L
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.x
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Index1.L/Index2.L/Index3.L
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.z
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Index1.L
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.y
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Index1.L
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.x
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Index1.L
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -25792,7 +25684,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Little1.L/Little2.L/Little3.L
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -25804,7 +25696,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Little1.L/Little2.L/Little3.L
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -25816,7 +25708,151 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Little1.L/Little2.L/Little3.L
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.z
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Index1.L/Index2.L/Index3.L
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.y
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Index1.L/Index2.L/Index3.L
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.x
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Index1.L/Index2.L/Index3.L
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.z
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Index1.L
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.y
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Index1.L
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.x
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Index1.L
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.z
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Little1.L/Little2.L
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.y
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Little1.L/Little2.L
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.x
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Little1.L/Little2.L
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.z
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Middle1.L/Middle2.L
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.y
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Middle1.L/Middle2.L
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.x
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Middle1.L/Middle2.L
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -25864,7 +25900,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Ring1.L
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Ring1.L/Ring2.L
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -25876,7 +25912,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Ring1.L
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Ring1.L/Ring2.L
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -25888,79 +25924,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Ring1.L
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.z
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Ring1.L/Ring2.L/Ring3.L
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.y
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Ring1.L/Ring2.L/Ring3.L
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.x
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Ring1.L/Ring2.L/Ring3.L
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.z
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Neck/Head
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.y
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Neck/Head
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.x
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Neck/Head
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Ring1.L/Ring2.L
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -26008,7 +25972,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Index1.R/Index2.R/Index3.R
+    path: Minchan/Armature.001/Hip/Chest/UpperChest
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -26020,7 +25984,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Index1.R/Index2.R/Index3.R
+    path: Minchan/Armature.001/Hip/Chest/UpperChest
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -26032,115 +25996,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Index1.R/Index2.R/Index3.R
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.z
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.y
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.x
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.z
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Middle1.L
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.y
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Middle1.L
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.x
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Middle1.L
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.z
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Little1.R/Little2.R
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.y
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Little1.R/Little2.R
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.x
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Little1.R/Little2.R
+    path: Minchan/Armature.001/Hip/Chest/UpperChest
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -26188,7 +26044,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Ring1.L/Ring2.L
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -26200,7 +26056,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Ring1.L/Ring2.L
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -26212,7 +26068,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Ring1.L/Ring2.L
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -26224,7 +26080,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Middle1.R/Middle2.R
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Little1.L/Little2.L/Little3.L
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -26236,7 +26092,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Middle1.R/Middle2.R
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Little1.L/Little2.L/Little3.L
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -26248,7 +26104,187 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Middle1.R/Middle2.R
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Little1.L/Little2.L/Little3.L
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.z
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Little1.R
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.y
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Little1.R
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.x
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Little1.R
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.z
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Index1.R
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.y
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Index1.R
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.x
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Index1.R
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.z
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Ring1.L
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.y
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Ring1.L
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.x
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.L/UpperArm.L/LowArm.L/Wrist.L/Ring1.L
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.z
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Middle1.R
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.y
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Middle1.R
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.x
+    path: Minchan/Armature.001/Hip/Chest/UpperChest/Shoulder.R/UpperArm.R/LowArm.R/Wrist.R/Middle1.R
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.z
+    path: Minchan/Armature.001/UpperLeg.L
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.y
+    path: Minchan/Armature.001/UpperLeg.L
+    classID: 4
+    script: {fileID: 0}
+    flags: 0
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.x
+    path: Minchan/Armature.001/UpperLeg.L
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -26285,42 +26321,6 @@ AnimationClip:
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
     path: Minchan/Armature.001/UpperLeg.L/LowLeg.L
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.z
-    path: Minchan/Armature.001/UpperLeg.L/LowLeg.L/Foot.L
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.y
-    path: Minchan/Armature.001/UpperLeg.L/LowLeg.L/Foot.L
-    classID: 4
-    script: {fileID: 0}
-    flags: 0
-  - serializedVersion: 2
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.x
-    path: Minchan/Armature.001/UpperLeg.L/LowLeg.L/Foot.L
     classID: 4
     script: {fileID: 0}
     flags: 0
