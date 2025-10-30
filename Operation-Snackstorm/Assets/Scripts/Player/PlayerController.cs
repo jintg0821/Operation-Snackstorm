@@ -55,6 +55,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private bool hasBeenPunished = false;
     public bool isPunishmentImmune = false;
     public bool artVIPCard = false;
+    public bool isWaterDispenser = false;
 
     [SerializeField]
     private TextMeshProUGUI penaltyText;
@@ -92,10 +93,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
         if (penaltyText != null)
         {
             penaltyText.gameObject.SetActive(false);
-        }
-        if (PhotonNetwork.IsMasterClient)
-        {
-            photonView.RPC("RPC_SetMop", RpcTarget.AllBuffered);
         }
     }
 
@@ -163,7 +160,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 }
                 if (Input.GetKeyDown(KeyCode.Z))
                 {
-                    if (waterDispenser != null) 
+                    if (waterDispenser != null && isWaterDispenser) 
                         waterDispenser.photonView.RPC("RPC_AssignRoleAndStart", RpcTarget.All, photonView.ViewID);
                 }
                 if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -307,18 +304,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 //}
             }
         }
-    }
-
-    [PunRPC]
-    public void RPC_SetMop()
-    {
-        GameObject mop = PhotonNetwork.Instantiate("Prefabs/Mop", mopPos.position, Quaternion.identity);
-        mop.transform.SetParent(mopPos);
-        mop.transform.localPosition = Vector3.zero;
-        mop.transform.localRotation = Quaternion.identity;
-        mop.transform.localScale = Vector3.one;
-        MopObj = mop;
-        MopObj.SetActive(false);
     }
 
     [PunRPC]

@@ -82,10 +82,6 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         {
             SetCameraMode(true);
         }
-        if (PhotonNetwork.IsMasterClient)
-        {
-            photonView.RPC("RPC_SetSkate", RpcTarget.AllBuffered);
-        }
     }
 
     void Update()
@@ -274,15 +270,10 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void RPC_SetSkate()
+    public void RPC_ToggleSkate(bool skate)
     {
-        GameObject skate = PhotonNetwork.Instantiate("Prefabs/Skateboard", skateboardPos.position, Quaternion.identity);
-        skate.transform.SetParent(skateboardPos);
-        skate.transform.localPosition = Vector3.zero;
-        skate.transform.localRotation = Quaternion.identity;
-        skate.transform.localScale = Vector3.one;
-        skateboard = skate;
-        skateboard.SetActive(false);
+        skateboard.SetActive(skate);
+        playerController.rideSkate = skate;
     }
 
     public void StartSkate()
@@ -291,7 +282,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
 
         originalCenter = characterController.center;
 
-        skateboard.SetActive(true);
+        photonView.RPC("RPC_ToggleSkate", RpcTarget.AllBuffered, true);
 
         Vector3 newCenter = originalCenter;
         newCenter.y += rideYOffset;
@@ -333,7 +324,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
             playerBody.localPosition = Vector3.zero;
         }
 
-        skateboard.SetActive(false);
+        photonView.RPC("RPC_ToggleSkate", RpcTarget.AllBuffered, false);
         playerController.isHit = false;
 
         playerAnimController.SetSkate(false);

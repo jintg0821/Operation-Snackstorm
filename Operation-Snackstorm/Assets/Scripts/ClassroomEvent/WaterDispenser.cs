@@ -13,9 +13,23 @@ public class WaterDispenser : MonoBehaviourPun
     public float dangerZoneStart = 0.8f;
     public float maxFill = 1f;
 
+    [SerializeField] private Vector3 boxSize = new Vector3(3f, 2f, 3f);
+    [SerializeField] private Vector3 boxOffset = Vector3.zero;
+    [SerializeField] private List<PlayerController> nearbyPlayers = new List<PlayerController>();
+
+    public TextMeshProUGUI waterDispenserText;
+    private Coroutine textRoutine;
+
     [Header("References")]
     public Transform waterMesh;
     public TextMeshProUGUI stateText;
+
+    [Header("Water")]
+    [SerializeField] private float minY = 0.1f;
+    [SerializeField] private float maxY = 1.0f;
+
+    [SerializeField] private float startScaleXZ = 26f;
+    [SerializeField] private float endScaleXZ = 32f;
 
     private int currentRound = 1;
     private float currentFill = 0f;
@@ -84,6 +98,8 @@ public class WaterDispenser : MonoBehaviourPun
 
     void Update()
     {
+        SearchPlayer();
+
         if (!missionActive || isOverflowing) return;
 
         PhotonView playerPV = GetLocalPlayerView();
@@ -97,6 +113,49 @@ public class WaterDispenser : MonoBehaviourPun
         // 플레이어 B (컵 교체 담당)
         if (!isMyRoleA && Input.GetKeyDown(KeyCode.C))
             photonView.RPC("RPC_TrySwap", RpcTarget.All);
+    }
+
+    void SearchPlayer()
+    {
+        Vector3 center = transform.position + transform.TransformDirection(boxOffset);
+
+        Collider[] hits = Physics.OverlapBox(center, boxSize / 2f, transform.rotation);
+        List<PlayerController> currentPlayers = new List<PlayerController>();
+
+        foreach (var hit in hits)
+        {
+            PlayerController player = hit.GetComponent<PlayerController>();
+            if (player != null)
+            {
+                currentPlayers.Add(player);
+                player.isWaterDispenser = true;
+
+                if (!nearbyPlayers.Contains(player) && player.photonView.IsMine)
+                {
+                    if (textRoutine == null)
+                        textRoutine = StartCoroutine(ShowInteractionText(3f));
+                }
+            }
+        }
+
+        foreach (var player in nearbyPlayers)
+        {
+            if (!currentPlayers.Contains(player))
+            {
+                player.isWaterDispenser = false;
+                if (player.photonView.IsMine && waterDispenserText != null)
+                {
+                    if (textRoutine != null)
+                    {
+                        StopCoroutine(textRoutine);
+                        textRoutine = null;
+                    }
+                    waterDispenserText.text = "";
+                }
+            }
+        }
+
+        nearbyPlayers = currentPlayers;
     }
 
     void ResetGame()
@@ -204,14 +263,17 @@ public class WaterDispenser : MonoBehaviourPun
 
     void UpdateWaterVisual()
     {
-        // 현재 높이를 0~1 비율로 반영
+        float yPos = Mathf.Lerp(minY, maxY, currentFill / maxFill);
+
+        float scaleXZ = Mathf.Lerp(startScaleXZ, endScaleXZ, currentFill / maxFill);
+
         Vector3 scale = waterMesh.localScale;
-        scale.y = Mathf.Lerp(0f, 1f, currentFill);
+        scale.x = scaleXZ;
+        scale.z = scaleXZ;
         waterMesh.localScale = scale;
 
-        // 물이 위로만 차오르도록 위치 보정
         Vector3 pos = waterMesh.localPosition;
-        pos.y = scale.y * 0.5f; // 절반만큼 위로 올려서 바닥 기준으로 성장
+        pos.y = yPos;
         waterMesh.localPosition = pos;
     }
 
@@ -274,5 +336,25 @@ public class WaterDispenser : MonoBehaviourPun
                     pc.miniGameStart = state;
             }
         }
+    }
+
+    IEnumerator ShowInteractionText(float duration)
+    {
+        if (waterDispenserText == null) yield break;
+
+        waterDispenserText.text = "'Z'를 눌러 게임 시작";
+
+        yield return new WaitForSeconds(duration);
+
+        waterDispenserText.text = "";
+        textRoutine = null;
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.cyan;
+        Matrix4x4 rotationMatrix = Matrix4x4.TRS(transform.position + transform.TransformDirection(boxOffset), transform.rotation, Vector3.one);
+        Gizmos.matrix = rotationMatrix;
+        Gizmos.DrawWireCube(Vector3.zero, boxSize);
     }
 }
