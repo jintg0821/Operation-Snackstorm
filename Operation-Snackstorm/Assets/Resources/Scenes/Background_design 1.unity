@@ -57649,6 +57649,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4258411891960909470, guid: 40880885225fbd84cbc8470bac63919a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 40880885225fbd84cbc8470bac63919a, type: 3}
       propertyPath: m_Name
       value: Minchan!!!_1027
@@ -57680,6 +57684,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 40880885225fbd84cbc8470bac63919a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1774431216}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 40880885225fbd84cbc8470bac63919a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1774431217}
   m_SourcePrefab: {fileID: 100100000, guid: 40880885225fbd84cbc8470bac63919a, type: 3}
 --- !u!1 &1774431215 stripped
 GameObject:
@@ -57707,6 +57714,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1774431217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1774431215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 565d3abaf6b9e034c8f9b4c92c0c4452, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  onAnim: 0
+  gameObjects: []
+  scienceObj: {fileID: 0}
 --- !u!1001 &1776757615
 PrefabInstance:
   m_ObjectHideFlags: 0
