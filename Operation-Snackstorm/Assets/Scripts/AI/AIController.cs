@@ -56,11 +56,13 @@ public class AIController : MonoBehaviourPun
 
     [SerializeField] private AIState currentState;
     private NavMeshAgent agent;
+    private AIAnimationController animationController;
 
     void Start()
     {
         GameManager.Instance.aiList.Add(this.gameObject);
         agent = GetComponent<NavMeshAgent>();
+        animationController = GetComponent<AIAnimationController>();
 
         defaultViewAngle = viewAngle;
         defaultViewRadius = viewRadius;
@@ -97,21 +99,28 @@ public class AIController : MonoBehaviourPun
         }
 
         CheckSight();
+
+        float blendSpeed = 0f;
         switch (currentState)
         {
             case AIState.Idle:
+                agent.speed = 0f;
+                blendSpeed = 0f;
                 break;
 
             case AIState.Patrol:
                 agent.speed = patrolSpeed;
+                blendSpeed = patrolSpeed;
                 Patrol();
                 break;
 
             case AIState.Chase:
                 agent.speed = chaseSpeed;
+                blendSpeed = chaseSpeed;
                 ChaseTarget();
                 break;
         }
+        animationController.SetSpeed(blendSpeed);
     }
 
     void CheckSight()

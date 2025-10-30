@@ -9,9 +9,11 @@ public class Coin : MonoBehaviourPun
     public int value;
 
     [PunRPC]
-    public void RPC_RequestDestroy()
+    public void RPC_RequestCoinDestroy()
     {
         if (PhotonNetwork.IsMasterClient)
+        {
             PhotonNetwork.Destroy(gameObject);
+        }
     }
 }

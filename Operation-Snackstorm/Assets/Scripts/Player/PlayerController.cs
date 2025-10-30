@@ -254,7 +254,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
                     PhotonView coinPV = coinObj.GetComponent<PhotonView>();
                     if (coinPV != null)
                     {
-                        coinPV.RPC("RPC_RequestDestroy", RpcTarget.MasterClient);
+                        coinPV.RPC("RPC_RequestCoinDestroy", RpcTarget.MasterClient);
+                        Debug.Log("343");
                     }
                 }
 
