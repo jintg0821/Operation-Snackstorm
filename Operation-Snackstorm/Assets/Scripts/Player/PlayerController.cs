@@ -559,6 +559,17 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
     }
 
+    public void SubtractCoin(int amount)
+    {
+        coin -= amount;
+
+        if (testHotbar != null && testHotbar.slots != null && testHotbar.slots.Length > 2)
+        {
+            var coinSlot = testHotbar.slots[2];
+            coinSlot.SetAmount(coin);
+        }
+    }
+
     private void UpdateCustomProperty(string key, int amount)
     {
         ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();

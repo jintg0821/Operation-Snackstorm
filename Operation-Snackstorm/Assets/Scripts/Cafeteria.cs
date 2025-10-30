@@ -155,7 +155,7 @@ public class Cafeteria : MonoBehaviourPun
     {
         if (PlayerController.coin >= item.price)
         {
-            PlayerController.coin -= item.price;
+            PlayerController.SubtractCoin(item.price);
 
             if (PlayerController.photonView.IsMine) 
             {
