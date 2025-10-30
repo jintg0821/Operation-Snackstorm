@@ -37,6 +37,8 @@ public class ArtClassroom : MonoBehaviourPunCallbacks
     [PunRPC]
     void RPC_GenerateQuestion()
     {
+        if (!PhotonNetwork.IsMasterClient) return;
+
         currentQuestion = questionSets[Random.Range(0, questionSets.Count)];
         GameObject randomWrong = currentQuestion.wrongArts[Random.Range(0, currentQuestion.wrongArts.Count)];
 
@@ -65,7 +67,8 @@ public class ArtClassroom : MonoBehaviourPunCallbacks
             return;
         }
 
-        photonView.RPC("RPC_StartGame", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer.ActorNumber);
+        isPlaying = true;
+        photonView.RPC("RPC_StartGame", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber);
     }
 
     [PunRPC]
@@ -148,15 +151,18 @@ public class ArtClassroom : MonoBehaviourPunCallbacks
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            if (hasTriggered) return;
-            if (isPlaying) return;
+        if (!other.gameObject.CompareTag("Player")) return;
+        if (hasTriggered) return;
+        if (isPlaying) return;
 
-            hasTriggered = true;
+        hasTriggered = true;
+
+        if (PhotonNetwork.IsMasterClient)
+        {
             TryStartGame();
-            StartCoroutine(ResetTriggerAfterDelay(1f));
         }
+
+        StartCoroutine(ResetTriggerAfterDelay(1f));
     }
 
     IEnumerator ResetTriggerAfterDelay(float n)

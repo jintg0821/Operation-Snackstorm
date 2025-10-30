@@ -13,6 +13,7 @@ public class Coin : MonoBehaviourPun
     {
         if (PhotonNetwork.IsMasterClient)
         {
+            Debug.Log("qweqw");
             PhotonNetwork.Destroy(gameObject);
         }
     }

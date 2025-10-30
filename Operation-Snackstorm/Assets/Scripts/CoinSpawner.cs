@@ -28,7 +28,7 @@ public class CoinSpawner : MonoBehaviourPun
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            photonView.RPC("RPC_SpawnCoin", RpcTarget.AllBuffered);
+            photonView.RPC("RPC_SpawnCoin", RpcTarget.All);
             Debug.Log("afds");
         }
     }
