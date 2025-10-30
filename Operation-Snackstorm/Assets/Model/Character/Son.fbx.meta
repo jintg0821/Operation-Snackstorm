@@ -12,6 +12,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Son_Body
+    second: {fileID: 2100000, guid: 0de07a053ce140e478f4bb8a6b6e1eeb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Son_Eye
     second: {fileID: 2100000, guid: 1b9ddb25f1248a34b8a34291d6603620, type: 2}
   - first:
@@ -24,6 +29,16 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Son_Head
     second: {fileID: 2100000, guid: 1b9ddb25f1248a34b8a34291d6603620, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: hAIR
+    second: {fileID: 2100000, guid: daf8137570f56fa4684c459c8d36119e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: hAIR.001
+    second: {fileID: 2100000, guid: daf8137570f56fa4684c459c8d36119e, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
