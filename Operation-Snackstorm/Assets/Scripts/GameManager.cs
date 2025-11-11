@@ -194,6 +194,9 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsMasterClient)
         {
+            CheckDirty();
+            ClearAllDirty();
+
             playersUpdated = 0;
             photonView.RPC("RPC_RoundOver", RpcTarget.All);
         }
@@ -459,6 +462,37 @@ public class GameManager : MonoBehaviourPunCallbacks
             cc.transform.position = spawnPoint.position;
             yield return new WaitForSeconds(0.5f);
             cc.enabled = true;
+        }
+    }
+
+    private void CheckDirty()
+    {
+        GameObject[] dirts = GameObject.FindGameObjectsWithTag("Dirty");
+
+        if (dirts.Length > 0)
+        {
+            foreach (var player in players)
+            {
+                PlayerController playerController = player.GetComponent<PlayerController>();
+                if (playerController != null)
+                {
+                    playerController.GetMinusPoint(1);
+                }
+            }
+        }
+    }
+
+    void ClearAllDirty()
+    {
+        GameObject[] dirts = GameObject.FindGameObjectsWithTag("Dirty");
+
+        foreach (GameObject dirt in dirts)
+        {
+            PhotonView pv = dirt.GetComponent<PhotonView>();
+            if (pv && pv.IsMine)
+            {
+                PhotonNetwork.Destroy(dirt);
+            }
         }
     }
 

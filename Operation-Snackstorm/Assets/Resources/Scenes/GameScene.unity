@@ -3276,6 +3276,65 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2267739324506435529, guid: e7485c281a9e1fc4cb4a531287e54812, type: 3}
   m_PrefabInstance: {fileID: 124366878}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &128006207
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 128006209}
+  - component: {fileID: 128006208}
+  m_Layer: 0
+  m_Name: Toilet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &128006208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 128006207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4bf2ea776848dc42adfd4d5f26841a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnCountPerArea: 3
+  spawnInterval: 10
+  minOffsetX: -4
+  maxOffsetX: 4
+  minOffsetZ: -4
+  maxOffsetZ: 4
+  raycastHeight: 10
+  spawnYOffset: 0.05
+  platforms: []
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 256
+--- !u!4 &128006209
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 128006207}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &129920041
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4402,6 +4461,10 @@ PrefabInstance:
     - target: {fileID: 1507562510747953482, guid: 2ddef228a763a0745a8bb86de854199d, type: 3}
       propertyPath: m_Name
       value: Floor_hall(way)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1507562510747953482, guid: 2ddef228a763a0745a8bb86de854199d, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2278857356624507888, guid: 2ddef228a763a0745a8bb86de854199d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -17788,6 +17851,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Floor_hall(way)
       objectReference: {fileID: 0}
+    - target: {fileID: 1507562510747953482, guid: 2ddef228a763a0745a8bb86de854199d, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 2278857356624507888, guid: 2ddef228a763a0745a8bb86de854199d, type: 3}
       propertyPath: m_LocalScale.z
       value: 86.42478
@@ -25987,6 +26054,10 @@ PrefabInstance:
     - target: {fileID: 1507562510747953482, guid: 2ddef228a763a0745a8bb86de854199d, type: 3}
       propertyPath: m_Name
       value: Floor_hall(way) (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1507562510747953482, guid: 2ddef228a763a0745a8bb86de854199d, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2278857356624507888, guid: 2ddef228a763a0745a8bb86de854199d, type: 3}
       propertyPath: m_LocalScale.z
@@ -53466,6 +53537,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Floor_hall(way)
       objectReference: {fileID: 0}
+    - target: {fileID: 1507562510747953482, guid: 2ddef228a763a0745a8bb86de854199d, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 2278857356624507888, guid: 2ddef228a763a0745a8bb86de854199d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 128.106
@@ -54166,6 +54241,10 @@ PrefabInstance:
     - target: {fileID: 1507562510747953482, guid: 2ddef228a763a0745a8bb86de854199d, type: 3}
       propertyPath: m_Name
       value: Floor_hall(way)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1507562510747953482, guid: 2ddef228a763a0745a8bb86de854199d, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2278857356624507888, guid: 2ddef228a763a0745a8bb86de854199d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -59094,8 +59173,6 @@ MonoBehaviour:
   platforms:
   - {fileID: 1851651118}
   - {fileID: 1295684348}
-  - {fileID: 0}
-  - {fileID: 0}
   - {fileID: 1004490273}
   - {fileID: 964613090}
   - {fileID: 910357733}
@@ -66366,3 +66443,4 @@ SceneRoots:
   - {fileID: 819048871}
   - {fileID: 737429162}
   - {fileID: 301189957}
+  - {fileID: 128006209}
