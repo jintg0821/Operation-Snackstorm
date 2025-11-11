@@ -81,12 +81,13 @@ public class WaterDispenser : MonoBehaviourPun
     [PunRPC]
     void StartMission()
     {
+        stateText.text = "";
+        PhotonView playerPV = GetLocalPlayerView();
+        if (playerPV == null || !interactingPlayers.Contains(playerPV.ViewID)) return;
+
         currentRound = 1;
         missionActive = true;
         stateText.text = $"Round {currentRound}/3 - Ready!";
-
-        PhotonView playerPV = GetLocalPlayerView();
-        if (playerPV == null && !interactingPlayers.Contains(playerPV.ViewID)) return;
 
         SetPlayerPanelState(true);
 
@@ -133,7 +134,7 @@ public class WaterDispenser : MonoBehaviourPun
                 if (!nearbyPlayers.Contains(player) && player.photonView.IsMine)
                 {
                     if (textRoutine == null)
-                        textRoutine = StartCoroutine(ShowInteractionText(3f));
+                        textRoutine = StartCoroutine(ShowInteractionWaterDispenserText(3f));
                 }
             }
         }
@@ -338,7 +339,7 @@ public class WaterDispenser : MonoBehaviourPun
         }
     }
 
-    IEnumerator ShowInteractionText(float duration)
+    IEnumerator ShowInteractionWaterDispenserText(float duration)
     {
         if (waterDispenserText == null) yield break;
 
