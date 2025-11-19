@@ -354,4 +354,21 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
             footstepSource.PlayOneShot(FootstepAudioClips[index]);
         }
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Banana") && currentState != PlayerState.FallDown)
+        {
+            StartCoroutine(ProcessBananaSlip(other.gameObject));
+        }
+    }
+    IEnumerator ProcessBananaSlip(GameObject banana)
+    {
+        Destroy(banana);
+
+        OnFallDown();
+
+        yield return new WaitForSeconds(3.0f);
+
+        OnFallDownEnd();
+    }
 }
