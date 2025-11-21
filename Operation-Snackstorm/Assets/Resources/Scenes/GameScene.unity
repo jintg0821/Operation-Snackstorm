@@ -4782,6 +4782,7 @@ GameObject:
   m_Component:
   - component: {fileID: 128006209}
   - component: {fileID: 128006208}
+  - component: {fileID: 128006210}
   m_Layer: 0
   m_Name: Toilet
   m_TagString: Untagged
@@ -4801,15 +4802,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4bf2ea776848dc42adfd4d5f26841a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnCountPerArea: 3
+  spawnCountPerArea: 1
   spawnInterval: 10
   minOffsetX: -4
   maxOffsetX: 4
   minOffsetZ: -4
   maxOffsetZ: 4
   raycastHeight: 10
-  spawnYOffset: 0.05
-  platforms: []
+  spawnYOffset: 5
+  platforms:
+  - {fileID: 925391288}
   groundLayer:
     serializedVersion: 2
     m_Bits: 512
@@ -4831,6 +4833,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &128006210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 128006207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 34
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!65 &129920041
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -85556,7 +85580,7 @@ GameObject:
   - component: {fileID: 1933324072}
   - component: {fileID: 1933324074}
   m_Layer: 0
-  m_Name: Coin
+  m_Name: CoinSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -85589,7 +85613,6 @@ MonoBehaviour:
   - {fileID: 964613090}
   - {fileID: 910357733}
   - {fileID: 734688824}
-  - {fileID: 0}
   - {fileID: 431381986}
   - {fileID: 418666525}
   - {fileID: 331082814}

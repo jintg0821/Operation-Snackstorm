@@ -33,5 +33,14 @@ public class Mop : MonoBehaviourPun
                 photonView.RPC("RPC_MopHit", RpcTarget.All, hitPV.ViewID);
             }
         }
+
+        if (other.gameObject.CompareTag("Dirty"))
+        {
+            PhotonView dirtyPV = other.GetComponent<PhotonView>();
+            if (dirtyPV != null)
+            {
+                dirtyPV.RPC("RPC_RequestDirtyDestroy", RpcTarget.MasterClient);
+            }
+        }
     }
 }

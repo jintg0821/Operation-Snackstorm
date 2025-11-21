@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 6676067486847674109}
   - component: {fileID: 1950231456781785653}
   - component: {fileID: 6314737910915451588}
-  - component: {fileID: 1663382983266035039}
+  - component: {fileID: 5709560452188856185}
   m_Layer: 0
-  m_Name: Coin
-  m_TagString: Coin
+  m_Name: Dirty
+  m_TagString: Dirty
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -96,7 +96,7 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
---- !u!114 &1663382983266035039
+--- !u!114 &5709560452188856185
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -105,10 +105,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 7113664433004816468}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76f767acadf19574ea7314aec99e307c, type: 3}
+  m_Script: {fileID: 11500000, guid: aa69fcff931f9b64a80d9011c3dfb352, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  value: 1
 --- !u!1001 &5908464209325600289
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -157,10 +156,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 141617565886362620, guid: a2f82d5965060514ca812d216ffacffb, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 773757950373980486, guid: a2f82d5965060514ca812d216ffacffb, type: 3}
       propertyPath: m_Name
       value: coin 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1277910351442299027, guid: a2f82d5965060514ca812d216ffacffb, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 23b237080929b97409ccc5e98062adc9, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
