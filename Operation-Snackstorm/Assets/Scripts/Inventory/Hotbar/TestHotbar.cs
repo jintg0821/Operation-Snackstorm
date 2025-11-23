@@ -20,31 +20,29 @@ public class TestHotbar : MonoBehaviour
         if (n < 0 || n >= slots.Length) return;
 
         currentIndex = n;
-        UpdateHeldItemUI();
+
+        for (int i = 0; i < slots.Length; i++)
+        {
+            var img = slots[i].GetComponent<Image>();
+            if (img != null)
+            {
+                img.color = (i == currentIndex) ? Color.white : new Color(0, 0, 0, 0);
+            }
+        }
     }
 
-    void UpdateHeldItemUI()
+    public void UpdateHeldItemUI(Sprite itemIcon)
     {
-        if (currentIndex >= 0)
+        if (heldImage != null)
         {
-            var selected = slots[currentIndex];
-
-            if (selected.itemRef != null)
+            if (itemIcon != null)
             {
-                heldImage.sprite = selected.itemRef;
+                heldImage.sprite = itemIcon;
                 heldImage.color = Color.white;
             }
             else
             {
                 heldImage.color = new Color(0, 0, 0, 0);
-            }
-            if (selected.amount == 0)
-            {
-                selected.amountText.text = "";
-            }
-            else
-            {
-                selected.amountText.text = selected.amount.ToString();
             }
         }
     }

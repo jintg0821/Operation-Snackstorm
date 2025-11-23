@@ -108,7 +108,7 @@ public class Inventory : MonoBehaviourPunCallbacks
     {
         if (PlayerController != null)
         {
-            PlayerController.PickItem(item);
+            PlayerController.PickItem(item.prefab.name);
         }
     }
 }

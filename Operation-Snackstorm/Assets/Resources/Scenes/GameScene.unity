@@ -97,7 +97,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: 173f30e0d9e6c094c94fd1cff6d6c7a5, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: ec507b7eec9f8914381ab4182b5fe07d, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -449,7 +449,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 8baef29291686bb44aca4eddbd51edde, type: 3}
     - target: {fileID: 841945840608530806, guid: 7a4771a750fea02478f77b23398692cd, type: 3}
       propertyPath: m_text
-      value: 1
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 841945840608530806, guid: 7a4771a750fea02478f77b23398692cd, type: 3}
       propertyPath: m_HorizontalAlignment
@@ -13706,6 +13706,14 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 6f650344754ebe94faebb5b3a7e83484, type: 3}
+    - target: {fileID: 841945840608530806, guid: 7a4771a750fea02478f77b23398692cd, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2290164065215007334, guid: 7a4771a750fea02478f77b23398692cd, type: 3}
+      propertyPath: amount
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2290164065215007334, guid: 7a4771a750fea02478f77b23398692cd, type: 3}
       propertyPath: itemRef
       value: 
@@ -31572,7 +31580,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: deaf73ba4c0fbd140b79f2d3069c7cb4, type: 3}
     - target: {fileID: 841945840608530806, guid: 7a4771a750fea02478f77b23398692cd, type: 3}
       propertyPath: m_text
-      value: 1
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5598352709351228563, guid: 7a4771a750fea02478f77b23398692cd, type: 3}
       propertyPath: m_Name
@@ -31664,6 +31672,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 2f18fb65c984d6547b9ff30896a7e22b, type: 3}
     m_RemovedComponents:
     - {fileID: 1575044114716153573, guid: 7a4771a750fea02478f77b23398692cd, type: 3}
+    - {fileID: 2290164065215007334, guid: 7a4771a750fea02478f77b23398692cd, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -31694,7 +31703,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemRef: {fileID: 21300000, guid: deaf73ba4c0fbd140b79f2d3069c7cb4, type: 3}
-  amount: 1
+  amount: 0
   amountText: {fileID: 781432341}
 --- !u!114 &781432341 stripped
 MonoBehaviour:
@@ -91621,7 +91630,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 841945840608530806, guid: 7a4771a750fea02478f77b23398692cd, type: 3}
       propertyPath: m_text
-      value: 1
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2290164065215007334, guid: 7a4771a750fea02478f77b23398692cd, type: 3}
+      propertyPath: amount
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2290164065215007334, guid: 7a4771a750fea02478f77b23398692cd, type: 3}
       propertyPath: itemRef
@@ -92783,6 +92796,10 @@ PrefabInstance:
     - target: {fileID: 307013175346690213, guid: 7a4771a750fea02478f77b23398692cd, type: 3}
       propertyPath: m_Sprite
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2290164065215007334, guid: 7a4771a750fea02478f77b23398692cd, type: 3}
+      propertyPath: amount
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2290164065215007334, guid: 7a4771a750fea02478f77b23398692cd, type: 3}
       propertyPath: itemRef
@@ -96328,9 +96345,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefabs:
-  - {fileID: 6373089970470972489, guid: 011328659ba707e4a95cf3bbbba7c388, type: 3}
   - {fileID: 1305968215052800338, guid: abf0683b4993c1543b27904a91c001e2, type: 3}
   - {fileID: 1616706237792485427, guid: d65b2e200e92aad4dae2140f4a0c11d0, type: 3}
+  - {fileID: 6373089970470972489, guid: 011328659ba707e4a95cf3bbbba7c388, type: 3}
+  - {fileID: 2936807805913074908, guid: 15e652ac995099e4496959f745a66ad0, type: 3}
 --- !u!1001 &4014737280826462248
 PrefabInstance:
   m_ObjectHideFlags: 0
