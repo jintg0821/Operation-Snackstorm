@@ -474,12 +474,15 @@ MonoBehaviour:
   miniGameStart: 0
   rideSkate: 0
   MopObj: {fileID: 3383418951040318263}
+  mopPos: {fileID: 5175586209775389058}
   isMopping: 0
   isAttacking: 0
   isHit: 0
   isFallDown: 0
   wallTime: 1
-  mopPos: {fileID: 5175586209775389058}
+  itemPos: {fileID: 0}
+  handItem: {fileID: 0}
+  throwForce: 30
   isCatchable: 1
   inventory: {fileID: 0}
   characterController: {fileID: 5876443116329698592}

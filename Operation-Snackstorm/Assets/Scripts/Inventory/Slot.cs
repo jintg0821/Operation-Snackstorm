@@ -7,8 +7,10 @@ using TMPro;
 public class Slot : MonoBehaviour
 {
     [SerializeField] Image image;
+    [SerializeField] Button button;
 
     private Item _item;
+    private Inventory inventory;
 
     public Item item
     {
@@ -25,6 +27,20 @@ public class Slot : MonoBehaviour
             {
                 image.sprite = null;
             }
+        }
+    }
+
+    public void InitSlot(Inventory inv)
+    {
+        inventory = inv;
+        button.onClick.AddListener(OnClickSlot);
+    }
+
+    void OnClickSlot()
+    {
+        if (_item != null)
+        {
+            inventory.SelectedItem(_item);
         }
     }
 }

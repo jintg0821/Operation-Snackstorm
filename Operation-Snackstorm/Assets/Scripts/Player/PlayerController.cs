@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     [Header("Mop")]
     [SerializeField] private GameObject MopObj;
+    [SerializeField] private Transform mopPos;
 
     private bool isHoldingMop = false;
     public bool isMopping = false;
@@ -37,7 +38,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [SerializeField] private float wallTime;
     private bool isFireExtinguisherExplode;
 
-    [SerializeField] private Transform mopPos;
+    [SerializeField] private Transform itemPos;
+    [SerializeField] private GameObject handItem;
+    [SerializeField] private float throwForce;
 
     public bool isCatchable = true;
 
@@ -113,7 +116,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                BroadcastManager.Instance.IssueCommand(CommandType.Walk);
+                ThrowItem();
             }
 
             if (Input.GetKeyDown(KeyCode.E))
@@ -369,6 +372,60 @@ public class PlayerController : MonoBehaviourPunCallbacks
             if (playerMovement != null && rideSkate)
                 photonView.RPC("RPC_SelfHit", RpcTarget.All);
         }    
+    }
+
+    public void PickItem(Item item)
+    {
+        if (handItem != null)
+            PhotonNetwork.Destroy(handItem);
+
+        handItem = PhotonNetwork.Instantiate($"Prefabs/Items/{item.prefab.name}", itemPos.position, itemPos.rotation);
+
+        handItem.transform.SetParent(itemPos);
+
+        Rigidbody itemRb = handItem.GetComponent<Rigidbody>();
+        if (itemRb != null)
+        {
+            itemRb.isKinematic = true;
+            itemRb.useGravity = false;
+        }
+
+        Collider itemCollider = handItem.GetComponent<Collider>();
+        if (itemCollider != null)
+        {
+            itemCollider.enabled = false;
+        }
+    }
+
+    public void ThrowItem()
+    {
+        if (handItem != null)
+        {
+            handItem.transform.SetParent(null);
+
+            Rigidbody itemRb = handItem.GetComponent<Rigidbody>();
+            if (itemRb != null)
+            {
+                itemRb.isKinematic = false;
+                itemRb.useGravity = true;
+
+                itemRb.AddForce(fpsCam.transform.forward * throwForce, ForceMode.Impulse);
+            }
+
+            Collider itemCollider = handItem.GetComponent<Collider>();
+            if (itemCollider != null)
+            {
+                itemCollider.enabled = true;
+            }
+
+            ItemObj item = handItem.GetComponent<ItemObj>();
+            if (item != null)
+            {
+                inventory.RemoveItem(item.item);
+            }
+        }
+
+        handItem = null;
     }
 
     [PunRPC]

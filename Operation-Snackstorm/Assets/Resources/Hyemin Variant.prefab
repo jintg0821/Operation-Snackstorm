@@ -248,6 +248,37 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5917484761737148789}
   m_Enabled: 1
+--- !u!1 &7884872662405253659
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5039825231365249127}
+  m_Layer: 0
+  m_Name: ItemPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5039825231365249127
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7884872662405253659}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7151258, y: -0.094667226, z: -0.18152, w: 0.6683441}
+  m_LocalPosition: {x: -0.0012, y: 0.0036, z: -0.0005}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2958184322128523152}
+  m_LocalEulerAnglesHint: {x: 67.151, y: -96.021, z: -103.206}
 --- !u!1 &8642789682098376098
 GameObject:
   m_ObjectHideFlags: 0
@@ -533,12 +564,15 @@ MonoBehaviour:
   miniGameStart: 0
   rideSkate: 0
   MopObj: {fileID: 628203843867786390}
+  mopPos: {fileID: 2218745307947867672}
   isMopping: 0
   isAttacking: 0
   isHit: 0
   isFallDown: 0
   wallTime: 1
-  mopPos: {fileID: 2218745307947867672}
+  itemPos: {fileID: 5039825231365249127}
+  handItem: {fileID: 0}
+  throwForce: 30
   isCatchable: 1
   inventory: {fileID: 0}
   characterController: {fileID: 0}
@@ -1045,6 +1079,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1756349536855923657, guid: 78a4f454280961945af487c13774b432, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2218745307947867672}
+    - targetCorrespondingSourceObject: {fileID: 1756349536855923657, guid: 78a4f454280961945af487c13774b432, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5039825231365249127}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: -1036989553019873318, guid: 78a4f454280961945af487c13774b432, type: 3}
       insertIndex: -1

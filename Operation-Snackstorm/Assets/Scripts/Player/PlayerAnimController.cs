@@ -27,7 +27,7 @@ public class PlayerAnimController : MonoBehaviour
         _animIDThrow = Animator.StringToHash("isThrow");
         _animIDSkate = Animator.StringToHash("Skate");
         _animIDFallDown = Animator.StringToHash("FallDown");
-        _animIDMop = Animator.StringToHash("Mop");
+        _animIDMop = Animator.StringToHash("Mopping");
         _animIDAttack = Animator.StringToHash("Attack");
     }
 

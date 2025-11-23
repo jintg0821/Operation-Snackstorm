@@ -37,6 +37,11 @@ public class Inventory : MonoBehaviourPunCallbacks
             slotParent = inventoryPanel.transform.Find("Panels/Store");
             slots = slotParent.GetComponentsInChildren<Slot>();
 
+            foreach (var slot in slots)
+            {
+                slot.InitSlot(this);
+            }
+
             inventoryPanel.SetActive(false);
         }
     }
@@ -96,6 +101,14 @@ public class Inventory : MonoBehaviourPunCallbacks
         {
             items.Remove(_item);
             FreshSlot();
+        }
+    }
+
+    public void SelectedItem(Item item)
+    {
+        if (PlayerController != null)
+        {
+            PlayerController.PickItem(item);
         }
     }
 }
