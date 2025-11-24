@@ -8,20 +8,20 @@ using TMPro;
 public class SuggestionUI : MonoBehaviour
 {
     [Header("UI")]
-    public GameObject panel;               // SuggestionPanel
-    public Transform buttonParent;         // ScrollView Content
-    public Button candidateButtonPrefab;   // 후보 버튼 프리팹
+    public GameObject panel;               
+    public Transform buttonParent;         
+    public Button candidateButtonPrefab;   
     public Button submitButton;
     public Button cancelButton;
 
     [Header("건의 대상들")]
-    public List<ReportTarget> candidates;  // 선생님/선배 18명
+    public List<ReportTarget> candidates;  
 
     [Header("교장실 소환 위치")]
-    public Transform principalRoomSpawn;   // 같은 씬 안 교장실 방에 빈 오브젝트 하나 두고 연결
+    public Transform principalRoomSpawn;   
 
     ReportTarget selectedTarget;
-    Transform playerTransform;             // 건의한 플레이어 Transform
+    Transform playerTransform;             
 
     void Start()
     {
@@ -66,8 +66,6 @@ public class SuggestionUI : MonoBehaviour
         playerTransform = player;
         selectedTarget = null;
         panel.SetActive(true);
-
-        // 필요하면 여기서 Time.timeScale = 0f; / 마우스 커서 활성화 등도 가능
     }
 
     public void Close()
