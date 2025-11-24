@@ -24,7 +24,7 @@ public class PianoInteract : MonoBehaviour
 
     void Update()
     {
-        if (isPlayerInRange && Input.GetKeyDown(KeyCode.P))
+        if (isPlayerInRange && Input.GetKeyDown(KeyCode.O))
         {
             PianoMinigameManager.Instance.StartMinigame();
         }
