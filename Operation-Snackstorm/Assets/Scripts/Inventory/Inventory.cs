@@ -106,7 +106,7 @@ public class Inventory : MonoBehaviourPunCallbacks
 
     public void SelectedItem(Item item)
     {
-        if (PlayerController != null)
+        if (PlayerController != null && !PlayerController.isHoldingMop && !PlayerController.rideSkate)
         {
             PlayerController.PickItem(item.prefab.name);
         }

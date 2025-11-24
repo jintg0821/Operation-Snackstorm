@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject MopObj;
     [SerializeField] private Transform mopPos;
 
-    private bool isHoldingMop = false;
+    public bool isHoldingMop = false;
     public bool isMopping = false;
     public bool isAttacking = false;
     public bool isHit = false;
@@ -116,7 +116,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                playerAnimController.SetThrow(true);
+                if (!isHoldingMop && !rideSkate)
+                    playerAnimController.SetThrow(true);
             }
 
             if (Input.GetKeyDown(KeyCode.E))
