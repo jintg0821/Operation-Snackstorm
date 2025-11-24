@@ -5,11 +5,13 @@ using UnityEngine;
 public class PianoInteract : MonoBehaviour
 {
     private bool isPlayerInRange = false;
+    PlayerController player;
 
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
+            player = other.GetComponent<PlayerController>();
             isPlayerInRange = true;
         }
     }
@@ -18,6 +20,7 @@ public class PianoInteract : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            player = null;
             isPlayerInRange = false;
         }
     }
@@ -26,7 +29,8 @@ public class PianoInteract : MonoBehaviour
     {
         if (isPlayerInRange && Input.GetKeyDown(KeyCode.O))
         {
-            PianoMinigameManager.Instance.StartMinigame();
+            
+            PianoMinigameManager.Instance.StartMinigame(player);
         }
     }
 }

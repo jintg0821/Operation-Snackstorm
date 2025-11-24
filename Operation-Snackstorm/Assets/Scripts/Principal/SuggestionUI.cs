@@ -21,7 +21,9 @@ public class SuggestionUI : MonoBehaviour
     public Transform principalRoomSpawn;   
 
     ReportTarget selectedTarget;
-    Transform playerTransform;             
+    Transform playerTransform;
+
+    PlayerController playerController;
 
     void Start()
     {
@@ -61,15 +63,18 @@ public class SuggestionUI : MonoBehaviour
     /// <summary>
     /// 건의창 열기 (누가 열었는지 플레이어 Transform 넘겨줌)
     /// </summary>
-    public void Open(Transform player)
+    public void Open(PlayerController player)
     {
-        playerTransform = player;
+        playerController = player;
+        player.isPanelOn = true;
+        playerTransform = player.transform;
         selectedTarget = null;
         panel.SetActive(true);
     }
 
     public void Close()
     {
+        playerController.isPanelOn = false;
         panel.SetActive(false);
     }
 
@@ -91,14 +96,6 @@ public class SuggestionUI : MonoBehaviour
         // 1) 선택된 NPC 행동 멈추기 (Photon RPC 안에서 처리됨)
         selectedTarget.Report();
 
-        // 2) 건의한 플레이어를 교장실 방으로 텔레포트
-        if (playerTransform != null && principalRoomSpawn != null)
-        {
-            playerTransform.position = principalRoomSpawn.position;
-            playerTransform.rotation = principalRoomSpawn.rotation;
-        }
-
-        // 3) 창 닫기
         Close();
     }
 }

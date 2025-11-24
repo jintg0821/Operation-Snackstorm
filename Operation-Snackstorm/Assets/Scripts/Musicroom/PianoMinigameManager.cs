@@ -15,6 +15,8 @@ public class PianoMinigameManager : MonoBehaviourPun
     private NoteName currentAnswer;
     private bool isPlaying = false;
 
+    PlayerController playerController;
+
     void Awake()
     {
         if (Instance == null) Instance = this;
@@ -24,19 +26,22 @@ public class PianoMinigameManager : MonoBehaviourPun
             pianoUI.SetActive(false);
     }
 
-    public void StartMinigame()
+    public void StartMinigame(PlayerController player)
     {
         if (isPlaying) return;
+
+        playerController = player;
+        playerController.isPanelOn = true;
 
         isPlaying = true;
         pianoUI.SetActive(true);
         GenerateQuestion();
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
     }
 
     public void CloseMinigame()
     {
+        playerController.isPanelOn = false;
+
         isPlaying = false;
         if (pianoUI != null)
             pianoUI.SetActive(false);

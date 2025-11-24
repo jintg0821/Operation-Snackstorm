@@ -34,7 +34,10 @@ public class SuggestionBox : MonoBehaviour
     {
         if (playerInRange != null && Input.GetKeyDown(KeyCode.C))
         {
-            suggestionUI.Open(playerInRange);
+            PlayerController player = playerInRange.GetComponent<PlayerController>();
+            suggestionUI.Open(player);
+
+            Debug.Log("아무거나");
         }
     }
 }
