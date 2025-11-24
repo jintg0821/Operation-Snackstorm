@@ -1,9 +1,8 @@
 ﻿using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
-using ExitGames.Client.Photon;
+using UnityEngine;
 
 public class PlayerController : MonoBehaviourPunCallbacks
 {
@@ -27,6 +26,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     [Header("Mop")]
     [SerializeField] private GameObject MopObj;
+    [SerializeField] private Transform mopPos;
 
     private bool isHoldingMop = false;
     public bool isMopping = false;
@@ -37,7 +37,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [SerializeField] private float wallTime;
     private bool isFireExtinguisherExplode;
 
-    [SerializeField] private Transform mopPos;
+    [SerializeField] private Transform itemPos;
+    [SerializeField] private GameObject handItem;
+    [SerializeField] private float throwForce;
+    [SerializeField] private float throwUpwardForce;
 
     public bool isCatchable = true;
 
@@ -45,7 +48,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private Cafeteria cafeteria;
     public CharacterController characterController;
     public PlayerMovement playerMovement;
-    [SerializeField]  private PlayerAnimController playerAnimController;
+    [SerializeField] private PlayerAnimController playerAnimController;
     private TestHotbar testHotbar;
     private WaterDispenser waterDispenser;
     private ArtClassroom art;
@@ -113,7 +116,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                BroadcastManager.Instance.IssueCommand(CommandType.Walk);
+                playerAnimController.SetThrow(true);
             }
 
             if (Input.GetKeyDown(KeyCode.E))
@@ -160,7 +163,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 }
                 if (Input.GetKeyDown(KeyCode.Z))
                 {
-                    if (waterDispenser != null && isWaterDispenser) 
+                    if (waterDispenser != null && isWaterDispenser)
                         waterDispenser.photonView.RPC("RPC_AssignRoleAndStart", RpcTarget.All, photonView.ViewID);
                 }
                 if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -368,13 +371,60 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             if (playerMovement != null && rideSkate)
                 photonView.RPC("RPC_SelfHit", RpcTarget.All);
-        }    
+        }
     }
 
+    public void PickItem(string itemName)
+    {
+        if (!photonView.IsMine) return;
+
+        if (handItem != null)
+            PhotonNetwork.Destroy(handItem);
+
+        handItem = PhotonNetwork.Instantiate($"Prefabs/Items/{itemName}", itemPos.position, itemPos.rotation);
+
+        handItem.transform.SetParent(itemPos);
+
+        ItemObj itemObj = handItem.GetComponent<ItemObj>();
+        if (itemObj != null)
+        {
+            itemObj.SetHeld(true);
+            testHotbar.UpdateHeldItemUI(itemObj.item.icon);
+        } 
+    }
+
+    public void ThrowItem()
+    {
+        if (!photonView.IsMine) return;
+        if (handItem == null) return;
+
+        ItemObj itemObj = handItem.GetComponent<ItemObj>();
+        PhotonView itemPV = handItem.GetComponent<PhotonView>();
+
+        if (itemObj == null || itemPV == null) return;
+
+        handItem.transform.SetParent(null);
+
+        inventory.RemoveItem(itemObj.item);
+        testHotbar.UpdateHeldItemUI(null);
+
+        Vector3 throwDirection = fpsCam.transform.forward;
+        Vector3 throwVelocity = throwDirection * throwForce + Vector3.up * throwUpwardForce;
+
+        object[] data = new object[] { throwVelocity };
+        itemPV.RPC("RPC_Throw", RpcTarget.All, data);
+
+        handItem = null;
+        itemPV.TransferOwnership(PhotonNetwork.MasterClient);
+
+        playerAnimController.SetThrow(false);
+    }
+
+
     [PunRPC]
-    void RPC_SelfHit() 
-    { 
-        Hit(); 
+    void RPC_SelfHit()
+    {
+        Hit();
     }
 
     private IEnumerator WallCoolTime()

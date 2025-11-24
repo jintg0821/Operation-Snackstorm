@@ -34,7 +34,7 @@ public class Mop : MonoBehaviourPun
             }
         }
 
-        if (other.gameObject.CompareTag("Dirty"))
+        if (other.gameObject.CompareTag("Dirty") && player.isMopping)
         {
             PhotonView dirtyPV = other.GetComponent<PhotonView>();
             if (dirtyPV != null)

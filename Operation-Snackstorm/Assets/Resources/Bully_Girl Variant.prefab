@@ -128,6 +128,37 @@ Transform:
   - {fileID: 7967729778452238519}
   m_Father: {fileID: 4436343264826010981}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2259536727403152848
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1629109003586684510}
+  m_Layer: 0
+  m_Name: ItemPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1629109003586684510
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2259536727403152848}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7151257, y: -0.094667256, z: -0.18152002, w: 0.6683441}
+  m_LocalPosition: {x: -0.0012000125, y: 0.0036000067, z: -0.00020000117}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4812176120793976954}
+  m_LocalEulerAnglesHint: {x: 67.151, y: -96.021, z: -103.206}
 --- !u!1 &7517946376681981107
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,6 +401,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -4319954173641317831, guid: 1d27c8f2e9aaff54d99552c6162a75e9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3900268083517547702}
+    - targetCorrespondingSourceObject: {fileID: -4319954173641317831, guid: 1d27c8f2e9aaff54d99552c6162a75e9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1629109003586684510}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d27c8f2e9aaff54d99552c6162a75e9, type: 3}
 --- !u!4 &94154770609280424 stripped
@@ -607,12 +641,16 @@ MonoBehaviour:
   miniGameStart: 0
   rideSkate: 0
   MopObj: {fileID: 7949019381165335568}
+  mopPos: {fileID: 3900268083517547702}
   isMopping: 0
   isAttacking: 0
   isHit: 0
   isFallDown: 0
   wallTime: 1
-  mopPos: {fileID: 3900268083517547702}
+  itemPos: {fileID: 1629109003586684510}
+  handItem: {fileID: 0}
+  throwForce: 25
+  throwUpwardForce: 8
   isCatchable: 1
   inventory: {fileID: 0}
   characterController: {fileID: 0}
