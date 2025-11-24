@@ -2,12 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SuggestionBox : MonoBehaviour, IInteractable
+public class SuggestionBox : MonoBehaviour
 {
-    [SerializeField] private List<NPC> targetNPCs; // Inspector에서 할당 (선생님 1명 + 선배 18명)
+    public SuggestionUI suggestionUI;
+    public string playerTag = "Player";
 
-    public void Interact()
+    Transform playerInRange;
+
+    void OnTriggerEnter(Collider other)
     {
-        SuggestionUI.Instance.Open(this, targetNPCs);
+        if (other.CompareTag(playerTag))
+        {
+            playerInRange = other.transform;
+            Debug.Log("건의함 범위 안으로 들어옴");
+            
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag(playerTag))
+        {
+            if (playerInRange == other.transform)
+                playerInRange = null;
+
+            Debug.Log("건의함 범위 밖으로 나감");
+        }
+    }
+
+    void Update()
+    {
+        if (playerInRange != null && Input.GetKeyDown(KeyCode.C))
+        {
+            suggestionUI.Open(playerInRange);
+        }
     }
 }
