@@ -26,7 +26,13 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     [Header("Mop")]
     [SerializeField] private GameObject MopObj;
-    [SerializeField] private Transform mopPos;
+    [SerializeField] private Transform mop;
+    [SerializeField] private Vector3 defaultMopPos;
+    [SerializeField] private Vector3 defaultMopRot;
+    [SerializeField] private Vector3 attackMopPos;
+    [SerializeField] private Vector3 attackMopRot;
+    [SerializeField] private Vector3 mopPos;
+    [SerializeField] private Vector3 mopRot;
 
     public bool isHoldingMop = false;
     public bool isMopping = false;
@@ -140,15 +146,16 @@ public class PlayerController : MonoBehaviourPunCallbacks
             {
                 if (isHoldingMop)
                 {
-                    if (Input.GetMouseButtonDown(0))
+                    if (!isAttacking && !isMopping)
                     {
-                        if (!isAttacking)
+                        if (Input.GetMouseButtonDown(0))
+                        {
                             Attack();
-                    }
-                    if (Input.GetMouseButtonDown(1))
-                    {
-                        if (!isMopping)
+                        }
+                        if (Input.GetMouseButtonDown(1))
+                        {
                             Mopping();
+                        }
                     }
                 }
 
@@ -324,8 +331,13 @@ public class PlayerController : MonoBehaviourPunCallbacks
     void Mopping()
     {
         isMopping = true;
+
         if (playerAnimController != null)
+        {
+            MopObj.transform.localRotation = Quaternion.Euler(mopRot);
+            MopObj.transform.localPosition = mopPos;
             playerAnimController.SetMop(isMopping);
+        }  
     }
 
     public void MoppingEnd()
@@ -334,13 +346,20 @@ public class PlayerController : MonoBehaviourPunCallbacks
         isMopping = false;
         if (playerAnimController != null)
             playerAnimController.SetMop(isMopping);
+
+        MopObj.transform.localPosition = defaultMopPos;
+        MopObj.transform.localRotation = Quaternion.Euler(defaultMopRot);
     }
 
     void Attack()
     {
         isAttacking = true;
         if (playerAnimController != null)
+        {
+            MopObj.transform.localRotation = Quaternion.Euler(attackMopRot);
+            MopObj.transform.localPosition = attackMopPos;
             playerAnimController.SetAttack(isAttacking);
+        }  
     }
 
     public void AttackEnd()
@@ -349,6 +368,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
         isAttacking = false;
         if (playerAnimController != null)
             playerAnimController.SetAttack(isAttacking);
+
+        MopObj.transform.localPosition = defaultMopPos;
+        MopObj.transform.localRotation = Quaternion.Euler(defaultMopRot);
     }
 
     public void Hit()

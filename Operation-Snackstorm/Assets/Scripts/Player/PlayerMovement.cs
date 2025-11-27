@@ -155,6 +155,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
 
     void PlayerMove()
     {
+        Debug.Log("DAFDS");
         float Horizontal = Input.GetAxisRaw("Horizontal");
         float Vertical = Input.GetAxisRaw("Vertical");
 

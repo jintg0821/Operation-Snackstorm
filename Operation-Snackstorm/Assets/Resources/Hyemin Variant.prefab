@@ -564,7 +564,13 @@ MonoBehaviour:
   miniGameStart: 0
   rideSkate: 0
   MopObj: {fileID: 628203843867786390}
-  mopPos: {fileID: 2218745307947867672}
+  mop: {fileID: 0}
+  defaultMopPos: {x: 0, y: 0, z: 0}
+  defaultMopRot: {x: 0, y: 0, z: 0}
+  attackMopPos: {x: 0, y: 0, z: 0}
+  attackMopRot: {x: 0, y: 0, z: 0}
+  mopPos: {x: 0.001542515, y: 0.02311623, z: -0.000736434}
+  mopRot: {x: -2.641, y: -231.467, z: 162.426}
   isHoldingMop: 0
   isMopping: 0
   isAttacking: 0
@@ -575,6 +581,7 @@ MonoBehaviour:
   handItem: {fileID: 0}
   throwForce: 25
   throwUpwardForce: 8
+  throwing: 0
   isCatchable: 1
   inventory: {fileID: 0}
   characterController: {fileID: 0}

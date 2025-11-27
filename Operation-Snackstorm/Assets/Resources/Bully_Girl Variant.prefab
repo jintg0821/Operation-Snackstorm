@@ -641,7 +641,13 @@ MonoBehaviour:
   miniGameStart: 0
   rideSkate: 0
   MopObj: {fileID: 7949019381165335568}
-  mopPos: {fileID: 3900268083517547702}
+  mop: {fileID: 0}
+  defaultMopPos: {x: 0, y: 0, z: 0}
+  defaultMopRot: {x: 0, y: 0, z: 0}
+  attackMopPos: {x: 0, y: 0, z: 0}
+  attackMopRot: {x: 0, y: 0, z: 0}
+  mopPos: {x: -0.0032, y: 0.0265, z: 0.002}
+  mopRot: {x: 14.4, y: -43.158, z: 192.931}
   isHoldingMop: 0
   isMopping: 0
   isAttacking: 0
