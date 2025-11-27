@@ -1,15 +1,14 @@
 using Photon.Pun;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public enum CommandType { None, Walk, Run, Crouch}
+public enum CommandType { None, Walk, Run, Idle }
 
 public class BroadcastManager : MonoBehaviourPun
 {
     public static BroadcastManager Instance;
 
     public CommandType currentCommand;
+    public bool isCommanding = false;
     public float commandDuration = 5f;
     private float timer;
 
@@ -51,13 +50,19 @@ public class BroadcastManager : MonoBehaviourPun
             if (timer <= 0)
             {
                 currentCommand = CommandType.None;
+                isCommanding = false;
                 Debug.Log("명령 종료");
             }
+            else
+                isCommanding = true;
         }
     }
 
     public void IssueCommand(CommandType cmd)
     {
-        photonView.RPC("RPC_IssueCommand", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber, (int)cmd);
+        if (!isCommanding)
+        {
+            photonView.RPC("RPC_IssueCommand", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber, (int)cmd);
+        }
     }
 }

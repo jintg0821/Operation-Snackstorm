@@ -1,0 +1,48 @@
+using Photon.Pun;
+using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class BroadcastUI : MonoBehaviour
+{
+    [SerializeField] private GameObject broadcastPanel;
+    public bool isOpen;
+    public PlayerController PlayerController;
+
+    void Start()
+    {
+        broadcastPanel = GameObject.Find("BroadcastPanel");
+
+        broadcastPanel.SetActive(false);
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (isOpen)
+            {
+                broadcastPanel.SetActive(false);
+                isOpen = false;
+                PlayerController.isPanelOn = isOpen;
+            }
+        }
+    }
+
+    public void OnBroadcastPanel(PlayerController player)
+    {
+        isOpen = !broadcastPanel.activeSelf;
+        broadcastPanel.SetActive(isOpen);
+
+        PlayerController = player;
+        PlayerController.isPanelOn = isOpen;
+    }
+
+    public void OnBroadcastButtonClick(int type)
+    {
+        BroadcastManager.Instance.IssueCommand((CommandType)type);
+    }
+}

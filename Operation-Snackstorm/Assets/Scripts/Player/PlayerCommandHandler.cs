@@ -62,8 +62,8 @@ public class PlayerCommandHandler : MonoBehaviourPun
             case CommandType.Run:
                 return playerMovement.currentState == PlayerState.Run;
 
-            case CommandType.Crouch:
-                return playerMovement.currentState == PlayerState.Crouch;
+            case CommandType.Idle:
+                return playerMovement.currentState == PlayerState.Idle;
         }
 
         return false;

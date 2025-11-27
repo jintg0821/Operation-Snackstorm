@@ -291,6 +291,13 @@ public class PlayerController : MonoBehaviourPunCallbacks
                     art.TryAnswer(hit.collider.gameObject);
                 }
 
+                if (hit.collider.CompareTag("Broadcast"))
+                {
+                    BroadcastUI broadcast = hit.collider.GetComponent<BroadcastUI>();
+                    if (broadcast != null)
+                        broadcast.OnBroadcastPanel(this);
+                }
+
                 //if (hit.collider.CompareTag("AttendanceBook"))
                 //{
                 //    ItemObj itemObj = hit.collider.GetComponent<ItemObj>();
