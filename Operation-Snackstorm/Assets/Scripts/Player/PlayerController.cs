@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject handItem;
     [SerializeField] private float throwForce;
     [SerializeField] private float throwUpwardForce;
+    [SerializeField] private bool throwing;
 
     public bool isCatchable = true;
 
@@ -116,8 +117,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                if (!isHoldingMop && !rideSkate)
-                    playerAnimController.SetThrow(true);
+                if (!isHoldingMop && !rideSkate && !throwing && handItem != null)
+                {
+                    Throwing();
+                }
             }
 
             if (Input.GetKeyDown(KeyCode.E))
@@ -394,6 +397,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
         } 
     }
 
+    public void Throwing()
+    {
+        throwing = true;
+        playerAnimController.SetThrow(true);
+    }
+
     public void ThrowItem()
     {
         if (!photonView.IsMine) return;
@@ -419,6 +428,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         itemPV.TransferOwnership(PhotonNetwork.MasterClient);
 
         playerAnimController.SetThrow(false);
+        throwing = false;
     }
 
 
