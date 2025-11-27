@@ -53,10 +53,12 @@ public class AIController : MonoBehaviourPun
     [SerializeField] private float chaseSpeed = 9f;
 
     public PatrolType patrolType;
+    public bool chaseAI;
 
     [SerializeField] private AIState currentState;
     private NavMeshAgent agent;
     private AIAnimationController animationController;
+    [SerializeField] private StudentChatController studentChatController;
 
     void Start()
     {
@@ -115,6 +117,11 @@ public class AIController : MonoBehaviourPun
                 break;
 
             case AIState.Chase:
+                if (!chaseAI)
+                {
+                    currentState = AIState.Patrol;
+                    break;
+                }
                 agent.speed = chaseSpeed;
                 blendSpeed = chaseSpeed;
                 ChaseTarget();
@@ -150,12 +157,14 @@ public class AIController : MonoBehaviourPun
                 {
                     seeTarget = true;
                     target = targetCol.transform;
+                    if (studentChatController != null)
+                        studentChatController.targetPlayer = target.gameObject;
                     break;
                 }
             }
         }
 
-        if (seeTarget)  // 시야에 플레이어가 있다면
+        if (seeTarget && chaseAI)  // 시야에 플레이어가 있다면
         {
             currentState = AIState.Chase;   // 추적 상태
         }
@@ -216,7 +225,7 @@ public class AIController : MonoBehaviourPun
 
     void ChaseTarget()
     {
-        if (target == null)                 // 타겟이 없으면
+        if (target == null || !chaseAI)                 // 타겟이 없으면
         {
             currentState = AIState.Patrol;  // 순찰 상태
             return;
@@ -292,7 +301,7 @@ public class AIController : MonoBehaviourPun
         if (other.CompareTag("Player"))
         {
             PlayerController player = other.GetComponent<PlayerController>();
-            if (player != null)
+            if (player != null && chaseAI)
             {
                 photonView.RPC("RPC_HandleCatch", RpcTarget.MasterClient, player.photonView.ViewID);
             }

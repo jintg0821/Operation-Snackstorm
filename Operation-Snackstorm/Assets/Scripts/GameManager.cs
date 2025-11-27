@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             currentTimerTime = Mathf.Clamp((float)(timerTime - elapsed), 0f, timerTime);
             timerText.text = currentTimerTime.ToString("F1");
 
-            if (timerTime > 0f)
+            if (currentTimerTime > 0f)
             {
                 fillAmount = currentTimerTime / timerTime;
                 timeImage.fillAmount = Mathf.Clamp01(fillAmount);
