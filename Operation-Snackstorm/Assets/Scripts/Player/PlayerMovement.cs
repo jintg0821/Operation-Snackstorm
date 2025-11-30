@@ -354,19 +354,48 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
             footstepSource.PlayOneShot(FootstepAudioClips[index]);
         }
     }
+
     private void OnTriggerEnter(Collider other)
     {
+        if (!photonView.IsMine) return;
+
         if (other.CompareTag("Banana") && currentState != PlayerState.FallDown)
         {
-            StartCoroutine(ProcessBananaSlip(other.gameObject));
+            Vector3 bananaPos = other.transform.position;
+
+            photonView.RPC("RPC_BananaSlip", RpcTarget.AllBuffered, bananaPos);
         }
     }
-    IEnumerator ProcessBananaSlip(GameObject banana)
+
+
+    [PunRPC]
+    public void RPC_BananaSlip(Vector3 targetPos)
     {
-        Destroy(banana);
 
         OnFallDown();
 
+        StartCoroutine(StandUpRoutine());
+
+        StartCoroutine(FindAndDestroyBanana(targetPos));
+    }
+
+    IEnumerator FindAndDestroyBanana(Vector3 targetPos)
+    {
+        yield return null;
+
+        GameObject[] bananas = GameObject.FindGameObjectsWithTag("Banana");
+        foreach (GameObject banana in bananas)
+        {
+            if (Vector3.Distance(banana.transform.position, targetPos) < 0.5f)
+            {
+                Destroy(banana);
+                break;
+            }
+        }
+    }
+
+    IEnumerator StandUpRoutine()
+    {
         yield return new WaitForSeconds(3.0f);
 
         OnFallDownEnd();
