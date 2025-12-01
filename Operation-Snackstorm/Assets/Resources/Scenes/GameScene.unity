@@ -16158,6 +16158,91 @@ Transform:
   - {fileID: 644975520}
   m_Father: {fileID: 1616160364}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &360707991
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 190157815770504269, guid: f1a4939ae63549c4784cb69988a559f9, type: 3}
+      propertyPath: m_Name
+      value: Counsel
+      objectReference: {fileID: 0}
+    - target: {fileID: 713894389662058231, guid: f1a4939ae63549c4784cb69988a559f9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 60.34
+      objectReference: {fileID: 0}
+    - target: {fileID: 713894389662058231, guid: f1a4939ae63549c4784cb69988a559f9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 22.376709
+      objectReference: {fileID: 0}
+    - target: {fileID: 713894389662058231, guid: f1a4939ae63549c4784cb69988a559f9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -121.952
+      objectReference: {fileID: 0}
+    - target: {fileID: 713894389662058231, guid: f1a4939ae63549c4784cb69988a559f9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 713894389662058231, guid: f1a4939ae63549c4784cb69988a559f9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 713894389662058231, guid: f1a4939ae63549c4784cb69988a559f9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 713894389662058231, guid: f1a4939ae63549c4784cb69988a559f9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 713894389662058231, guid: f1a4939ae63549c4784cb69988a559f9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 713894389662058231, guid: f1a4939ae63549c4784cb69988a559f9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 270
+      objectReference: {fileID: 0}
+    - target: {fileID: 713894389662058231, guid: f1a4939ae63549c4784cb69988a559f9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347426379644622456, guid: f1a4939ae63549c4784cb69988a559f9, type: 3}
+      propertyPath: nameText
+      value: 
+      objectReference: {fileID: 2133033555}
+    - target: {fileID: 1347426379644622456, guid: f1a4939ae63549c4784cb69988a559f9, type: 3}
+      propertyPath: dialogueText
+      value: 
+      objectReference: {fileID: 1182168938}
+    - target: {fileID: 1347426379644622456, guid: f1a4939ae63549c4784cb69988a559f9, type: 3}
+      propertyPath: dialoguePanel
+      value: 
+      objectReference: {fileID: 1514175526}
+    - target: {fileID: 3408526702059630946, guid: f1a4939ae63549c4784cb69988a559f9, type: 3}
+      propertyPath: m_Size.x
+      value: 8.539762
+      objectReference: {fileID: 0}
+    - target: {fileID: 3408526702059630946, guid: f1a4939ae63549c4784cb69988a559f9, type: 3}
+      propertyPath: m_Size.z
+      value: 8.9861355
+      objectReference: {fileID: 0}
+    - target: {fileID: 3408526702059630946, guid: f1a4939ae63549c4784cb69988a559f9, type: 3}
+      propertyPath: m_Center.x
+      value: 0.15538025
+      objectReference: {fileID: 0}
+    - target: {fileID: 3408526702059630946, guid: f1a4939ae63549c4784cb69988a559f9, type: 3}
+      propertyPath: m_Center.z
+      value: 1.3284435
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f1a4939ae63549c4784cb69988a559f9, type: 3}
 --- !u!1 &360808999
 GameObject:
   m_ObjectHideFlags: 0
@@ -102822,3 +102907,4 @@ SceneRoots:
   - {fileID: 301189957}
   - {fileID: 128006209}
   - {fileID: 255149523}
+  - {fileID: 360707991}
