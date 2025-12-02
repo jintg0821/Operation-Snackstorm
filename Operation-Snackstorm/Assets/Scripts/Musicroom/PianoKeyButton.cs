@@ -4,10 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class PianoKeyButton : MonoBehaviour
+public class PianoKeyButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     public NoteName note;
     private Image keyImage;
+    private AudioSource audioSource;
 
     // 7음계 고정 색상
     private static readonly Color[] noteColors = new Color[]
@@ -24,6 +25,7 @@ public class PianoKeyButton : MonoBehaviour
     void Awake()
     {
         keyImage = GetComponent<Image>();
+        audioSource = GetComponent<AudioSource>();
 
         if (note == NoteName.Do)  
         {
@@ -37,7 +39,7 @@ public class PianoKeyButton : MonoBehaviour
             else if (n.Contains("ti") || n.Contains("b")) note = NoteName.Ti;
         }
 
-        // 색상 바로 적용
+        // 색상 적용
         if (keyImage != null)
             keyImage.color = noteColors[(int)note];
     }
@@ -46,11 +48,32 @@ public class PianoKeyButton : MonoBehaviour
     {
         GetComponent<Button>().onClick.AddListener(() =>
         {
+            PlaySound();
             PianoMinigameManager.Instance?.OnKeyPressed(note);
         });
     }
 
-    public void OnPointerDown(PointerEventData e) => keyImage.color = Color.Lerp(noteColors[(int)note], Color.white, 0.3f);
-    public void OnPointerUp(PointerEventData e)   => keyImage.color = noteColors[(int)note];
+    public void SetSound(AudioClip clip)
+    {
+        if (audioSource != null)
+            audioSource.clip = clip;
+    }
+
+    private void PlaySound()
+    {
+        if (audioSource != null && audioSource.clip != null)
+        {
+            audioSource.PlayOneShot(audioSource.clip);  // 짧은 소리라 PlayOneShot 최고!
+        }
+    }
+
+    public void OnPointerDown(PointerEventData e)
+    {
+        if (keyImage) keyImage.color = Color.Lerp(noteColors[(int)note], Color.white, 0.35f);
+    }
+    public void OnPointerUp(PointerEventData e)
+    {
+        if (keyImage) keyImage.color = noteColors[(int)note];
+    }
 }
 
