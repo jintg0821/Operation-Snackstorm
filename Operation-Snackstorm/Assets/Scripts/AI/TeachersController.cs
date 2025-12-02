@@ -22,6 +22,16 @@ public class TeachersController : AIController
 
             playerPV.RPC("RPC_SetCatchable", RpcTarget.All, false);
             StartCoroutine(ResetCatchableAfterDelay(playerPV));
+            AIController[] aIControllers = GameManager.Instance.aiList.ToArray();
+            foreach (var ai in aIControllers)
+            {
+                if (ai.isBroadcasting)
+                {
+                    isBroadcasting = false;
+                    target = null;
+                    ai.currentState = AIState.Patrol;
+                }
+            }
         }
     }
 

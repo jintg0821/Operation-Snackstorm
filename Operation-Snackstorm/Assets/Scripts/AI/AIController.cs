@@ -40,6 +40,7 @@ public class AIController : MonoBehaviourPun
     public LayerMask obstacleMask;
 
     public bool isSightRestricted = false;
+    public bool isBroadcasting = false;
 
     [Header("Patrol")]
     public Transform[] patrolPoints;
@@ -55,14 +56,14 @@ public class AIController : MonoBehaviourPun
     public PatrolType patrolType;
     public bool chaseAI;
 
-    [SerializeField] private AIState currentState;
+    public AIState currentState;
     private NavMeshAgent agent;
     private AIAnimationController animationController;
     [SerializeField] private StudentChatController studentChatController;
 
     void Start()
     {
-        GameManager.Instance.aiList.Add(this.gameObject);
+        GameManager.Instance.aiList.Add(this);
         agent = GetComponent<NavMeshAgent>();
         animationController = GetComponent<AIAnimationController>();
 
@@ -89,6 +90,16 @@ public class AIController : MonoBehaviourPun
     {
         if (!PhotonNetwork.IsMasterClient) return;
 
+        if (target != null && isBroadcasting)
+        {
+            PlayerController player = target.GetComponent<PlayerController>();
+            if (!player.isCatchable)
+            {
+                target = null;
+                isBroadcasting = false;
+            }
+        }
+
         if (isSightRestricted)
         {
             viewAngle = restrictedViewAngle;
@@ -100,7 +111,8 @@ public class AIController : MonoBehaviourPun
             viewRadius = defaultViewRadius;
         }
 
-        CheckSight();
+        if (!isBroadcasting)
+            CheckSight();
 
         float blendSpeed = 0f;
         switch (currentState)
@@ -225,9 +237,9 @@ public class AIController : MonoBehaviourPun
 
     void ChaseTarget()
     {
-        if (target == null || !chaseAI)                 // 타겟이 없으면
+        if (target == null)
         {
-            currentState = AIState.Patrol;  // 순찰 상태
+            currentState = AIState.Patrol;
             return;
         }
 
@@ -241,7 +253,7 @@ public class AIController : MonoBehaviourPun
         }
 
         float distance = Vector3.Distance(transform.position, target.position);
-        if (distance > losetargetDistance)  // 타겟 플레이어와의 거리가 멀어지면
+        if (distance > losetargetDistance && !isBroadcasting)  // 타겟 플레이어와의 거리가 멀어지면
         {
             target = null;                  // 타겟을 null로 바꾼 후
             currentState = AIState.Patrol;  //순찰 상태
@@ -256,6 +268,17 @@ public class AIController : MonoBehaviourPun
         player.characterController.enabled = false;
         player.gameObject.transform.position = GameManager.Instance.spawnPoint.position;
         player.characterController.enabled = true;
+
+        AIController[] aIControllers = GameManager.Instance.aiList.ToArray();
+        foreach (var ai in  aIControllers)
+        {
+            if (ai.isBroadcasting)
+            {
+                isBroadcasting = false;
+                target = null;
+                ai.currentState = AIState.Patrol;
+            }
+        }
     }
 
     [PunRPC]

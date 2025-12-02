@@ -33,6 +33,7 @@ public class FireExtinguisher : MonoBehaviourPun
         {
             AIController ai = other.GetComponent<AIController>();
             ai.isSightRestricted = true;
+            ai.isBroadcasting = false;
         }
     }
 

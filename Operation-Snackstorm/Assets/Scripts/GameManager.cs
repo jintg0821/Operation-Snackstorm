@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     [SerializeField] private List<PhotonView> players = new List<PhotonView>();
     [SerializeField] private GameObject[] startWalls;
-    public List<GameObject> aiList = new List<GameObject>();
+    public List<AIController> aiList = new List<AIController>();
     [SerializeField] private List<PhotonView> inPointAreaPlayers = new List<PhotonView>();
 
     [SerializeField] private bool roundStart = false;
@@ -108,7 +108,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             {
                 foreach (var ai in aiList)
                 {
-                    ai.SetActive(true);
+                    ai.gameObject.SetActive(true);
                 }
             }
         }
@@ -123,7 +123,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             {
                 foreach (var ai in aiList)
                 {
-                    ai.SetActive(false);
+                    ai.gameObject.SetActive(false);
                 }
             }
         }
@@ -425,7 +425,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             if (ai != null)
             {
-                ai.SetActive(false);
+                ai.gameObject.SetActive(false);
             }
         }
 
