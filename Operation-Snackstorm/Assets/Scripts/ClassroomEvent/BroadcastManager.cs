@@ -34,9 +34,10 @@ public class BroadcastManager : MonoBehaviourPun
 
         foreach (var player in FindObjectsOfType<PlayerCommandHandler>())
         {
-            if (player.photonView.IsMine && PhotonNetwork.LocalPlayer.ActorNumber != senderID)
+            if (player.photonView.IsMine && player.photonView.OwnerActorNr != senderID)
             {
                 player.ReceiveCommand(currentCommand);
+                Debug.Log("¾È½ÃÇö");
                 break;
             }
         }

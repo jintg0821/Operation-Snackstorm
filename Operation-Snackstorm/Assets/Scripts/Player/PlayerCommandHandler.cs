@@ -46,7 +46,7 @@ public class PlayerCommandHandler : MonoBehaviourPun
         }
 
         isBeingChased = true;
-        OnCommandFailed();
+        photonView.RPC("RPC_OnCommandFailed", RpcTarget.AllBuffered);
     }
 
     private bool IsFollowingCommand()
@@ -69,9 +69,23 @@ public class PlayerCommandHandler : MonoBehaviourPun
         return false;
     }
 
+    [PunRPC]
+    public void RPC_OnCommandFailed()
+    {
+        OnCommandFailed();
+    }
+
     private void OnCommandFailed()
     {
-        Debug.Log($"¸í·É À§¹Ý! NPCµéÀÌ ÂÑ½À´Ï´Ù.");
+        AIController[] aIControllers = GameManager.Instance.aiList.ToArray();
+
+        foreach (var ai in  aIControllers)
+        {
+            ai.isBroadcasting = true;
+            ai.target = this.gameObject.transform;
+            ai.currentState = AIState.Chase;
+        }
+        Debug.Log("½Ç»v°¹¾î¿ä");
     }
 
     private void OnCommandSuccess()

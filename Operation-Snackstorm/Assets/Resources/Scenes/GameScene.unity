@@ -97,7 +97,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: 9e9691ad257242b4488e288217e32e9e, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: bf60afed83cb1ed48936f4ef3a7202f5, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -36749,6 +36749,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   isSightRestricted: 0
+  isBroadcasting: 0
   patrolPoints:
   - {fileID: 1807095860}
   - {fileID: 739162531}
@@ -36759,7 +36760,7 @@ MonoBehaviour:
   losetargetDistance: 15
   chaseSpeed: 20
   patrolType: 0
-  chaseAI: 0
+  chaseAI: 1
   currentState: 0
   studentChatController: {fileID: 835592143}
 --- !u!95 &835592139
@@ -52417,6 +52418,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   isSightRestricted: 0
+  isBroadcasting: 0
   patrolPoints:
   - {fileID: 1644125017}
   - {fileID: 187296888}
@@ -52427,7 +52429,7 @@ MonoBehaviour:
   losetargetDistance: 15
   chaseSpeed: 20
   patrolType: 0
-  chaseAI: 0
+  chaseAI: 1
   currentState: 0
   studentChatController: {fileID: 0}
 --- !u!95 &1126607790
@@ -93723,6 +93725,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   isSightRestricted: 0
+  isBroadcasting: 0
   patrolPoints:
   - {fileID: 1160886424}
   - {fileID: 1554234435}
@@ -93733,7 +93736,7 @@ MonoBehaviour:
   losetargetDistance: 15
   chaseSpeed: 20
   patrolType: 0
-  chaseAI: 0
+  chaseAI: 1
   currentState: 0
   studentChatController: {fileID: 0}
 --- !u!95 &1988076613
