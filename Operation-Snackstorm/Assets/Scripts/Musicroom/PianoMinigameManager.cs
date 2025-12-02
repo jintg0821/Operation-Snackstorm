@@ -17,6 +17,45 @@ public class PianoMinigameManager : MonoBehaviourPun
 
     PlayerController playerController;
 
+    [PunRPC]
+    public void RPC_OnPianoSuccess(PhotonMessageInfo info)
+    {
+        Debug.Log($"피아노 성공! Sender: {info.Sender?.NickName ?? "NULL"} | IsMaster: {PhotonNetwork.IsMasterClient}");
+
+        CloseMinigame();
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PlayerController player = info.Sender?.TagObject as PlayerController;
+            if (player != null)
+            {
+                Debug.Log($"보상 지급 대상: {player.name}");
+                SpawnRewardCoinsForPlayer(player.transform);
+            }
+            else
+            {
+                Debug.LogError("PlayerController를 찾을 수 없음! TagObject이 null이거나 PlayerController 없음");
+            }
+        }
+    }
+
+    // 마스터클라이언트 전용: 보상 코인 생성 함수
+    private void SpawnRewardCoinsForPlayer(Transform playerTransform)
+    {
+        Vector3 center = playerTransform.position + Vector3.up * 1.5f; // 머리 위
+
+        for (int i = 0; i < 2; i++)
+        {
+            Vector3 offset = new Vector3(
+                Random.Range(-1.2f, 1.2f),
+                Random.Range(0.3f, 0.8f),
+                Random.Range(-1.2f, 1.2f)
+            );
+
+            GameObject coinObj = PhotonNetwork.Instantiate("Prefabs/Coin", center + offset, Quaternion.identity);
+
+        }
+    }
     void Awake()
     {
         if (Instance == null) Instance = this;
@@ -64,7 +103,7 @@ public class PianoMinigameManager : MonoBehaviourPun
 
         if (pressed == currentAnswer)
         {
-            photonView.RPC("RPC_OnPianoSuccess", RpcTarget.All);
+            photonView.RPC(nameof(RPC_OnPianoSuccess), RpcTarget.All);
         }
         else
         {

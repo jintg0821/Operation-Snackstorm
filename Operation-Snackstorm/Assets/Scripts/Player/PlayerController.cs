@@ -78,6 +78,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.NickName = "Player" + photonView.ViewID;
         }
+
+        if (photonView.IsMine)
+        {
+            PhotonNetwork.LocalPlayer.TagObject = this;
+        }
     }
 
     void Start()
