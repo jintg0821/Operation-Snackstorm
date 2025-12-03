@@ -28,7 +28,7 @@ public class Mop : MonoBehaviourPun
         if (other.gameObject.CompareTag("Player") && player.isAttacking)
         {
             PhotonView hitPV = other.GetComponent<PhotonView>();
-            if (hitPV != null && hitPV.ViewID != photonView.ViewID)
+            if (hitPV != null && hitPV.ViewID != player.photonView.ViewID)
             {
                 photonView.RPC("RPC_MopHit", RpcTarget.All, hitPV.ViewID);
             }

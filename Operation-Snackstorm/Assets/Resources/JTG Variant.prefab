@@ -477,8 +477,8 @@ MonoBehaviour:
   mop: {fileID: 0}
   defaultMopPos: {x: 0, y: 0, z: 0}
   defaultMopRot: {x: 0, y: 0, z: 0}
-  attackMopPos: {x: 0, y: 0, z: 0}
-  attackMopRot: {x: 0, y: 0, z: 0}
+  attackMopPos: {x: 0.0151, y: 0.0157, z: -0.0031}
+  attackMopRot: {x: 0.441, y: 20.124, z: 102.209}
   mopPos: {x: -0.00201, y: 0.01983, z: -0.00352}
   mopRot: {x: 151.084, y: -1.227997, z: -16.646}
   isHoldingMop: 0
@@ -1233,6 +1233,10 @@ PrefabInstance:
     - target: {fileID: 2046995894553255962, guid: dba370fa8bb10f14d9bd86073ec1e1fd, type: 3}
       propertyPath: m_Name
       value: Mop
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046995894553255962, guid: dba370fa8bb10f14d9bd86073ec1e1fd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7901442257413294801, guid: dba370fa8bb10f14d9bd86073ec1e1fd, type: 3}
       propertyPath: m_LocalPosition.x
