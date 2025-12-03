@@ -67,6 +67,8 @@ public class AIController : MonoBehaviourPun
         agent = GetComponent<NavMeshAgent>();
         animationController = GetComponent<AIAnimationController>();
 
+        agent.updateRotation = false;
+
         defaultViewAngle = viewAngle;
         defaultViewRadius = viewRadius;
 
@@ -89,6 +91,13 @@ public class AIController : MonoBehaviourPun
     void Update()
     {
         if (!PhotonNetwork.IsMasterClient) return;
+
+        if (agent.remainingDistance >= 2.0f)
+        {
+            Vector3 direction = agent.desiredVelocity;
+            Quaternion rot = Quaternion.LookRotation(direction);
+            gameObject.transform.rotation = Quaternion.Slerp(gameObject.transform.rotation, rot, Time.deltaTime * 10.0f);
+        }
 
         if (target != null && isBroadcasting)
         {
