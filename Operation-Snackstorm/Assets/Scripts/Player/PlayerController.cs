@@ -7,6 +7,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviourPunCallbacks
 {
     public bool test = false;
+    public static PhotonView localPlayerPV;
 
     public Camera fpsCam;
     public Camera tpsCam;
@@ -82,6 +83,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         if (photonView.IsMine)
         {
             PhotonNetwork.LocalPlayer.TagObject = this;
+            localPlayerPV = photonView;
         }
     }
 
