@@ -10662,10 +10662,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 234449777}
+  - component: {fileID: 234449780}
   - component: {fileID: 234449776}
   - component: {fileID: 234449779}
   - component: {fileID: 234449778}
-  - component: {fileID: 234449780}
   m_Layer: 0
   m_Name: ArtClassroom
   m_TagString: Untagged
@@ -10734,6 +10734,7 @@ MonoBehaviour:
     correctArt: {fileID: 0}
     wrongArts: []
   artStateText: {fileID: 56631032}
+  player: {fileID: 0}
 --- !u!4 &234449777
 Transform:
   m_ObjectHideFlags: 0
@@ -10796,8 +10797,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.27272218, y: 7.787879, z: 25.060598}
-  m_Center: {x: 13.939382, y: -3.3939395, z: 16.515152}
+  m_Size: {x: 30.755123, y: 7.787879, z: 25.060598}
+  m_Center: {x: -1.6740322, y: -3.3939395, z: 16.515152}
 --- !u!114 &234449780
 MonoBehaviour:
   m_ObjectHideFlags: 0

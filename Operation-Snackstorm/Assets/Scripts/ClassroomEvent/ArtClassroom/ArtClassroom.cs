@@ -32,9 +32,12 @@ public class ArtClassroom : MonoBehaviourPunCallbacks
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI artStateText;
 
+    [SerializeField] private PhotonView player;
+
     public static bool isPlaying = false;
     private bool isMyTurn = false; 
     private bool canStart = true;
+    private bool artClassroomExit = false;
 
     [PunRPC]
     void RPC_GenerateQuestion()
@@ -65,6 +68,15 @@ public class ArtClassroom : MonoBehaviourPunCallbacks
             StartCoroutine(ResetText(2f));
             return;
         }
+        if (!canStart && !artClassroomExit && isPlaying)
+        {
+            if (player == PhotonView.Find(PhotonNetwork.LocalPlayer.ActorNumber))
+            {
+                artStateText.text = "게임을 진행해주세요";
+                StartCoroutine(ResetText(2f));
+            }
+            return;
+        }
 
         if (isPlaying)
         {
@@ -73,7 +85,7 @@ public class ArtClassroom : MonoBehaviourPunCallbacks
             return;
         }
 
-        photonView.RPC("RPC_RequestStartGame", RpcTarget.MasterClient, PhotonNetwork.LocalPlayer.ActorNumber);
+        photonView.RPC("RPC_RequestStartGame", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber);
     }
 
     [PunRPC] 
@@ -83,6 +95,7 @@ public class ArtClassroom : MonoBehaviourPunCallbacks
         if (!canStart || isPlaying) return;
 
         canStart = false;
+        player = PhotonNetwork.GetPhotonView(requesterActorNumber);
 
         photonView.RPC("RPC_StartGame", RpcTarget.All, requesterActorNumber); 
     }
@@ -100,7 +113,7 @@ public class ArtClassroom : MonoBehaviourPunCallbacks
 
         isMyTurn = (PhotonNetwork.LocalPlayer.ActorNumber == playerActorNumber);
 
-        if (PhotonNetwork.IsMasterClient)
+        if (PhotonNetwork.LocalPlayer.ActorNumber == playerActorNumber)
         {
             photonView.RPC("RPC_GenerateQuestion", RpcTarget.All);
         }
@@ -122,22 +135,26 @@ public class ArtClassroom : MonoBehaviourPunCallbacks
     [PunRPC]
     void RPC_EndGame(bool isCorrect, int actorNumber)
     {
-        if (isCorrect)
+        if (PhotonNetwork.LocalPlayer.ActorNumber == actorNumber)
         {
-            artStateText.text = "정답입니다!";
-            PlayerController player = FindObjectOfType<PlayerController>();
-            if (PhotonNetwork.LocalPlayer.ActorNumber == actorNumber && player)
-                player.artVIPCard = true;
-        }
-        else
-        {
-            artStateText.text = "틀렸습니다!";
+            if (isCorrect)
+            {
+                artStateText.text = "정답입니다!";
+                PlayerController player = FindObjectOfType<PlayerController>();
+                if (PhotonNetwork.LocalPlayer.ActorNumber == actorNumber && player)
+                    player.artVIPCard = true;
+            }
+            else
+            {
+                artStateText.text = "틀렸습니다!";
+            }
         }
 
         StartCoroutine(ResetText(2f));
 
         isPlaying = false;
         isMyTurn = false;
+        player = null;
 
         StartCoroutine(AllowRestart());
     }
@@ -161,20 +178,17 @@ public class ArtClassroom : MonoBehaviourPunCallbacks
 
     private void OnTriggerEnter(Collider other)
     {
+        if (!other.CompareTag("Player") || artClassroomExit) return;
+        artClassroomExit = false;
+        Debug.Log("adf");
+        TryStartGame();
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
         if (!other.CompareTag("Player")) return;
 
-        Vector3 playerForward = other.transform.forward;
-
-        Vector3 entryForward = entryDirection.forward;
-
-        float dot = Vector3.Dot(playerForward, entryForward);
-
-        if (dot < 0f)
-        {
-            return;
-        }
-
-        TryStartGame();
+        artClassroomExit = true;
     }
 
     IEnumerator ResetText(float n)
