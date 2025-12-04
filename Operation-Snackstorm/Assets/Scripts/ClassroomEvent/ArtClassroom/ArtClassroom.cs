@@ -37,7 +37,6 @@ public class ArtClassroom : MonoBehaviourPunCallbacks
     public static bool isPlaying = false;
     private bool isMyTurn = false; 
     private bool canStart = true;
-    private bool artClassroomExit = false;
 
     [PunRPC]
     void RPC_GenerateQuestion()
@@ -185,8 +184,6 @@ public class ArtClassroom : MonoBehaviourPunCallbacks
         PhotonView pv = other.GetComponent<PhotonView>();
         if (pv == null || !pv.IsMine) return;
 
-        artClassroomExit = false;
-
         TryStartGame();
     }
 
@@ -194,10 +191,14 @@ public class ArtClassroom : MonoBehaviourPunCallbacks
     {
         if (!other.CompareTag("Player")) return;
 
-        artClassroomExit = true;
+        PhotonView pv = other.GetComponent<PhotonView>();
+        if (pv == null || !pv.IsMine) return;
 
-        if (isMyTurn)
+        if (isMyTurn && isPlaying)
+        {
             artStateText.text = "들어와서 게임을 진행해주세요.";
+            ResetText(2f);
+        }
     }
 
     IEnumerator ResetText(float n)
