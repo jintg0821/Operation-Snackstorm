@@ -4533,6 +4533,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 100024990}
     m_Modifications:
+    - target: {fileID: 460210795654089444, guid: 677853a1af86ee14ba300f556b3c29a7, type: 3}
+      propertyPath: sceneViewId
+      value: 87
+      objectReference: {fileID: 0}
     - target: {fileID: 3766212036334105981, guid: 677853a1af86ee14ba300f556b3c29a7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 49.2
@@ -9894,6 +9898,7 @@ MonoBehaviour:
     correctArt: {fileID: 0}
     wrongArts: []
   artStateText: {fileID: 56631032}
+  currentPlayerActorNumber: -1
 --- !u!4 &234449777
 Transform:
   m_ObjectHideFlags: 0
@@ -35859,6 +35864,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   isSightRestricted: 0
+  isBroadcasting: 0
   patrolPoints:
   - {fileID: 1807095860}
   - {fileID: 739162531}
@@ -35869,7 +35875,9 @@ MonoBehaviour:
   losetargetDistance: 15
   chaseSpeed: 20
   patrolType: 0
+  chaseAI: 0
   currentState: 0
+  studentChatController: {fileID: 0}
 --- !u!95 &835592139
 Animator:
   serializedVersion: 5
@@ -49194,6 +49202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f4ff0705e414e54ea1f9da3abf01960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  guideText: {fileID: 0}
 --- !u!1001 &1093122186
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -51233,6 +51242,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   isSightRestricted: 0
+  isBroadcasting: 0
   patrolPoints:
   - {fileID: 1644125017}
   - {fileID: 187296888}
@@ -51243,7 +51253,9 @@ MonoBehaviour:
   losetargetDistance: 15
   chaseSpeed: 20
   patrolType: 0
+  chaseAI: 0
   currentState: 0
+  studentChatController: {fileID: 0}
 --- !u!95 &1126607790
 Animator:
   serializedVersion: 5
@@ -61262,6 +61274,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pianoUI: {fileID: 1422080154}
   questionText: {fileID: 1313688684}
+  noteSounds:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!4 &1356721950
 Transform:
   m_ObjectHideFlags: 0
@@ -78887,7 +78907,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   suggestionUI: {fileID: 2077573723}
-  playerTag: Player
+  interactText: {fileID: 0}
 --- !u!65 &1684414297
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -87293,6 +87313,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 100024990}
     m_Modifications:
+    - target: {fileID: 460210795654089444, guid: 677853a1af86ee14ba300f556b3c29a7, type: 3}
+      propertyPath: sceneViewId
+      value: 88
+      objectReference: {fileID: 0}
     - target: {fileID: 3766212036334105981, guid: 677853a1af86ee14ba300f556b3c29a7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 49.6
@@ -90799,6 +90823,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 100024990}
     m_Modifications:
+    - target: {fileID: 460210795654089444, guid: 677853a1af86ee14ba300f556b3c29a7, type: 3}
+      propertyPath: sceneViewId
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 3766212036334105981, guid: 677853a1af86ee14ba300f556b3c29a7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 49.6
@@ -91479,6 +91507,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   isSightRestricted: 0
+  isBroadcasting: 0
   patrolPoints:
   - {fileID: 1160886424}
   - {fileID: 1554234435}
@@ -91489,7 +91518,9 @@ MonoBehaviour:
   losetargetDistance: 15
   chaseSpeed: 20
   patrolType: 0
+  chaseAI: 0
   currentState: 0
+  studentChatController: {fileID: 0}
 --- !u!95 &1988076613
 Animator:
   serializedVersion: 5
@@ -92776,6 +92807,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 100024990}
     m_Modifications:
+    - target: {fileID: 460210795654089444, guid: 677853a1af86ee14ba300f556b3c29a7, type: 3}
+      propertyPath: sceneViewId
+      value: 89
+      objectReference: {fileID: 0}
     - target: {fileID: 3766212036334105981, guid: 677853a1af86ee14ba300f556b3c29a7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 49.2

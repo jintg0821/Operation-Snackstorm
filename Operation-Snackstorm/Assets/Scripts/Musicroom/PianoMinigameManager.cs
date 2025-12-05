@@ -22,6 +22,12 @@ public class PianoMinigameManager : MonoBehaviourPun
     private bool isPlaying = false;
     private PlayerController playerController;
 
+    [Header("Result UI")]
+    public TextMeshProUGUI resultText; 
+    public float resultShowTime = 1.8f;
+
+    private Coroutine resultCoroutine;
+
     void Awake()
     {
         if (Instance == null) Instance = this;
@@ -48,8 +54,16 @@ public class PianoMinigameManager : MonoBehaviourPun
         playerController.isPanelOn = false;
         isPlaying = false;
         if (pianoUI != null) pianoUI.SetActive(false);
+
         pressedSequence.Clear();
         currentAnswers.Clear();
+
+        StartCoroutine(ReactivateGuideAfterDelay());
+    }
+
+    private IEnumerator ReactivateGuideAfterDelay()
+    {
+        yield return new WaitForSeconds(1.8f);
 
         var interact = FindObjectOfType<PianoInteract>();
         if (interact != null && interact.guideText != null)
@@ -138,19 +152,45 @@ public class PianoMinigameManager : MonoBehaviourPun
     private IEnumerator DelayedSuccess()
     {
         yield return new WaitForSeconds(0.25f);
-        photonView.RPC("RPC_OnPianoSuccess", RpcTarget.All);
+
+        int reward = challengeCount + 1;
+        photonView.RPC("RPC_OnPianoSuccess", RpcTarget.All, reward);
     }
 
     [PunRPC]
-    void RPC_OnPianoSuccess(PhotonMessageInfo info)
+    void RPC_OnPianoSuccess(int coinReward, PhotonMessageInfo info)
     {
+        ShowResult($"ÄÚÀÎ {coinReward}°³ È¹µæ!");
+
         CloseMinigame();
+
         if (PhotonNetwork.IsMasterClient)
         {
             var player = info.Sender?.TagObject as PlayerController;
             if (player != null)
                 SpawnRewardCoinsForPlayer(player.transform);
         }
+    }
+
+    public void ShowResult(string message)
+    {
+        if (resultText == null) return;
+
+        if (resultCoroutine != null)
+            StopCoroutine(resultCoroutine);
+
+        resultText.gameObject.SetActive(true);
+        resultText.text = message;
+        resultText.color = new Color(1f, 0.84f, 0f); // ±Ý»ö
+
+        resultCoroutine = StartCoroutine(HideResultAfterDelay());
+    }
+
+    private IEnumerator HideResultAfterDelay()
+    {
+        yield return new WaitForSeconds(resultShowTime);
+        resultText.gameObject.SetActive(false);
+        resultCoroutine = null;
     }
 
     private void SpawnRewardCoinsForPlayer(Transform playerTransform)

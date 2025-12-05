@@ -7,16 +7,19 @@ using Photon.Pun;
 public class ReportTarget : MonoBehaviourPun
 {
     [Header("건의 대상 정보")]
-    public string displayName;   // UI에 보여줄 이름 
-    public int id;               // 0 ~ 17 같은 고유 번호
+    public string displayName;  
+    public int id; 
 
     [Header("AI 컴포넌트들")]
     public AIController aiController;          
     public TeachersController teachersController; 
     public AIAnimationController animController;  
-    public NavMeshAgent agent;                 
+    public NavMeshAgent agent;
 
-    bool reported = false; 
+    [Header("정지 설정")]
+    [SerializeField] private float stunDuration = 10f; 
+
+    private bool isStunned = false;
 
     void Awake()
     {
@@ -26,37 +29,44 @@ public class ReportTarget : MonoBehaviourPun
         if (agent == null) agent = GetComponent<NavMeshAgent>();
     }
 
-    /// <summary>
-    /// 건의함에 이 NPC를 넣었을 때 호출되는 함수
-    /// </summary>
     public void Report()
     {
-        if (reported) return;
-        reported = true;
+        if (isStunned) return;
+        isStunned = true;
 
-        photonView.RPC(nameof(RPC_Freeze), RpcTarget.AllBuffered);
+        photonView.RPC(nameof(RPC_Stun), RpcTarget.AllBuffered);
     }
 
     [PunRPC]
-    void RPC_Freeze()
+    void RPC_Stun()
     {
-        Debug.Log($"{displayName} 건의됨 → AI 정지");
+        Debug.Log($"{displayName} 건의됨 → {stunDuration}초 정지!");
 
-        if (aiController != null)
-            aiController.enabled = false;
-
-        if (teachersController != null)
-            teachersController.enabled = false;
-
+        if (aiController != null) aiController.enabled = false;
+        if (teachersController != null) teachersController.enabled = false;
         if (agent != null)
         {
             agent.isStopped = true;
             agent.velocity = Vector3.zero;
         }
+        if (animController != null) animController.SetSpeed(0f);
 
-        if (animController != null)
-        {
-            animController.SetSpeed(0f);
-        }
+        SuggestionBox box = FindObjectOfType<SuggestionBox>();
+        box?.ShowResultMessage($"{displayName}\n{stunDuration}초간 행동 정지!");
+
+        StartCoroutine(ReleaseStun());
+    }
+
+    IEnumerator ReleaseStun()
+    {
+        yield return new WaitForSeconds(stunDuration);
+
+        // 다시 움직이게
+        if (aiController != null) aiController.enabled = true;
+        if (teachersController != null) teachersController.enabled = true;
+        if (agent != null) agent.isStopped = false;
+        if (animController != null) animController.SetSpeed(1f);
+
+        isStunned = false; 
     }
 }

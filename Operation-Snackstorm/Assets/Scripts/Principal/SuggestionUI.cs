@@ -89,13 +89,11 @@ public class SuggestionUI : MonoBehaviour
     {
         if (selectedTarget == null)
         {
-            Debug.Log("아직 대상 선택 안 함");
+            Debug.Log("선택 안 함");
             return;
         }
 
-        // 1) 선택된 NPC 행동 멈추기 (Photon RPC 안에서 처리됨)
-        selectedTarget.Report();
-
+        selectedTarget.Report();   // ← 그냥 이거 하나만!
         Close();
     }
 }
