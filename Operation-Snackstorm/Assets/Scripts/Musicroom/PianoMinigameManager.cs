@@ -50,6 +50,12 @@ public class PianoMinigameManager : MonoBehaviourPun
         if (pianoUI != null) pianoUI.SetActive(false);
         pressedSequence.Clear();
         currentAnswers.Clear();
+
+        var interact = FindObjectOfType<PianoInteract>();
+        if (interact != null && interact.guideText != null)
+        {
+            interact.guideText.gameObject.SetActive(true);
+        }
     }
 
     void GenerateQuestion()
@@ -123,7 +129,6 @@ public class PianoMinigameManager : MonoBehaviourPun
         }
         else
         {
-            // 아직 다 안 눌렀으면 현재까지 누른 거 표시 (선택)
             string[] noteNames = { "도", "레", "미", "파", "솔", "라", "시" };
             string pressedText = string.Join(", ", pressedSequence.Select(n => noteNames[(int)n]));
             questionText.text = $"{string.Join(", ", currentAnswers.Select(n => noteNames[(int)n]))} 키를 순서대로 누르세요!\n(현재: {pressedText})";
