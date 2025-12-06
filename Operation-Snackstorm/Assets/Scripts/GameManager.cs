@@ -68,6 +68,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     void Start()
     {
+        timerTime = 90f;
         SetPlayerPosition();
 
         if (timerText != null && roundText != null)
