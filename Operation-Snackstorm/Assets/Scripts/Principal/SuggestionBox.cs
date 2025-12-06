@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 using TMPro;
 
 public class SuggestionBox : MonoBehaviour
@@ -23,6 +24,9 @@ public class SuggestionBox : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        PhotonView pv = other.GetComponent<PhotonView>();
+        if (pv == null || !pv.IsMine) return;
+
         if (other.CompareTag("Player"))
         {
             playerInRange = other.transform;
@@ -37,6 +41,9 @@ public class SuggestionBox : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
+        PhotonView pv = other.GetComponent<PhotonView>();
+        if (pv == null || !pv.IsMine) return;
+
         if (other.CompareTag("Player") && playerInRange == other.transform)
         {
             playerInRange = null;
@@ -57,7 +64,7 @@ public class SuggestionBox : MonoBehaviour
         if (playerInRange != null && Input.GetKeyDown(KeyCode.C))
         {
             PlayerController player = playerInRange.GetComponent<PlayerController>();
-            if (player != null)
+            if (player != null && player.photonView.IsMine)
             {
                 suggestionUI.Open(player);
                 if (interactText != null)

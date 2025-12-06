@@ -51,14 +51,10 @@ public class ReportTarget : MonoBehaviourPun
         }
         if (animController != null) animController.SetSpeed(0f);
 
-        if (PhotonNetwork.LocalPlayer.ActorNumber == info.Sender.ActorNumber)
-        {
-            SuggestionBox box = FindObjectOfType<SuggestionBox>();
-            if (box != null)
-            {
-                box.ShowResultMessage($"{displayName}\n{stunDuration}초간 행동 정지!");
-            }
-        }
+        if (PhotonNetwork.LocalPlayer.ActorNumber != info.Sender.ActorNumber) return;
+
+        SuggestionBox box = FindObjectOfType<SuggestionBox>();
+        box?.ShowResultMessage($"{displayName}\n{stunDuration}초간 행동 정지!");
 
         StartCoroutine(ReleaseStun());
     }

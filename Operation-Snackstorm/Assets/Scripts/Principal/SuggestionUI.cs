@@ -62,6 +62,8 @@ public class SuggestionUI : MonoBehaviour
 
     public void Open(PlayerController player)
     {
+        if (player == null || !player.photonView.IsMine) return;
+
         playerController = player;
         player.isPanelOn = true;
         playerTransform = player.transform;
