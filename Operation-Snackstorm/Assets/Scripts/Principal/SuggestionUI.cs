@@ -60,9 +60,6 @@ public class SuggestionUI : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 건의창 열기 (누가 열었는지 플레이어 Transform 넘겨줌)
-    /// </summary>
     public void Open(PlayerController player)
     {
         playerController = player;
@@ -82,7 +79,6 @@ public class SuggestionUI : MonoBehaviour
     {
         selectedTarget = target;
         Debug.Log("선택된 건의 대상: " + target.displayName);
-        // 선택된 버튼 하이라이트 같은 건 UI 쪽에서 추가로 구현 가능
     }
 
     void OnSubmit()
@@ -93,7 +89,7 @@ public class SuggestionUI : MonoBehaviour
             return;
         }
 
-        selectedTarget.Report();   // ← 그냥 이거 하나만!
+        selectedTarget.Report();
         Close();
     }
 }

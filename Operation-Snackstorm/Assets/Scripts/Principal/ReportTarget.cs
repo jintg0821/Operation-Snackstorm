@@ -38,7 +38,7 @@ public class ReportTarget : MonoBehaviourPun
     }
 
     [PunRPC]
-    void RPC_Stun()
+    void RPC_Stun(PhotonMessageInfo info)
     {
         Debug.Log($"{displayName} 건의됨 → {stunDuration}초 정지!");
 
@@ -51,8 +51,14 @@ public class ReportTarget : MonoBehaviourPun
         }
         if (animController != null) animController.SetSpeed(0f);
 
-        SuggestionBox box = FindObjectOfType<SuggestionBox>();
-        box?.ShowResultMessage($"{displayName}\n{stunDuration}초간 행동 정지!");
+        if (PhotonNetwork.LocalPlayer.ActorNumber == info.Sender.ActorNumber)
+        {
+            SuggestionBox box = FindObjectOfType<SuggestionBox>();
+            if (box != null)
+            {
+                box.ShowResultMessage($"{displayName}\n{stunDuration}초간 행동 정지!");
+            }
+        }
 
         StartCoroutine(ReleaseStun());
     }
