@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         if (timerText != null && roundText != null)
         {
-            roundText.text = $"Round {currentRound.ToString()}";
+            roundText.text = "게임 대기 중...";
         }
         currentTimerTime = timerTime;
     }
@@ -182,6 +182,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         gameStart = true;
         currentTimerTime = timerTime;
         fillAmount = 1f;
+        timerText.gameObject.SetActive(true);
 
         //FindObjectOfType<LibraryItemSpawner>()?.SpawnItems();
     }
@@ -190,6 +191,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         double startTime = PhotonNetwork.Time;
         photonView.RPC("RPC_GameStart", RpcTarget.All, startTime);
+        roundText.text = $"Round {currentRound}";
     }
 
     public void RoundOver()
@@ -232,6 +234,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     public override void OnPlayerPropertiesUpdate(Photon.Realtime.Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
     {
         base.OnPlayerPropertiesUpdate(targetPlayer, changedProps);
+
+        if (!gameStart) return;
 
         if (PhotonNetwork.IsMasterClient && changedProps.ContainsKey("RoundPoint"))
         {
@@ -288,7 +292,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             yield return new WaitForSeconds(5f);
             pointPanel.SetActive(false);
 
-            if (PhotonNetwork.IsMasterClient)
+            if (PhotonNetwork.IsMasterClient && gameStart)
             {
                 NextRound();
             }
@@ -393,11 +397,17 @@ public class GameManager : MonoBehaviourPunCallbacks
     [PunRPC]
     void RPC_RestartGame()
     {
+        StopAllCoroutines();
+
         currentRound = 1;
-        roundText.text = $"Round {currentRound}";
+        roundText.text = "게임 대기 중...";
+        timerText.gameObject.SetActive(false);
+        timerText.text = "";
+        timeImage.fillAmount = 1;
         currentTimerTime = timerTime;
         onTimer = false;
-
+        gameStart = false;
+        roundStart = false;
         inPointAreaPlayers.Clear();
         playersUpdated = 0;
 
@@ -411,15 +421,12 @@ public class GameManager : MonoBehaviourPunCallbacks
                 if (cc != null)
                 {
                     cc.enabled = false;
-
                     playerObj.transform.position = spawnPoint.position;
                     cc.enabled = true;
                 }
-                else
-                {
-                    Debug.Log("안됩니다");
-                }
-                    playerObj.isPanelOn = false;
+                playerObj.isPanelOn = false;
+
+                playerObj.ResetTotalPoint();
             }
         }
 
@@ -434,6 +441,11 @@ public class GameManager : MonoBehaviourPunCallbacks
         pointPanel.SetActive(false);
         totalPointPanel.SetActive(false);
         resultOptionPanel.SetActive(false);
+
+        if (timerText != null && roundText != null)
+        {
+            roundText.text = "게임 대기 중...";
+        }
     }
 
     public void OnClick_ReturnToLobby()
@@ -475,11 +487,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             foreach (var player in players)
             {
-                PlayerController playerController = player.GetComponent<PlayerController>();
-                if (playerController != null)
-                {
-                    playerController.GetMinusPoint(1);
-                }
+                photonView.RPC("RPC_GetMinusPoint", player.Owner, 1);
             }
         }
     }
