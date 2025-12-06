@@ -591,30 +591,31 @@ public class PlayerController : MonoBehaviourPunCallbacks
     {
         if (inventory == null || inventory.items == null)
             return;
-
+        Debug.Log(inPointArea);
         roundPoint = 0;
 
         List<Item> itemsCopy = new List<Item>(inventory.items);
         foreach (Item item in itemsCopy)
         {
+            Debug.Log("Item: " + item.name + ", Point: " + item.point);
             roundPoint += item.point;
             inventory.RemoveItem(item);
         }
 
-        if (inPointArea)
-        {
-            var hash = new ExitGames.Client.Photon.Hashtable();
-            hash["RoundPoint"] = roundPoint;
-            PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
-        }
-        else
-        {
-            var hash = new ExitGames.Client.Photon.Hashtable();
-            hash["RoundPoint"] = 0;
-            PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
-        }
+        Debug.Log("Calculated roundPoint: " + roundPoint);
+
+        var hash = new ExitGames.Client.Photon.Hashtable();
+        hash["RoundPoint"] = inPointArea ? roundPoint : 0;
+        PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+
         itemsCopy.Clear();
         inventory.items.Clear();
+    }
+
+    [PunRPC]
+    public void RPC_GetBonusPoint(int point)
+    {
+        GetBonusPoint(point);
     }
 
     public void GetBonusPoint(int point)
@@ -624,6 +625,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
         var hash = new ExitGames.Client.Photon.Hashtable();
         hash["BonusPoint"] = bonusPoint;
         PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+    }
+
+    [PunRPC]
+    public void RPC_GetMinusPoint(int point)
+    {
+        GetMinusPoint(point);
     }
 
     public void GetMinusPoint(int point)
@@ -637,19 +644,23 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     public void UpdateTotalPoint()
     {
-        int roundPoint = this.roundPoint;
+        int currentRoundPoint = 0;
+        if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("RoundPoint"))
+            currentRoundPoint = (int)PhotonNetwork.LocalPlayer.CustomProperties["RoundPoint"];
 
         int accumulatedRoundPoint = 0;
         if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("AccumulatedRoundPoint"))
-        {
             accumulatedRoundPoint = (int)PhotonNetwork.LocalPlayer.CustomProperties["AccumulatedRoundPoint"];
-        }
 
-        accumulatedRoundPoint += roundPoint;
+        int bonusPoint = 0;
+        if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("BonusPoint"))
+            bonusPoint = (int)PhotonNetwork.LocalPlayer.CustomProperties["BonusPoint"];
 
-        int bonusPoint = this.bonusPoint;
-        int minusPoint = this.minusPoint;
+        int minusPoint = 0;
+        if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("MinusPoint"))
+            minusPoint = (int)PhotonNetwork.LocalPlayer.CustomProperties["MinusPoint"];
 
+        accumulatedRoundPoint += currentRoundPoint;
         int totalPoint = accumulatedRoundPoint + bonusPoint - minusPoint;
 
         var hash = new ExitGames.Client.Photon.Hashtable();
@@ -658,6 +669,17 @@ public class PlayerController : MonoBehaviourPunCallbacks
         hash["MinusPoint"] = minusPoint;
         hash["TotalPoint"] = totalPoint;
 
+        PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+    }
+
+    public void ResetTotalPoint()
+    {
+        var hash = new ExitGames.Client.Photon.Hashtable();
+        hash["RoundPoint"] = 0;
+        hash["AccumulatedRoundPoint"] = 0;
+        hash["BonusPoint"] = 0;
+        hash["MinusPoint"] = 0;
+        hash["TotalPoint"] = 0;
         PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
     }
 
