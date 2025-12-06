@@ -322,6 +322,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         {
             characterController.center = originalCenter;
             playerBody.localPosition = Vector3.zero;
+            playerController.StartSkateboardCooldown();
         }
 
         photonView.RPC("RPC_ToggleSkate", RpcTarget.AllBuffered, false);
@@ -331,7 +332,6 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         playerAnimController.SetFallDown(false);
         playerController.isFallDown = false;
         currentState = PlayerState.Idle;
-        Debug.Log("2");
     }
 
     private void SetCameraMode(bool firstPerson)

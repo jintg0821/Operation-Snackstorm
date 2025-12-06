@@ -660,6 +660,9 @@ MonoBehaviour:
   throwUpwardForce: 8
   throwing: 0
   isCatchable: 1
+  isRideable: 1
+  skateSlot: {fileID: 0}
+  skateCooldownTime: 10
   inventory: {fileID: 0}
   characterController: {fileID: 0}
   playerMovement: {fileID: 2115273199337600666}

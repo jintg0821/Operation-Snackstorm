@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] private List<PhotonView> inPointAreaPlayers = new List<PhotonView>();
 
     [SerializeField] private bool roundStart = false;
+    public bool gameStart = false;
 
     #region UI
     [Header("Timer")]
@@ -178,6 +179,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         timerStartTime = startTime;
         onTimer = true;
+        gameStart = true;
         currentTimerTime = timerTime;
         fillAmount = 1f;
 

@@ -23,10 +23,10 @@ public class TestHotbar : MonoBehaviour
 
         for (int i = 0; i < slots.Length; i++)
         {
-            var img = slots[i].GetComponent<Image>();
+            var img = slots[i].transform.Find("Icon").GetComponent<Image>();
             if (img != null)
             {
-                img.color = (i == currentIndex) ? Color.white : new Color(0, 0, 0, 0);
+                img.color = (i == currentIndex) ? Color.white : Color.gray;
             }
         }
     }

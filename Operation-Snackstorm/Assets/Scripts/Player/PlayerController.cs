@@ -51,6 +51,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [SerializeField] private bool throwing;
 
     public bool isCatchable = true;
+    public bool isRideable = true;
+
+    [SerializeField] private TestHotbarSlot skateSlot;
+    [SerializeField] private float skateCooldownTime = 10f;
 
     public Inventory inventory;
     private Cafeteria cafeteria;
@@ -106,6 +110,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
             testHotbar = FindObjectOfType<TestHotbar>();
             waterDispenser = FindObjectOfType<WaterDispenser>();
             art = FindObjectOfType<ArtClassroom>();
+
+            var hotbar = FindObjectOfType<TestHotbar>();
+            if (hotbar != null && hotbar.slots != null && hotbar.slots.Length > 0)
+            {
+                skateSlot = hotbar.slots[0];
+            }
         }
         if (penaltyText != null)
         {
@@ -122,7 +132,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             if (PhotonNetwork.IsMasterClient)
             {
-                if (Input.GetKeyDown(KeyCode.P))
+                if (Input.GetKeyDown(KeyCode.P) && !GameManager.Instance.gameStart)
                 {
                     GameManager.Instance.GameStart();
                 }
@@ -186,7 +196,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 }
                 if (Input.GetKeyDown(KeyCode.Alpha1))
                 {
-                    if (!isHoldingMop)
+                    if (!isHoldingMop && isRideable)
                     {
                         testHotbar.ChangeItem(0);
                         playerMovement.StartSkate();
@@ -523,6 +533,34 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 inventory.RemoveItem(item);
             }
         }
+    }
+
+    public void StartSkateboardCooldown()
+    {
+        if (!photonView.IsMine) return;
+
+        isRideable = false;
+
+        StartCoroutine(SkateboardCooldownRoutine());
+    }
+
+    private IEnumerator SkateboardCooldownRoutine()
+    {
+        float duration = skateCooldownTime;
+        float elapsed = 0f;
+
+        if (skateSlot != null)
+        {
+            skateSlot.StartCooldown(duration);
+        }
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        isRideable = true;
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
