@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public bool gameStart = false;
 
     #region UI
+
     [Header("Timer")]
     public bool onTimer = false;
     [SerializeField] private TextMeshProUGUI timerText;
@@ -58,7 +59,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else if (Instance != this)
         {
