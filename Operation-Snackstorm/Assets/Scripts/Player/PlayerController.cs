@@ -315,6 +315,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
                         broadcast.OnBroadcastPanel(this);
                 }
 
+                if (hit.collider.CompareTag("MopMachine"))
+                {
+                    Mop mop = MopObj.GetComponent<Mop>();
+                    mop.DirtyMop(false);
+                }
+
                 //if (hit.collider.CompareTag("AttendanceBook"))
                 //{
                 //    ItemObj itemObj = hit.collider.GetComponent<ItemObj>();

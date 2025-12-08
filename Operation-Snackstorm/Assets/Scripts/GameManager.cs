@@ -184,6 +184,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         currentTimerTime = timerTime;
         fillAmount = 1f;
         timerText.gameObject.SetActive(true);
+        roundText.text = $"Round {currentRound}";
 
         //FindObjectOfType<LibraryItemSpawner>()?.SpawnItems();
     }
@@ -192,7 +193,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         double startTime = PhotonNetwork.Time;
         photonView.RPC("RPC_GameStart", RpcTarget.All, startTime);
-        roundText.text = $"Round {currentRound}";
     }
 
     public void RoundOver()
