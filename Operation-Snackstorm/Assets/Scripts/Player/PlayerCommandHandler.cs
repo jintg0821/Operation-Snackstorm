@@ -46,7 +46,8 @@ public class PlayerCommandHandler : MonoBehaviourPun
         }
 
         isBeingChased = true;
-        photonView.RPC("RPC_OnCommandFailed", RpcTarget.AllBuffered);
+        BroadcastManager.Instance.CommandText("실패했습니다", 4f);
+        photonView.RPC("RPC_OnCommandFailed", RpcTarget.All);
     }
 
     private bool IsFollowingCommand()
@@ -85,11 +86,10 @@ public class PlayerCommandHandler : MonoBehaviourPun
             ai.target = this.gameObject.transform;
             ai.currentState = AIState.Chase;
         }
-        Debug.Log("실퍃갯어요");
     }
 
     private void OnCommandSuccess()
     {
-        Debug.Log($"명령 수행 성공!");
+        BroadcastManager.Instance.CommandText("성공했습니다", 4f);
     }
 }

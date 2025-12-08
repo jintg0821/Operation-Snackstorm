@@ -1,4 +1,6 @@
 using Photon.Pun;
+using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public enum CommandType { None, Walk, Run, Idle }
@@ -12,12 +14,17 @@ public class BroadcastManager : MonoBehaviourPun
     public float commandDuration = 5f;
     private float timer;
 
+    public TextMeshProUGUI broadcastText;
+
+    public bool canBroadcast;
+
+    private BroadcastUI BroadcastUI;
+
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else if (Instance != this)
         {
@@ -25,11 +32,32 @@ public class BroadcastManager : MonoBehaviourPun
         }
     }
 
+    private void Start()
+    {
+        BroadcastUI = GetComponent<BroadcastUI>();
+    }
+
     [PunRPC]
-    public void RPC_IssueCommand(int senderID, int commandType)
+    public void RPC_IssueCommand(int senderID, int commandType) 
     {
         currentCommand = (CommandType)commandType;
         timer = commandDuration;
+        
+        switch (commandType)
+        {
+            case 1:
+                CommandText("걸어주세여", 4f);
+                break;
+
+            case 2:
+                CommandText("뛰어주세여", 4f);
+                break;
+
+            case 3:
+                CommandText("멈춰주세여", 4f);
+                break;
+        }
+
         Debug.Log($"방송 명령 : {(CommandType)commandType}");
 
         foreach (var player in FindObjectsOfType<PlayerCommandHandler>())
@@ -41,6 +69,8 @@ public class BroadcastManager : MonoBehaviourPun
                 break;
             }
         }
+
+        StartCoroutine(Broadcast());
     }
 
     private void Update()
@@ -66,4 +96,25 @@ public class BroadcastManager : MonoBehaviourPun
             photonView.RPC("RPC_IssueCommand", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber, (int)cmd);
         }
     }
+
+    public void CommandText(string text, float n)
+    {
+        broadcastText.text = text;
+        StartCoroutine(ResetText(n));
+    }
+
+    IEnumerator ResetText(float n)
+    {
+        yield return new WaitForSeconds(n);
+        broadcastText.text = "";
+    }
+
+    IEnumerator Broadcast()
+    {
+        canBroadcast = false;
+
+        yield return new WaitForSeconds(40f);
+
+        canBroadcast = true;
+    }    
 }

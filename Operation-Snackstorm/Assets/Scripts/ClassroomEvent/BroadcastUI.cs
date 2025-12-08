@@ -1,16 +1,16 @@
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting.Antlr3.Runtime;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BroadcastUI : MonoBehaviour
+public class BroadcastUI : MonoBehaviourPun
 {
     [SerializeField] private GameObject broadcastPanel;
     public bool isOpen;
     public PlayerController PlayerController;
+
 
     void Start()
     {
@@ -43,6 +43,9 @@ public class BroadcastUI : MonoBehaviour
 
     public void OnBroadcastButtonClick(int type)
     {
-        BroadcastManager.Instance.IssueCommand((CommandType)type);
+        if (BroadcastManager.Instance.canBroadcast)
+        {
+            BroadcastManager.Instance.IssueCommand((CommandType)type);
+        }
     }
 }
