@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviourPunCallbacks
 {
+    [SerializeField] private GameObject optionPanel;
+
     public bool test = false;
     public static PhotonView localPlayerPV;
 
@@ -116,10 +118,16 @@ public class PlayerController : MonoBehaviourPunCallbacks
             {
                 skateSlot = hotbar.slots[0];
             }
+
+            optionPanel = GameObject.Find("OptionPanel");
         }
         if (penaltyText != null)
         {
             penaltyText.gameObject.SetActive(false);
+        }
+        if (optionPanel != null)
+        {
+            optionPanel.gameObject.SetActive(false);
         }
     }
 
@@ -152,6 +160,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
             }
 
             PerformRaycast();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            optionPanel.SetActive(!optionPanel.activeInHierarchy);
+            isPanelOn = optionPanel.activeInHierarchy;
         }
 
         if (test)
@@ -313,6 +327,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
                     BroadcastUI broadcast = hit.collider.GetComponent<BroadcastUI>();
                     if (broadcast != null)
                         broadcast.OnBroadcastPanel(this);
+                }
+
+                if (hit.collider.CompareTag("MopMachine"))
+                {
+                    Mop mop = MopObj.GetComponent<Mop>();
+                    mop.DirtyMop(false);
                 }
 
                 //if (hit.collider.CompareTag("AttendanceBook"))

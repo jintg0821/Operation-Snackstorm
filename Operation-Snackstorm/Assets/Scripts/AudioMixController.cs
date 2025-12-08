@@ -11,6 +11,7 @@ public class AudioMixController : MonoBehaviour
     [SerializeField] private Slider bgmSlider;
     [SerializeField] private Slider sfxSlider;
 
+
     public void SetMasterVolume()
     {
         float value = Mathf.Clamp(masterSlider.value, 0.0001f, 1f);

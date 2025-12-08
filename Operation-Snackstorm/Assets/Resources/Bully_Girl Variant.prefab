@@ -628,6 +628,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fca6638a5159f8c49b3c06c04b0fe99c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  optionPanel: {fileID: 0}
   test: 1
   fpsCam: {fileID: 433482703340548951}
   tpsCam: {fileID: 8622895637224459088}
@@ -1080,10 +1081,6 @@ PrefabInstance:
     - target: {fileID: 2046995894553255962, guid: dba370fa8bb10f14d9bd86073ec1e1fd, type: 3}
       propertyPath: m_Name
       value: Mop
-      objectReference: {fileID: 0}
-    - target: {fileID: 2046995894553255962, guid: dba370fa8bb10f14d9bd86073ec1e1fd, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7901442257413294801, guid: dba370fa8bb10f14d9bd86073ec1e1fd, type: 3}
       propertyPath: m_LocalPosition.x

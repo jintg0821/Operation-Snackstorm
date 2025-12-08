@@ -108,6 +108,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa69fcff931f9b64a80d9011c3dfb352, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 320
+  spawnRadius: 1
+  raycastHeight: 2
+  spawnYOffset: 0.05
+  isSpawnedDirty: 0
 --- !u!1001 &5908464209325600289
 PrefabInstance:
   m_ObjectHideFlags: 0

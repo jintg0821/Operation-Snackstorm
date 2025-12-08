@@ -6,10 +6,24 @@ using UnityEngine;
 public class Mop : MonoBehaviourPun
 {
     [SerializeField] private PlayerController player;
+    [SerializeField] private bool isDirtyMop;
+    [SerializeField] private GameObject dirtyMop;
 
     void Start()
     {
         player = GetComponentInParent<PlayerController>();
+    }
+
+    public void DirtyMop(bool dirty)
+    {
+        photonView.RPC("RPC_DirtyMop", RpcTarget.AllBuffered, dirty);
+    }
+
+    [PunRPC]
+    void RPC_DirtyMop(bool dirty)
+    {
+        dirtyMop.SetActive(dirty);
+        isDirtyMop = dirty;
     }
 
     [PunRPC]
@@ -39,7 +53,15 @@ public class Mop : MonoBehaviourPun
             PhotonView dirtyPV = other.GetComponent<PhotonView>();
             if (dirtyPV != null)
             {
-                dirtyPV.RPC("RPC_RequestDirtyDestroy", RpcTarget.MasterClient);
+                if (isDirtyMop)
+                {
+                    dirtyPV.RPC("RPC_InstantiateDirty", RpcTarget.MasterClient);
+                }
+                else
+                {
+                    dirtyPV.RPC("RPC_RequestDirtyDestroy", RpcTarget.MasterClient);
+                    DirtyMop(true);
+                }
             }
         }
     }
