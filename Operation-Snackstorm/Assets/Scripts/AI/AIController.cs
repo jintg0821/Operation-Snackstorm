@@ -151,7 +151,7 @@ public class AIController : MonoBehaviourPun
         animationController.SetSpeed(blendSpeed);
     }
 
-    void CheckSight()
+    public virtual void CheckSight()
     {
         if (isSightRestricted)
         {
