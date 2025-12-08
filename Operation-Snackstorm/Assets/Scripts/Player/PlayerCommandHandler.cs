@@ -8,6 +8,15 @@ public class PlayerCommandHandler : MonoBehaviourPun
     private CommandType currentCommand;
     private bool isBeingChased;
 
+    private PlayerController playerController;
+    private PlayerMovement playerMovement;
+
+    private void Start()
+    {
+        playerController = GetComponent<PlayerController>();
+        playerMovement = GetComponent<PlayerMovement>();
+    }
+
     public void ReceiveCommand(CommandType command)
     {
         if (!photonView.IsMine) return;
@@ -52,7 +61,6 @@ public class PlayerCommandHandler : MonoBehaviourPun
 
     private bool IsFollowingCommand()
     {
-        PlayerMovement playerMovement = GetComponent<PlayerMovement>();
         if (playerMovement == null) return false;
 
         switch (currentCommand)
@@ -90,6 +98,8 @@ public class PlayerCommandHandler : MonoBehaviourPun
 
     private void OnCommandSuccess()
     {
+        playerController.GetBonusPoint(10);
+
         BroadcastManager.Instance.CommandText("성공했습니다", 4f);
     }
 }

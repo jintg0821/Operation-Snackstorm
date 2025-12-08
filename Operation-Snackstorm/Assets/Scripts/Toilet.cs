@@ -58,7 +58,9 @@ public class Toilet : MonoBehaviourPun
     {
         foreach (Transform area in platforms)
         {
-            for (int i = 0; i < spawnCountPerArea; i++)
+            int randomCount = Random.Range(0, spawnCountPerArea + 1);
+
+            for (int i = 0; i < randomCount; i++)
             {
                 Vector3 spawnPos = GetValidSpawnPosition(area);
                 if (spawnPos != Vector3.zero)

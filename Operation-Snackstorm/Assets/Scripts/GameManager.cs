@@ -488,7 +488,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             foreach (var player in players)
             {
-                photonView.RPC("RPC_GetMinusPoint", player.Owner, 1);
+                photonView.RPC("RPC_GetMinusPoint", player.Owner, 5);
             }
         }
     }

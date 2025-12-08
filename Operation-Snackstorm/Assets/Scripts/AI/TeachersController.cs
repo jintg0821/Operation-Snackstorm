@@ -74,7 +74,7 @@ public class TeachersController : AIController
 
             playerPV.RPC("RPC_SetCatchable", RpcTarget.All, false);
             StartCoroutine(ResetCatchableAfterDelay(playerPV));
-            playerPV.RPC("RPC_GetMinusPoint", playerPV.Owner, 1);
+            playerPV.RPC("RPC_GetMinusPoint", playerPV.Owner, 5);
             AIController[] aIControllers = GameManager.Instance.aiList.ToArray();
             foreach (var ai in aIControllers)
             {
@@ -86,9 +86,13 @@ public class TeachersController : AIController
                 }
             }
         }
-    }
 
-    
+        StudentChatController chatController = GetComponent<StudentChatController>();
+        if (chatController != null)
+        {
+            chatController.OnCatchChat();
+        }    
+    }
 
     private IEnumerator ResetCatchableAfterDelay(PhotonView playerPV)
     {
@@ -111,5 +115,4 @@ public class TeachersController : AIController
             }
         }
     }
-
 }

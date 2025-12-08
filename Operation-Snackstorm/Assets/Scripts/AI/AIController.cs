@@ -55,6 +55,7 @@ public class AIController : MonoBehaviourPun
 
     public PatrolType patrolType;
     public bool chaseAI;
+    public bool npcAI;
 
     public AIState currentState;
     private NavMeshAgent agent;
@@ -91,6 +92,13 @@ public class AIController : MonoBehaviourPun
     void Update()
     {
         if (!PhotonNetwork.IsMasterClient) return;
+
+        if (npcAI)
+        {
+            currentState = AIState.Idle;
+
+            return;
+        }
 
         if (agent.remainingDistance >= 2.0f)
         {

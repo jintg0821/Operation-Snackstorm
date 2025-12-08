@@ -145,7 +145,10 @@ public class ArtClassroom : MonoBehaviourPunCallbacks
                 artStateText.text = "정답입니다!";
                 PlayerController player = FindObjectOfType<PlayerController>();
                 if (PhotonNetwork.LocalPlayer.ActorNumber == actorNumber && player)
+                {
                     player.artVIPCard = true;
+                    player.GetBonusPoint(10);
+                }
             }
             else
             {

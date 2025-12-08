@@ -8,6 +8,7 @@ public class StudentChatController : MonoBehaviourPun
 {
     [SerializeField] private string[] chats;
     [SerializeField] private TextMeshPro[] texts;
+    [SerializeField] private string[] catchChats;
     [SerializeField] private Transform textPos;
     public GameObject targetPlayer;
 
@@ -58,12 +59,25 @@ public class StudentChatController : MonoBehaviourPun
         photonView.RPC("RPC_OnChat", RpcTarget.All);
     }
 
+    public void OnCatchChat()
+    {
+        photonView.RPC("RPC_OnCatchChat", RpcTarget.All);
+    }
+
     [PunRPC]
     public void RPC_OnChat()
     {
         int randomNum = Random.Range(0, chats.Length);
 
         StartCoroutine(Chat(chats[randomNum]));
+    }
+
+    [PunRPC]
+    public void RPC_OnCatchChat()
+    {
+        int randomNum = Random.Range(0, catchChats.Length);
+
+        StartCoroutine(Chat(catchChats[randomNum]));
     }
 
     private IEnumerator Chat(string chat)
