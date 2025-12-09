@@ -94,6 +94,9 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         Debug.Log("방 참가 성공, 게임 씬으로 이동");
         PhotonNetwork.LoadLevel(gameSceneName);
     }
-    
 
+    public void OnClick_QuitGame()
+    {
+        Application.Quit();
+    }
 }

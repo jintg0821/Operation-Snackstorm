@@ -89,6 +89,9 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         if (!photonView.IsMine && PhotonNetwork.IsConnected)
             return;
 
+        if (playerController.isGuideActive)
+            return;
+
         if (playerController.isInLibrary && currentState == PlayerState.Run && !TrashCleanupMission.Instance.isMissionActive && !playerController.isPunishmentImmune)
         {
             playerController.RequestPunishment();
