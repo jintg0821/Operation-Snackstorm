@@ -35,21 +35,22 @@ public class Toilet : MonoBehaviourPun
 
     void Update()
     {
-        if (PhotonNetwork.IsMasterClient || GameManager.Instance.onTimer)
-        {
-            timer += Time.deltaTime;
+        if (!PhotonNetwork.IsMasterClient) return;
 
-            if (timer >= spawnInterval)
-            {
-                timer = 0f;
-                SpawnDirtyObjects();
-            }
+        timer += Time.deltaTime;
+
+        if (timer >= spawnInterval)
+        {
+            timer = 0f;
+            SpawnDirtyObjects();
         }
     }
 
 
     void SpawnDirtyObjects()
     {
+        if (!PhotonNetwork.IsMasterClient) return;
+
         photonView.RPC("RPC_SpawnDirtyObjects", RpcTarget.All);
     }
 
@@ -70,22 +71,27 @@ public class Toilet : MonoBehaviourPun
             }
         }
     }
-
     Vector3 GetValidSpawnPosition(Transform area)
     {
         const int maxAttempts = 20;
 
+        Collider platformCollider = area.GetComponent<Collider>();
+        if (platformCollider == null)
+        {
+            return Vector3.zero;
+        }
+
+        Bounds bounds = platformCollider.bounds;
+
         for (int attempt = 0; attempt < maxAttempts; attempt++)
         {
-            Vector3 randomOffset = new Vector3(
-                Random.Range(minOffsetX, maxOffsetX),
-                0,
-                Random.Range(minOffsetZ, maxOffsetZ)
+            Vector3 randomPos = new Vector3(
+                Random.Range(bounds.min.x, bounds.max.x),
+                bounds.center.y + raycastHeight,
+                Random.Range(bounds.min.z, bounds.max.z)
             );
 
-            Vector3 startRayPos = area.position + randomOffset + Vector3.up * raycastHeight;
-
-            if (Physics.Raycast(startRayPos, Vector3.down, out RaycastHit hit, raycastHeight * 2f, groundLayer))
+            if (Physics.Raycast(randomPos, Vector3.down, out RaycastHit hit, raycastHeight * 2f, groundLayer))
             {
                 Vector3 groundPos = hit.point;
 

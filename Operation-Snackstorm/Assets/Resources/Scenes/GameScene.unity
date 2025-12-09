@@ -40756,7 +40756,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 999ebec2e8f8c534c9823ffe79aae34f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 14f722b90d128694c91c5d3a4accdf6d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -46431,6 +46431,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7623113202343798280, guid: 380599f0968bb0e4194a25daad397cc9, type: 3}
+      propertyPath: m_SynchronizeParameters.Array.data[0].SynchronizeType
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8989482409638248769, guid: 380599f0968bb0e4194a25daad397cc9, type: 3}
       propertyPath: npcAI
       value: 1
@@ -47340,6 +47344,10 @@ PrefabInstance:
       propertyPath: patrolPoints.Array.data[3]
       value: 
       objectReference: {fileID: 584865522}
+    - target: {fileID: 5343278827053136210, guid: 8975cff06dcf57c4aadad6543ce2ebf7, type: 3}
+      propertyPath: m_SynchronizeParameters.Array.data[0].SynchronizeType
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7077065435794218884, guid: 8975cff06dcf57c4aadad6543ce2ebf7, type: 3}
       propertyPath: sceneViewId
       value: 146
@@ -47349,7 +47357,7 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1074984102847502936, guid: 8975cff06dcf57c4aadad6543ce2ebf7, type: 3}
-      insertIndex: 1
+      insertIndex: -1
       addedObject: {fileID: 1890127150}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3366345681202810610, guid: 8975cff06dcf57c4aadad6543ce2ebf7, type: 3}
@@ -88639,7 +88647,7 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 2770275305682374197, guid: 487417e03074edb479907e545deb754d, type: 3}
-      insertIndex: 1
+      insertIndex: -1
       addedObject: {fileID: 1762111010}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8858282401659241271, guid: 487417e03074edb479907e545deb754d, type: 3}

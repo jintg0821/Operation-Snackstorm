@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public int totalPoint;
 
     public bool isPanelOn = false;
+    public bool isOptionPanelOn = false;
     public bool miniGameStart = false;
     public bool rideSkate = false;
 
@@ -165,37 +166,42 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
         if (!isGuideActive)
         {
-            if (!isPanelOn)
+            if (!isPanelOn && !rideSkate && !isAttacking && !isMopping)
             {
-                if (PhotonNetwork.IsMasterClient)
+                if (!isOptionPanelOn)
                 {
-                    if (Input.GetKeyDown(KeyCode.P) && !GameManager.Instance.gameStart)
+                    if (PhotonNetwork.IsMasterClient)
                     {
-                        GameManager.Instance.GameStart();
+                        if (Input.GetKeyDown(KeyCode.P) && !GameManager.Instance.gameStart)
+                        {
+                            GameManager.Instance.GameStart();
+                        }
+                    }
+
+                    if (Input.GetKeyDown(KeyCode.Q))
+                    {
+                        if (!isHoldingMop && !rideSkate && !throwing && handItem != null)
+                        {
+                            Throwing();
+                        }
+                    }
+
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        inventory.OnInventoryPanel(this);
                     }
                 }
 
-                if (Input.GetKeyDown(KeyCode.Q))
+                if (Input.GetKeyDown(KeyCode.Escape))
                 {
-                    if (!isHoldingMop && !rideSkate && !throwing && handItem != null)
-                    {
-                        Throwing();
-                    }
-                }
-
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    inventory.OnInventoryPanel(this);
+                    optionPanel.SetActive(!optionPanel.activeInHierarchy);
+                    isOptionPanelOn = optionPanel.activeInHierarchy;
                 }
 
                 PerformRaycast();
             }
 
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                optionPanel.SetActive(!optionPanel.activeInHierarchy);
-                isPanelOn = optionPanel.activeInHierarchy;
-            }
+            
 
             if (test)
             {
@@ -265,7 +271,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             }
         }
 
-        SetCursorState(isPanelOn);
+        SetCursorState(isPanelOn || isOptionPanelOn);
     }
 
     void NextGuide()

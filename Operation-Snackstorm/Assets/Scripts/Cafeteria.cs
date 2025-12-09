@@ -45,7 +45,7 @@ public class Cafeteria : MonoBehaviourPun
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
             if (isCafeteriaPanelOpen)
             {
@@ -58,7 +58,7 @@ public class Cafeteria : MonoBehaviourPun
 
     public void OnCafeteriaPanel(PlayerController playerController)
     {
-        isCafeteriaPanelOpen = !cafeteriaPanel.activeSelf;
+        isCafeteriaPanelOpen = !isCafeteriaPanelOpen;
         cafeteriaPanel.SetActive(isCafeteriaPanelOpen);
 
         PlayerController = playerController;

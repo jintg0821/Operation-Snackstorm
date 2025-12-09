@@ -21,7 +21,7 @@ public class BroadcastUI : MonoBehaviourPun
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
             if (isOpen)
             {
