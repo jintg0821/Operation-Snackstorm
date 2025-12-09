@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] private bool roundStart = false;
     public bool gameStart = false;
 
+    private AudioSource bellSource;
+
     #region UI
 
     [Header("Timer")]
@@ -59,6 +61,9 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (Instance == null)
         {
             Instance = this;
+            bellSource = GetComponent<AudioSource>();
+            if (bellSource != null)
+                bellSource.playOnAwake = false;
         }
         else if (Instance != this)
         {
@@ -178,6 +183,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     [PunRPC]
     void RPC_GameStart(double startTime)
     {
+        PlayBell();
+
         timerStartTime = startTime;
         onTimer = true;
         gameStart = true;
@@ -187,6 +194,14 @@ public class GameManager : MonoBehaviourPunCallbacks
         roundText.text = $"Round {currentRound}";
 
         //FindObjectOfType<LibraryItemSpawner>()?.SpawnItems();
+    }
+
+    private void PlayBell()
+    {
+        if (bellSource != null && bellSource.clip != null)
+        {
+            bellSource.PlayOneShot(bellSource.clip);
+        }
     }
 
     public void GameStart()
@@ -292,6 +307,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
             yield return new WaitForSeconds(5f);
             pointPanel.SetActive(false);
+
+            PlayBell();
 
             if (PhotonNetwork.IsMasterClient && gameStart)
             {
