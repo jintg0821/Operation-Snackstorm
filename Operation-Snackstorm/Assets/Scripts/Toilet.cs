@@ -45,18 +45,10 @@ public class Toilet : MonoBehaviourPun
             SpawnDirtyObjects();
         }
     }
-
-
     void SpawnDirtyObjects()
     {
         if (!PhotonNetwork.IsMasterClient) return;
 
-        photonView.RPC("RPC_SpawnDirtyObjects", RpcTarget.All);
-    }
-
-    [PunRPC]
-    void RPC_SpawnDirtyObjects()
-    {
         foreach (Transform area in platforms)
         {
             int randomCount = Random.Range(0, spawnCountPerArea + 1);
@@ -71,6 +63,7 @@ public class Toilet : MonoBehaviourPun
             }
         }
     }
+
     Vector3 GetValidSpawnPosition(Transform area)
     {
         const int maxAttempts = 20;

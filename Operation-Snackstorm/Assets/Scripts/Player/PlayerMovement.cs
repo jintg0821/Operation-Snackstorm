@@ -123,7 +123,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
             }
         }
 
-        if (!playerController.isPanelOn && !playerController.miniGameStart)
+        if (!playerController.isPanelOn && !playerController.miniGameStart && !playerController.isOptionPanelOn)
         {
             CameraLook();
             if (playerController.rideSkate)
