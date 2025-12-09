@@ -24,16 +24,21 @@ public class CoinSpawner : MonoBehaviourPun
     public LayerMask groundLayer;
     public LayerMask obstacleLayer;
 
-    void Start()
+    private bool hasSpawnedAfterStart = false;
+
+    void Update()
     {
-        if (PhotonNetwork.IsMasterClient)
+        if (!PhotonNetwork.IsMasterClient) return;
+        if (!GameManager.Instance.gameStart) return;
+
+        if (!hasSpawnedAfterStart)
         {
-            photonView.RPC("RPC_SpawnCoin", RpcTarget.All);
+            SpawnCoins();
+            hasSpawnedAfterStart = true;
         }
     }
 
-    [PunRPC]
-    void RPC_SpawnCoin()
+    void SpawnCoins()
     {
         foreach (Transform platform in platforms)
         {
@@ -51,24 +56,30 @@ public class CoinSpawner : MonoBehaviourPun
     Vector3 GetValidSpawnPosition(Transform platform)
     {
         const int maxAttempts = 20;
+
+        Collider platformCollider = platform.GetComponent<Collider>();
+        if (platformCollider == null)
+        {
+            return Vector3.zero;
+        }
+
+        Bounds bounds = platformCollider.bounds;
+
         for (int attempt = 0; attempt < maxAttempts; attempt++)
         {
-            Vector3 randomOffset = new Vector3(
-                Random.Range(randomMinOffsetX, randomMaxOffsetX),
-                0,
-                Random.Range(randomMinOffsetZ, randomMaxOffsetZ)
+            Vector3 randomPos = new Vector3(
+                Random.Range(bounds.min.x, bounds.max.x),
+                bounds.center.y + raycastHeight,
+                Random.Range(bounds.min.z, bounds.max.z)
             );
 
-            Vector3 startPos = platform.position + randomOffset + Vector3.up * raycastHeight;
-
-            if (Physics.Raycast(startPos, Vector3.down, out RaycastHit hit, raycastHeight * 2f, groundLayer))
+            if (Physics.Raycast(randomPos, Vector3.down, out RaycastHit hit, raycastHeight * 2f, groundLayer))
             {
-                Vector3 potentialPos = hit.point;
+                Vector3 groundPos = hit.point;
 
-                float checkRadius = 0.5f;
-                if (!Physics.CheckSphere(potentialPos, checkRadius, obstacleLayer))
+                if (!Physics.CheckSphere(groundPos, 0.3f, obstacleLayer))
                 {
-                    return potentialPos + Vector3.up * offsetY;
+                    return groundPos + Vector3.up * offsetY;
                 }
             }
         }

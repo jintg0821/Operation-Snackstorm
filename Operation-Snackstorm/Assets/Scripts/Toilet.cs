@@ -27,15 +27,19 @@ public class Toilet : MonoBehaviourPun
     public LayerMask groundLayer;
     public LayerMask obstacleLayer;
 
-    void Start()
-    {
-        if (PhotonNetwork.IsMasterClient)
-            SpawnDirtyObjects();
-    }
+    private bool hasSpawnedOnGameStart = false;
+
 
     void Update()
     {
         if (!PhotonNetwork.IsMasterClient) return;
+        if (!GameManager.Instance.gameStart) return;
+
+        if (!hasSpawnedOnGameStart)
+        {
+            SpawnDirtyObjects();
+            hasSpawnedOnGameStart = true;
+        }
 
         timer += Time.deltaTime;
 
