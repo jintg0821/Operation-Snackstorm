@@ -56,27 +56,25 @@ public class StudentChatController : MonoBehaviourPun
 
     void OnChat()
     {
-        photonView.RPC("RPC_OnChat", RpcTarget.All);
+        int randomNum = Random.Range(0, chats.Length);
+        photonView.RPC("RPC_OnChat", RpcTarget.All, randomNum);
     }
 
     public void OnCatchChat()
     {
-        photonView.RPC("RPC_OnCatchChat", RpcTarget.All);
+        int randomNum = Random.Range(0, catchChats.Length);
+        photonView.RPC("RPC_OnCatchChat", RpcTarget.All, randomNum);
     }
 
     [PunRPC]
-    public void RPC_OnChat()
+    public void RPC_OnChat(int randomNum)
     {
-        int randomNum = Random.Range(0, chats.Length);
-
         StartCoroutine(Chat(chats[randomNum]));
     }
 
     [PunRPC]
-    public void RPC_OnCatchChat()
+    public void RPC_OnCatchChat(int randomNum)
     {
-        int randomNum = Random.Range(0, catchChats.Length);
-
         StartCoroutine(Chat(catchChats[randomNum]));
     }
 

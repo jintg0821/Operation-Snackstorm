@@ -3,10 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviourPunCallbacks
 {
     [SerializeField] private GameObject optionPanel;
+    public bool isGuideActive;
+    [SerializeField] GameObject[] guideImages;
+    private int currentIndex;
 
     public bool test = false;
     public static PhotonView localPlayerPV;
@@ -120,6 +124,22 @@ public class PlayerController : MonoBehaviourPunCallbacks
             }
 
             optionPanel = GameObject.Find("OptionPanel");
+
+            List<GameObject> guideList = new List<GameObject>();
+            int index = 1;
+
+            while (true)
+            {
+                GameObject guide = GameObject.Find($"Guide{index}");
+                if (guide == null) break;
+                guide.SetActive(index == 1);
+                guideList.Add(guide);
+                index++;
+            }
+
+            guideImages = guideList.ToArray();
+            currentIndex = 0;
+            isGuideActive = (guideImages.Length > 0);
         }
         if (penaltyText != null)
         {
@@ -129,6 +149,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             optionPanel.gameObject.SetActive(false);
         }
+
+        isGuideActive = true;
     }
 
     void Update()
@@ -136,106 +158,131 @@ public class PlayerController : MonoBehaviourPunCallbacks
         if (!photonView.IsMine && PhotonNetwork.IsConnected)
             return;
 
-        if (!isPanelOn)
+        if (isGuideActive && Input.anyKeyDown)
         {
-            if (PhotonNetwork.IsMasterClient)
-            {
-                if (Input.GetKeyDown(KeyCode.P) && !GameManager.Instance.gameStart)
-                {
-                    GameManager.Instance.GameStart();
-                }
-            }
-
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                if (!isHoldingMop && !rideSkate && !throwing && handItem != null)
-                {
-                    Throwing();
-                }
-            }
-
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                inventory.OnInventoryPanel(this);
-            }
-
-            PerformRaycast();
+            NextGuide();
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (!isGuideActive)
         {
-            optionPanel.SetActive(!optionPanel.activeInHierarchy);
-            isPanelOn = optionPanel.activeInHierarchy;
-        }
-
-        if (test)
-        {
-            Item[] items = Resources.LoadAll<Item>("Item");
-
-
             if (!isPanelOn)
             {
-                if (isHoldingMop)
+                if (PhotonNetwork.IsMasterClient)
                 {
-                    if (!isAttacking && !isMopping)
+                    if (Input.GetKeyDown(KeyCode.P) && !GameManager.Instance.gameStart)
                     {
-                        if (Input.GetMouseButtonDown(0))
-                        {
-                            Attack();
-                        }
-                        if (Input.GetMouseButtonDown(1))
-                        {
-                            Mopping();
-                        }
+                        GameManager.Instance.GameStart();
                     }
                 }
 
-                if (Input.GetKeyDown(KeyCode.L))
+                if (Input.GetKeyDown(KeyCode.Q))
                 {
-                    GetBonusPoint(10);
-                }
-                if (Input.GetKeyDown(KeyCode.K))
-                {
-                    GetMinusPoint(10);
-                }
-                if (Input.GetKeyDown(KeyCode.LeftAlt))
-                {
-                    int RandNum = Random.Range(0, items.Length);
-                    inventory.AddItem(items[RandNum]);
-                }
-                if (Input.GetKeyDown(KeyCode.Z))
-                {
-                    if (waterDispenser != null && isWaterDispenser)
-                        waterDispenser.photonView.RPC("RPC_AssignRoleAndStart", RpcTarget.All, photonView.ViewID);
-                }
-                if (Input.GetKeyDown(KeyCode.Alpha1))
-                {
-                    if (!isHoldingMop && isRideable)
+                    if (!isHoldingMop && !rideSkate && !throwing && handItem != null)
                     {
-                        testHotbar.ChangeItem(0);
-                        playerMovement.StartSkate();
+                        Throwing();
                     }
                 }
-                if (Input.GetKeyDown(KeyCode.Alpha2))
+
+                if (Input.GetKeyDown(KeyCode.E))
                 {
-                    if (!rideSkate)
+                    inventory.OnInventoryPanel(this);
+                }
+
+                PerformRaycast();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                optionPanel.SetActive(!optionPanel.activeInHierarchy);
+                isPanelOn = optionPanel.activeInHierarchy;
+            }
+
+            if (test)
+            {
+                Item[] items = Resources.LoadAll<Item>("Item");
+
+
+                if (!isPanelOn)
+                {
+                    if (isHoldingMop)
                     {
-                        testHotbar.ChangeItem(1);
-                        photonView.RPC("RPC_ToggleMop", RpcTarget.AllBuffered);
+                        if (!isAttacking && !isMopping)
+                        {
+                            if (Input.GetMouseButtonDown(0))
+                            {
+                                Attack();
+                            }
+                            if (Input.GetMouseButtonDown(1))
+                            {
+                                Mopping();
+                            }
+                        }
                     }
-                }
-                if (Input.GetKeyDown(KeyCode.Alpha3))
-                {
-                    testHotbar.ChangeItem(2);
-                }
-                if (Input.GetKeyDown(KeyCode.Alpha4))
-                {
-                    testHotbar.ChangeItem(3);
+
+                    if (Input.GetKeyDown(KeyCode.L))
+                    {
+                        GetBonusPoint(10);
+                    }
+                    if (Input.GetKeyDown(KeyCode.K))
+                    {
+                        GetMinusPoint(10);
+                    }
+                    if (Input.GetKeyDown(KeyCode.LeftAlt))
+                    {
+                        int RandNum = Random.Range(0, items.Length);
+                        inventory.AddItem(items[RandNum]);
+                    }
+                    if (Input.GetKeyDown(KeyCode.Z))
+                    {
+                        if (waterDispenser != null && isWaterDispenser)
+                            waterDispenser.photonView.RPC("RPC_AssignRoleAndStart", RpcTarget.All, photonView.ViewID);
+                    }
+                    if (Input.GetKeyDown(KeyCode.Alpha1))
+                    {
+                        if (!isHoldingMop && isRideable)
+                        {
+                            testHotbar.ChangeItem(0);
+                            playerMovement.StartSkate();
+                        }
+                    }
+                    if (Input.GetKeyDown(KeyCode.Alpha2))
+                    {
+                        if (!rideSkate)
+                        {
+                            testHotbar.ChangeItem(1);
+                            photonView.RPC("RPC_ToggleMop", RpcTarget.AllBuffered);
+                        }
+                    }
+                    if (Input.GetKeyDown(KeyCode.Alpha3))
+                    {
+                        testHotbar.ChangeItem(2);
+                    }
+                    if (Input.GetKeyDown(KeyCode.Alpha4))
+                    {
+                        testHotbar.ChangeItem(3);
+                    }
                 }
             }
         }
 
         SetCursorState(isPanelOn);
+    }
+
+    void NextGuide()
+    {
+        guideImages[currentIndex].SetActive(false);
+
+        currentIndex++;
+
+        if (currentIndex >= guideImages.Length)
+        {
+            isGuideActive = false;
+            isPanelOn = false;
+            return;
+        }
+
+        guideImages[currentIndex].SetActive(true);
+        isPanelOn = true;
     }
 
     public void SetCursorState(bool isVisible)
