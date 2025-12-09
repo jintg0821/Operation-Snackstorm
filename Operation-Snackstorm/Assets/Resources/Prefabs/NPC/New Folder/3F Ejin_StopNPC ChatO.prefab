@@ -689,9 +689,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 40ee0fad53222ca438ee16592f139a4f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8002706339115749028}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 40ee0fad53222ca438ee16592f139a4f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5199014972841850767}
   m_SourcePrefab: {fileID: 100100000, guid: 40ee0fad53222ca438ee16592f139a4f, type: 3}
 --- !u!4 &3562262206636758748 stripped
 Transform:
@@ -741,7 +738,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowLayerWeightsInspector: 1
   ShowParameterInspector: 1
-  m_SynchronizeParameters: []
+  m_SynchronizeParameters:
+  - Type: 1
+    SynchronizeType: 2
+    Name: Speed
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
@@ -771,15 +771,15 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
+  m_Speed: 9
+  m_Acceleration: 32
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 360
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
+  m_AutoBraking: 0
   m_AutoRepath: 1
-  m_Height: 5.67
+  m_Height: 6
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -854,28 +854,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60adea33dd171b2488b158ab7d4f2cc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewAngle: 0
-  viewRadius: 0
-  restrictedViewAngle: 0
-  restrictedViewRadius: 0
+  viewAngle: 120
+  viewRadius: 20
+  restrictedViewAngle: 2.5
+  restrictedViewRadius: 5
   targetMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 257
   isSightRestricted: 0
   isBroadcasting: 0
   patrolPoints: []
   currentIndex: -1
-  pointReachThreshold: 1
+  pointReachThreshold: 0.5
   patrolSpeed: 6
   target: {fileID: 0}
-  losetargetDistance: 15
-  chaseSpeed: 9
+  losetargetDistance: 30
+  chaseSpeed: 18
   patrolType: 0
   chaseAI: 0
-  npcAI: 0
+  npcAI: 1
   currentState: 0
   studentChatController: {fileID: 0}
 --- !u!114 &7168937050741811724
@@ -905,7 +905,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -935,27 +935,8 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &5199014972841850767
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4189581541553359974}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b4ec3a41544ef343956db40d63607db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  displayName: 
-  id: 0
-  aiController: {fileID: 0}
-  teachersController: {fileID: 0}
-  animController: {fileID: 0}
-  agent: {fileID: 0}
-  stunDuration: 10

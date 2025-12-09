@@ -461,6 +461,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fca6638a5159f8c49b3c06c04b0fe99c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  optionPanel: {fileID: 0}
+  isGuideActive: 0
+  guideImages: []
   test: 1
   fpsCam: {fileID: 276658021654760388}
   tpsCam: {fileID: 7759487259108900827}
@@ -493,6 +496,9 @@ MonoBehaviour:
   throwUpwardForce: 8
   throwing: 0
   isCatchable: 1
+  isRideable: 1
+  skateSlot: {fileID: 0}
+  skateCooldownTime: 10
   inventory: {fileID: 0}
   characterController: {fileID: 5876443116329698592}
   playerMovement: {fileID: 239187622664525458}

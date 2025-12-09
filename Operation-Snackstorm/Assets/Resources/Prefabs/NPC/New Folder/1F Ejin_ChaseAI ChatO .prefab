@@ -741,7 +741,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowLayerWeightsInspector: 1
   ShowParameterInspector: 1
-  m_SynchronizeParameters: []
+  m_SynchronizeParameters:
+  - Type: 1
+    SynchronizeType: 2
+    Name: Speed
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
@@ -771,15 +774,15 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
+  m_Speed: 9
+  m_Acceleration: 32
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 360
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
+  m_AutoBraking: 0
   m_AutoRepath: 1
-  m_Height: 5.67
+  m_Height: 6
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -827,7 +830,7 @@ MonoBehaviour:
   - "\uC57C \uB0B4\uAC00 \uB108\uAC19\uC740 \uC560\uD55C\uD14C \uB9D0\uB4E4\uC744
     \uC815\uB3C4\uB294 \uC544\uB2C8\uC9C0 \uC54A\uB0D0?"
   - "\uC120\uBC30\uAC00 \uD55C\uBC88\uB9CC \uBD10\uC8FC\uB294\uAC70\uB2E4"
-  textPos: {fileID: 0}
+  textPos: {fileID: 1633217722679504951}
   targetPlayer: {fileID: 0}
   chatInterval: 15
 --- !u!114 &3402133677938603028
@@ -893,7 +896,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -923,8 +926,8 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0

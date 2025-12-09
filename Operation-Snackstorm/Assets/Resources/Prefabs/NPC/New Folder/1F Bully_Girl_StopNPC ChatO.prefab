@@ -912,9 +912,6 @@ PrefabInstance:
       addedObject: {fileID: 593133433432455143}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 46c3d3975866b90458b473e72d928533, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 194716222673981858}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 46c3d3975866b90458b473e72d928533, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 2687094377636362328}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 46c3d3975866b90458b473e72d928533, type: 3}
       insertIndex: -1
@@ -940,6 +937,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 46c3d3975866b90458b473e72d928533, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8682566936867117612}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 46c3d3975866b90458b473e72d928533, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4719262198258549512}
   m_SourcePrefab: {fileID: 100100000, guid: 46c3d3975866b90458b473e72d928533, type: 3}
 --- !u!1 &1166839129183627877 stripped
 GameObject:
@@ -967,44 +967,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &194716222673981858
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1166839129183627877}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c15f967888964e4892eddc0273b3c18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  viewAngle: 120
-  viewRadius: 20
-  restrictedViewAngle: 2.5
-  restrictedViewRadius: 5
-  targetMask:
-    serializedVersion: 2
-    m_Bits: 8
-  obstacleMask:
-    serializedVersion: 2
-    m_Bits: 1
-  isSightRestricted: 0
-  isBroadcasting: 0
-  patrolPoints:
-  - {fileID: 7925091060956448125}
-  - {fileID: 1570704026046281748}
-  currentIndex: -1
-  pointReachThreshold: 0.5
-  patrolSpeed: 6
-  target: {fileID: 0}
-  losetargetDistance: 30
-  chaseSpeed: 18
-  patrolType: 0
-  chaseAI: 0
-  npcAI: 1
-  currentState: 0
-  studentChatController: {fileID: 8682566936867117612}
 --- !u!114 &2687094377636362328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1164,7 +1126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: "1\uCE35 \uC120\uBC30"
   id: 0
-  aiController: {fileID: 194716222673981858}
+  aiController: {fileID: 0}
   teachersController: {fileID: 0}
   animController: {fileID: 8168638129511338347}
   agent: {fileID: 8571342542970323999}
@@ -1213,6 +1175,47 @@ MonoBehaviour:
   textPos: {fileID: 3612387137557599646}
   targetPlayer: {fileID: 0}
   chatInterval: 15
+--- !u!114 &4719262198258549512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1166839129183627877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60adea33dd171b2488b158ab7d4f2cc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewAngle: 120
+  viewRadius: 20
+  restrictedViewAngle: 2.5
+  restrictedViewRadius: 5
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 8
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 257
+  isSightRestricted: 0
+  isBroadcasting: 0
+  patrolPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  currentIndex: -1
+  pointReachThreshold: 0.5
+  patrolSpeed: 6
+  target: {fileID: 0}
+  losetargetDistance: 30
+  chaseSpeed: 18
+  patrolType: 0
+  chaseAI: 0
+  npcAI: 1
+  currentState: 0
+  studentChatController: {fileID: 0}
 --- !u!4 &1980073853983158495 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 46c3d3975866b90458b473e72d928533, type: 3}

@@ -18,6 +18,8 @@ public class StudentChatController : MonoBehaviourPun
     void Start()
     {
         timerStartTime = PhotonNetwork.Time;
+
+        textPos.gameObject.SetActive(false);
     }
 
     void Update()
