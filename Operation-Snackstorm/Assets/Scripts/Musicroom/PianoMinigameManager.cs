@@ -58,7 +58,14 @@ public class PianoMinigameManager : MonoBehaviourPun
         pressedSequence.Clear();
         currentAnswers.Clear();
 
-        StartCoroutine(ReactivateGuideAfterDelay());
+        var interact = FindObjectOfType<PianoInteract>();
+        if (interact != null && interact.guideText != null)
+        {
+            if (interact.isPlayerInRange)
+            {
+                StartCoroutine(ReactivateGuideAfterDelay());
+            }
+        }
     }
 
     private IEnumerator ReactivateGuideAfterDelay()
@@ -211,8 +218,14 @@ public class PianoMinigameManager : MonoBehaviourPun
             Rigidbody rb = coinObj.GetComponent<Rigidbody>();
             if (rb != null)
             {
-                rb.useGravity = true;                         
-                rb.velocity = Vector3.up * Random.Range(2f, 4f);  
+                rb.useGravity = true;
+                Vector3 force = new Vector3(
+                    Random.Range(-3f, 3f),
+                    Random.Range(4f, 7f),
+                    Random.Range(-3f, 3f)
+                );
+                rb.AddForce(force, ForceMode.Impulse);
+                rb.AddTorque(Random.insideUnitSphere * 10f, ForceMode.Impulse);
             }
         }
     }

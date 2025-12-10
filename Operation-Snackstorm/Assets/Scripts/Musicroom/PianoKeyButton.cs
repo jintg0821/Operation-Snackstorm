@@ -63,7 +63,7 @@ public class PianoKeyButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     {
         if (audioSource != null && audioSource.clip != null)
         {
-            audioSource.PlayOneShot(audioSource.clip);  // 짧은 소리라 PlayOneShot 최고!
+            audioSource.PlayOneShot(audioSource.clip); 
         }
     }
 
