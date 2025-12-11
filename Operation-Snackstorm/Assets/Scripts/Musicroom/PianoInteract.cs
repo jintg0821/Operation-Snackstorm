@@ -8,7 +8,7 @@ public class PianoInteract : MonoBehaviour
     [Header("Guide UI")]
     public TextMeshProUGUI guideText;
 
-    private bool isPlayerInRange = false;
+    public bool isPlayerInRange = false;
     PlayerController player;
 
     void OnTriggerEnter(Collider other)
